@@ -1,29 +1,31 @@
 {
   "fridgeClosed": [
-    0.09169396758079529,
-    0.1925453543663025,
-    0.35573768615722656,
-    0.8157700151205063
+    0.04007171839475632,
+    0.29478365182876587,
+    0.213261678814888,
+    0.7095568478107452
   ],
-  "rack": [
-    0.6127868890762329,
-    0.35284411907196045,
-    0.7806558012962341,
-    0.5177409648895264
+  "seasoningBottles": [
+    0.26487457752227783,
+    0.44497954845428467,
+    0.39677420258522034,
+    0.5031087696552277
   ],
   "counter": [
-    0.4125683009624481,
-    0.4691373109817505,
-    0.9502732753753662,
-    0.816499873995781
+    0.2476702630519867,
+    0.4262344241142273,
+    0.9530466198921204,
+    0.7105288803577423
   ],
   "counterSource": "kitchen-counter-and-cabinet-modules",
   "retainedCabinets": [
+    "module_1",
+    "module_2",
     "module_3",
     "module_4"
   ],
-  "counterWidthMeters": 1.23,
+  "counterWidthMeters": 2.46,
   "counterDepthMeters": 0.624,
   "countertopHeightMeters": 0.9,
-  "geometryEdits": "Trim carcass and worktop at original x=0, cap cut edges, add matching left end panel. Exclude left cabinets, sink and original props."
+  "geometryEdits": "None. Complete source counter with sink, faucet and original props. No separate spice rack. Three original canisters to left of sink share a seasoning entry."
 }

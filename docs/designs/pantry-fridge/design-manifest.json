@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "date": "2026-11-17",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
@@ -7,7 +7,7 @@
   "sourceGeometryRedistributed": false,
   "render": {
     "tool": "Blender 5.2.3 LTS",
-    "camera": "fixed front orthographic scene; fridge left, two-bay kitchen counter and rack right",
+    "camera": "fixed front orthographic scene; fridge left, complete four-bay kitchen counter right",
     "frameSize": [
       480,
       640
@@ -18,18 +18,9 @@
     "openingAngleDegrees": 100,
     "hiddenParts": [
       "housing",
-      "oven",
-      "module_1",
-      "module_2",
-      "sink",
-      "props"
+      "oven"
     ],
     "sceneSources": [
-      {
-        "id": "kitchen-spice-racks",
-        "page": "https://1designtool.com/3d/models/kitchen-spice-racks",
-        "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-spice-racks/507a7244aa/model.glb"
-      },
       {
         "id": "kitchen-counter-and-cabinet-modules",
         "page": "https://1designtool.com/3d/models/kitchen-counter-and-cabinet-modules",
@@ -39,17 +30,18 @@
     "sceneLayout": "scene-layout.json",
     "counterAdaptation": {
       "keepCabinets": [
+        "module_1",
+        "module_2",
         "module_3",
         "module_4"
       ],
-      "trimOriginalXMinimum": 0,
-      "capCutEdges": true,
-      "addLeftEndPanel": true,
-      "widthMeters": 1.23,
+      "geometryEdits": false,
+      "keepSink": true,
+      "keepOriginalProps": true,
+      "widthMeters": 2.46,
       "depthMeters": 0.624,
       "countertopHeightMeters": 0.9,
-      "rackBaseHeightMeters": 0.9,
-      "nonUniformCompression": false
+      "separateSpiceRack": false
     }
   },
   "prototype": {
@@ -71,7 +63,7 @@
     "showUnavailable": false,
     "showPanelTitle": false,
     "quantitySource": "demonstration only; current App quantity storage not implemented",
-    "spiceTrigger": "Click whole rack to show sample spice inventory; click again to dismiss. Proposed transition closes fridge before showing spices."
+    "spiceTrigger": "Click any of the three original canisters left of the sink, sharing one seasoning entry. Click again to dismiss. Close fridge before showing seasoning list."
   },
   "screens": [
     "screen-closed.png",
@@ -83,83 +75,83 @@
   "frames": [
     {
       "file": "frames/00.png",
-      "sha256": "b114bdd13a1a98dc06fcf686294b78d656c5e1ec8a2c34ef1c7a8dc7b882cada"
+      "sha256": "2fb00d919328368d580d53c45ee1c438046bef155ba1ccb1cda919c02016810e"
     },
     {
       "file": "frames/01.png",
-      "sha256": "1d23c6f4f8dc86881bbf0bc9dee9c086a1239e5f43d17610ed70dc9a3423bd2f"
+      "sha256": "82f43a5fc1a390f9fdbff577d4fb9f1105718b210908067612cbd1e1db4e766e"
     },
     {
       "file": "frames/02.png",
-      "sha256": "5bbae4b6ca6a6f0c29868e6696d4400662df5a29479d7f3eb96c76bdc8c5f832"
+      "sha256": "a32764c5fdc15d813d0be31b5ffe5051be617d01144160ed3f69cbc76f5a5074"
     },
     {
       "file": "frames/03.png",
-      "sha256": "c160ec096515f83fadd7fd881e676a8cecc2d127fca3e9a70aea888caf26cbd2"
+      "sha256": "5acc0cfd51bf7a1dcb4e4667e080c65b1a83c0dc1f42d33b5408823b93570b1c"
     },
     {
       "file": "frames/04.png",
-      "sha256": "e5b8fe8e3d1f7ee4be4949b9945f39d9f863413c556f98699b33dfca62038b0e"
+      "sha256": "66034e4e2158b9959260bd66ac1264cb20b65f41bd3d571c3e7d7cb4b6335ef2"
     },
     {
       "file": "frames/05.png",
-      "sha256": "bf94bd3fc733cc9b3ed7e48a088be22287e8ed050504843ef585bb2be27a8105"
+      "sha256": "d7c4a3093c33ac26f5fbedc5e06b53537821bceb5dfe0ae24a2ac325be279b5e"
     },
     {
       "file": "frames/06.png",
-      "sha256": "9ba3d8b99c8b425ff7e9aa4ab92a94762a4828648cc56710409d146a10f4e39d"
+      "sha256": "96ee0adb36d132e6d4fc9314a112196e797125567727066ef7b0f6e55a0e160d"
     },
     {
       "file": "frames/07.png",
-      "sha256": "3e1152a34b5a9ffcd1ae9d726bb2f0fdb3d6707ff18ba55507342a244e09b71e"
+      "sha256": "578fc4bcd4f30fe4a73acc603fe2cca569580360b7b34de031ee9d0c2a373df7"
     },
     {
       "file": "frames/08.png",
-      "sha256": "632ac5ce58940b4f402be43cb68b8e4b21e82b1bcf6ace78432b4adcc0317504"
+      "sha256": "58435482d95e68ba5ec825c058ba8e67f25dc0a1d7d0febaaae617eb2b6fa4f6"
     },
     {
       "file": "frames/09.png",
-      "sha256": "5ef4f3b1f022e2da5e1711d00d9a8f55353b920817792e1146499be2131aa592"
+      "sha256": "7a1a913484b8eb79a2cc8a1472a086fb192967a8f7dd157ad001436944cfe0e9"
     },
     {
       "file": "frames/10.png",
-      "sha256": "6a1d6756bf35f9719ece8da4d769cdf3fa5418df7a9f9f0f142cf39ebc404f37"
+      "sha256": "d54748aa518311e78c5d94be337d52a0580386aa24a071de8a6d37d2d11ab89e"
     },
     {
       "file": "frames/11.png",
-      "sha256": "d15d91c0c2af431cd601ccf6e3b5c2b60e81c6545c865e5ab8d670b42a080d02"
+      "sha256": "907c106132e3d3c7ad96bc2f978b671db5ade36efc2d7592810855e9146b0798"
     },
     {
       "file": "frames/12.png",
-      "sha256": "be049096bbb4d911939a7fa32fe04b49a35ee3b846431e0f79331833bf7e92b4"
+      "sha256": "8d5323a5e5db23a53ca225501170952b2889d436bc200077b91f5370f508c94f"
     },
     {
       "file": "frames/13.png",
-      "sha256": "c03397bf9b0fd6510cbc135e2d6b457be133b7640f407b05f7c9d142e838d8a0"
+      "sha256": "58029b85c1c7686cb4d5effd5470d293ae1721529d78c1075252465f918f25d2"
     },
     {
       "file": "frames/14.png",
-      "sha256": "5666c4038034287180a64d509a95ee81a8a305811c9c39efd7c7486072cd3c38"
+      "sha256": "cfea49da9420a05307552c044afaebfc2b7297fd2959e5b06417d8dc8b641acb"
     },
     {
       "file": "frames/15.png",
-      "sha256": "0c7a8faab5feb328f518d48de1bf795d28ac1abd56e36ee7d63f5e729a07c4fd"
+      "sha256": "bc8621b5b4e65947c5bb991b400b25626950a100c7a14286e9dadcf075273b19"
     },
     {
       "file": "frames/16.png",
-      "sha256": "336fae0e2ec286254ca1d88908ffdd7f79245b9f49f9a3e2027e8e2819348f6c"
+      "sha256": "f782edcc1a4ad768f6c5c563f4f4e24c8d74141f68ad50db1b1ffb1ac7f2ba87"
     },
     {
       "file": "frames/17.png",
-      "sha256": "1fa9ac1475b11b848bce0958a74d687fa772caaef8b56e0c64e2fb4876da2721"
+      "sha256": "4826b2e6dd6f4e07545717e9a5932b460b7a31355c405a98a995c8c58178efe8"
     },
     {
       "file": "frames/18.png",
-      "sha256": "0c48f70bc287e8fefc2a298bb1d7db43fc77169ae1743f348702783aded77218"
+      "sha256": "4d224961e31883f571f89f3c088c80a4cdea2b3131a926ecb9d46d9208b54682"
     },
     {
       "file": "frames/19.png",
-      "sha256": "d3b3c25857c7b2589b931a6d123f070438277ed4de9378625e7bb1df3957ff07"
+      "sha256": "9857e4c15c75d477201087c046d964292b5f3fb3c26f6b5b1b4c7e17988ab44f"
     }
   ]
 }
