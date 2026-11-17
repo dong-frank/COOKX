@@ -1,0 +1,34 @@
+{
+  "checked": "2026-11-17",
+  "sources": [
+    {
+      "id": "kitchen-spice-racks",
+      "page": "https://1designtool.com/3d/models/kitchen-spice-racks",
+      "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-spice-racks/507a7244aa/model.glb",
+      "license": "https://1designtool.com/3d/license",
+      "storage": "Original GLB kept outside repository: no standalone redistribution.",
+      "verification": "Downloaded, inspected GLB nodes and rendered in Blender 5.2.3. Three tiers, six jars each. Jar geometry merged per tier/material."
+    },
+    {
+      "id": "blendkit-wood-spice-rack",
+      "page": "https://www.blendkit.com/asset-gallery-detail/a3f3affb-1549-486a-bbfc-ba516709ef5a/",
+      "author": "Doug Teeples",
+      "license": "Royalty free; https://www.blendkit.com/docs/licenses/",
+      "verification": "Free label and publisher preview checked; three stepped rows. Source file not downloaded; object separation and export format not verified."
+    },
+    {
+      "id": "spice-carousel",
+      "page": "https://www.innerscene.com/tools/library/3d-parts/spice-turn-kitchen-organizer-7697fde2",
+      "download": "https://files.innerscene.com/library/spice-turn-kitchen-organizer-7697fde2/fbdb37b791db9038d04e/spice-carousel.glb",
+      "license": "CC0 https://creativecommons.org/publicdomain/zero/1.0/",
+      "verification": "Downloaded GLB, inspected separate jar bodies/floors/lids and rendered. Single-tier carousel, jars-only supplement, not a three-tier rack."
+    },
+    {
+      "id": "sketchfab-spice-rack",
+      "page": "https://sketchfab.com/3d-models/spice-rack-9b5633559e414cfba5fc055c53cc298b",
+      "author": "tabitown",
+      "license": "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/",
+      "verification": "Public metadata and preview only. Two rows, excluded from three-tier recommendations."
+    }
+  ]
+}

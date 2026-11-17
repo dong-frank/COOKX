@@ -1,0 +1,392 @@
+[
+  {
+    "id": "kitchen-spice-racks",
+    "bytes": 209220,
+    "sha256": "caff87e2962011f497ac67f1af56799da7664fe84f4f910c41264aa039ebb65c",
+    "triangles": 2564,
+    "meshes": 27,
+    "materials": 27,
+    "animations": 0,
+    "nodes": [
+      {
+        "name": "model",
+        "mesh": null,
+        "children": [
+          1
+        ]
+      },
+      {
+        "name": "kitchen-spice-racks",
+        "mesh": null,
+        "children": [
+          2,
+          5,
+          8,
+          11,
+          13,
+          21,
+          29,
+          36
+        ]
+      },
+      {
+        "name": "frame",
+        "mesh": null,
+        "children": [
+          3,
+          4
+        ]
+      },
+      {
+        "name": "frame_butcher-block_wood",
+        "mesh": 0,
+        "children": []
+      },
+      {
+        "name": "frame_dark_wood",
+        "mesh": 1,
+        "children": []
+      },
+      {
+        "name": "back_panel",
+        "mesh": null,
+        "children": [
+          6,
+          7
+        ]
+      },
+      {
+        "name": "back_panel_steel",
+        "mesh": 2,
+        "children": []
+      },
+      {
+        "name": "back_panel_dark_wood",
+        "mesh": 3,
+        "children": []
+      },
+      {
+        "name": "shelves",
+        "mesh": null,
+        "children": [
+          9,
+          10
+        ]
+      },
+      {
+        "name": "shelves_butcher-block_wood",
+        "mesh": 4,
+        "children": []
+      },
+      {
+        "name": "shelves_dark_wood",
+        "mesh": 5,
+        "children": []
+      },
+      {
+        "name": "rails",
+        "mesh": null,
+        "children": [
+          12
+        ]
+      },
+      {
+        "name": "rails_steel_light",
+        "mesh": 6,
+        "children": []
+      },
+      {
+        "name": "jars_1",
+        "mesh": null,
+        "children": [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ]
+      },
+      {
+        "name": "jars_1_tile_white_dark",
+        "mesh": 7,
+        "children": []
+      },
+      {
+        "name": "jars_1_tile_white_light",
+        "mesh": 8,
+        "children": []
+      },
+      {
+        "name": "jars_1_tomato_red",
+        "mesh": 9,
+        "children": []
+      },
+      {
+        "name": "jars_1_dark_wood",
+        "mesh": 10,
+        "children": []
+      },
+      {
+        "name": "jars_1_steel_dark",
+        "mesh": 11,
+        "children": []
+      },
+      {
+        "name": "jars_1_butcher-block_wood",
+        "mesh": 12,
+        "children": []
+      },
+      {
+        "name": "jars_1_warm_white",
+        "mesh": 13,
+        "children": []
+      },
+      {
+        "name": "jars_2",
+        "mesh": null,
+        "children": [
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ]
+      },
+      {
+        "name": "jars_2_tomato_red",
+        "mesh": 14,
+        "children": []
+      },
+      {
+        "name": "jars_2_tile_white_light",
+        "mesh": 15,
+        "children": []
+      },
+      {
+        "name": "jars_2_soot_black",
+        "mesh": 16,
+        "children": []
+      },
+      {
+        "name": "jars_2_butcher-block_wood",
+        "mesh": 17,
+        "children": []
+      },
+      {
+        "name": "jars_2_steel_dark",
+        "mesh": 18,
+        "children": []
+      },
+      {
+        "name": "jars_2_warm_white",
+        "mesh": 19,
+        "children": []
+      },
+      {
+        "name": "jars_2_dark_wood",
+        "mesh": 20,
+        "children": []
+      },
+      {
+        "name": "jars_3",
+        "mesh": null,
+        "children": [
+          30,
+          31,
+          32,
+          33,
+          34,
+          35
+        ]
+      },
+      {
+        "name": "jars_3_dark_wood",
+        "mesh": 21,
+        "children": []
+      },
+      {
+        "name": "jars_3_tile_white_light",
+        "mesh": 22,
+        "children": []
+      },
+      {
+        "name": "jars_3_steel_dark",
+        "mesh": 23,
+        "children": []
+      },
+      {
+        "name": "jars_3_tile_white_dark",
+        "mesh": 24,
+        "children": []
+      },
+      {
+        "name": "jars_3_butcher-block_wood",
+        "mesh": 25,
+        "children": []
+      },
+      {
+        "name": "jars_3_tomato_red",
+        "mesh": 26,
+        "children": []
+      },
+      {
+        "name": "jars_4",
+        "mesh": null,
+        "children": []
+      }
+    ]
+  },
+  {
+    "id": "spice-carousel",
+    "bytes": 917480,
+    "sha256": "221246c5f9c87c9b32f5a8bb6ea81391037c537dac8f6c8fd6ad404bf5e88e8b",
+    "triangles": 14980,
+    "meshes": 22,
+    "materials": 4,
+    "animations": 0,
+    "nodes": [
+      {
+        "name": "Carousel bearing foot",
+        "mesh": 0,
+        "children": []
+      },
+      {
+        "name": "Carousel carrying ring",
+        "mesh": 1,
+        "children": []
+      },
+      {
+        "name": "Carousel center stem",
+        "mesh": 2,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar",
+        "mesh": 3,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor",
+        "mesh": 4,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor.001",
+        "mesh": 5,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor.002",
+        "mesh": 6,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor.003",
+        "mesh": 7,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor.004",
+        "mesh": 8,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar closed floor.005",
+        "mesh": 9,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid",
+        "mesh": 10,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid.001",
+        "mesh": 11,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid.002",
+        "mesh": 12,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid.003",
+        "mesh": 13,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid.004",
+        "mesh": 14,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar fitted lid.005",
+        "mesh": 15,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar.001",
+        "mesh": 16,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar.002",
+        "mesh": 17,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar.003",
+        "mesh": 18,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar.004",
+        "mesh": 19,
+        "children": []
+      },
+      {
+        "name": "Empty spice jar.005",
+        "mesh": 20,
+        "children": []
+      },
+      {
+        "name": "Rotating spice platform",
+        "mesh": 21,
+        "children": []
+      },
+      {
+        "name": "Spice Turn",
+        "mesh": null,
+        "children": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21
+        ]
+      }
+    ]
+  }
+]

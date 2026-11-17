@@ -1,0 +1,7 @@
+Spice Turn - Kitchen Organizer
+Creator: Innerscene (original model)
+Source: https://www.innerscene.com/tools/library/3d-parts/spice-turn-kitchen-organizer-7697fde2
+Publisher dedicates this model to the public domain under CC0.
+https://creativecommons.org/publicdomain/zero/1.0/
+Free to use, modify and redistribute, including commercially; no credit required.
+Checked 2026-11-17. See sources.json for download URL and model-inspection.json for hash.
