@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "date": "2026-11-17",
+  "scope": "Design prototype only; no Android App source changes",
+  "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
+  "sourceModelURL": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-oven-and-fridge-doors/077490a3a8/model.glb",
+  "sourceGeometryRedistributed": false,
+  "render": {
+    "tool": "Blender 5.2.3 LTS",
+    "camera": "fixed front perspective",
+    "frameSize": [
+      480,
+      640
+    ],
+    "frameCount": 20,
+    "movingNode": "fridge_door",
+    "fixedClosedNode": "freezer_door",
+    "openingAngleDegrees": 100,
+    "hiddenParts": [
+      "housing",
+      "oven"
+    ]
+  },
+  "prototype": {
+    "file": "prototype.html",
+    "animationMilliseconds": 850,
+    "data": "in-memory demo only",
+    "states": [
+      "closed",
+      "opening",
+      "open",
+      "closing"
+    ],
+    "inventoryFields": [
+      "name",
+      "available"
+    ]
+  },
+  "screens": [
+    "screen-closed.png",
+    "screen-open.png",
+    "screen-item.png",
+    "screen-empty.png"
+  ],
+  "frames": [
+    {
+      "file": "frames/00.png",
+      "sha256": "f71875290797fc57a5f519b35ffd0a309858bdab37c62c240991164d5581c359"
+    },
+    {
+      "file": "frames/01.png",
+      "sha256": "ffcaea9756894b456478d1cae4fdbe090a2754f2691ef3cda8dd594bf8253f40"
+    },
+    {
+      "file": "frames/02.png",
+      "sha256": "633f9ade5a52677af1e23942c6da680d386c244bb123bc515bcbe29621e841dd"
+    },
+    {
+      "file": "frames/03.png",
+      "sha256": "4624a1e7298ad49045848636ee35f533153cc7471116f82adaf85e1045dfe635"
+    },
+    {
+      "file": "frames/04.png",
+      "sha256": "50a358befa46898498cb47119fdee061358d573865ea2c34e0f644ae2a15c213"
+    },
+    {
+      "file": "frames/05.png",
+      "sha256": "f5893dcf21449e82fde0075ebfbf2ff87a98c204224c44abad133ff07e4f7d8c"
+    },
+    {
+      "file": "frames/06.png",
+      "sha256": "6639ed3337e379749d642615dac4ab26eb343b7cb1d3b639abdabd0bd4279b81"
+    },
+    {
+      "file": "frames/07.png",
+      "sha256": "8e78f0cc1613d2c8fa3e2a713a518db1d990143c9e5587bcdd4941a2c460853b"
+    },
+    {
+      "file": "frames/08.png",
+      "sha256": "053a4e4bbda17794954375f1e5298b207db8cac249202c643e33c4f181a1833e"
+    },
+    {
+      "file": "frames/09.png",
+      "sha256": "0a102be42c9869bdef0ae1a3b9c2fe247140323412fa4eaec626008e85f27cd2"
+    },
+    {
+      "file": "frames/10.png",
+      "sha256": "d798e2c285b2a941f9a7cfeea5c06d0440121079d7e427c1668eddc84eb07a08"
+    },
+    {
+      "file": "frames/11.png",
+      "sha256": "129c79fcb2232002fe55c3b8e55c5c75878471085e02d240a8d150ba5969c5fb"
+    },
+    {
+      "file": "frames/12.png",
+      "sha256": "7c01f0d0a1f34b1fdec75331f19c30245912d4627b19fa642b3768c68e1f3360"
+    },
+    {
+      "file": "frames/13.png",
+      "sha256": "2a795a57058071ab7cd163962ed6f4aac054fb7d1223805bdaec4683edaca068"
+    },
+    {
+      "file": "frames/14.png",
+      "sha256": "49393783f04b1c4ea6090a6239722aac090ac37cb12edaf3b0768e79193ba004"
+    },
+    {
+      "file": "frames/15.png",
+      "sha256": "95e24076d4ced634ababcb229a5c5355a0c5594f239e4793763d2d5834c3cab0"
+    },
+    {
+      "file": "frames/16.png",
+      "sha256": "154a5ce3bcb60add8efe3427c90282c265f6945518bea4751aa0401a28f0d14c"
+    },
+    {
+      "file": "frames/17.png",
+      "sha256": "3eac9dfb2182c641b1baad5f756f13a5431be094963c11b5da33f74b9f9f1a23"
+    },
+    {
+      "file": "frames/18.png",
+      "sha256": "e67d669be377201cd95be1acb8c42935d24fd88b05888fa27c68d328f388b529"
+    },
+    {
+      "file": "frames/19.png",
+      "sha256": "e3fd4734db846e09db4da95eb4aaa6d48c7d8f32e7f08ce78f69bf801e02cd83"
+    }
+  ]
+}
