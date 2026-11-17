@@ -3,6 +3,8 @@ package com.cookx.app
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.SemanticsProperties
+import org.junit.Assert.assertNotEquals
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.junit4.StateRestorationTester
@@ -61,8 +63,13 @@ class StructuredPlaybackTest {
         restore.emulateSavedInstanceStateRestore()
         compose.onNodeWithTag("timerDisplay").assertTextEquals("01:00")
         compose.onNodeWithText("开始计时").assertIsDisplayed()
-        compose.onNodeWithTag("timerMinutes").performTextReplacement("0")
-        compose.onNodeWithTag("timerSeconds").performTextReplacement("45")
+        compose.onNodeWithTag("timerSeconds").performTouchInput { swipeUp() }
+        compose.waitForIdle()
+        val selected = compose.onNodeWithTag("timerDisplay").fetchSemanticsNode().config[SemanticsProperties.Text].single().text
+        assertNotEquals("01:00", selected)
+        compose.onNodeWithText("停止计时").assertDoesNotExist()
+        restore.emulateSavedInstanceStateRestore()
+        compose.onNodeWithTag("timerDisplay").assertTextEquals(selected)
         compose.onNodeWithText("开始计时").assertIsDisplayed().performClick()
         compose.onNodeWithTag("openCookingTimer").performClick()
         compose.onNodeWithText("停止计时").assertIsDisplayed()
