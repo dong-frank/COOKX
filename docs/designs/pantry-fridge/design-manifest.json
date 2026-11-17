@@ -34,7 +34,8 @@
     "inventoryFields": [
       "name",
       "available"
-    ]
+    ],
+    "openingTrigger": "Click either upper or lower fridge door; same opening action, no separate open button"
   },
   "screens": [
     "screen-closed.png",
