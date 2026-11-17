@@ -1,0 +1,594 @@
+{
+  "source": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-oven-and-fridge-doors/077490a3a8/model.glb",
+  "bytes": 132008,
+  "nodes": [
+    {
+      "name": "model",
+      "children": [
+        1
+      ]
+    },
+    {
+      "name": "kitchen-oven-and-fridge-doors",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors",
+        "partLabel": "Oven and fridge doors"
+      },
+      "children": [
+        2,
+        12,
+        16,
+        22,
+        26,
+        32
+      ]
+    },
+    {
+      "name": "fridge_body",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.fridge_body",
+        "partLabel": "Fridge-freezer body"
+      },
+      "children": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    {
+      "name": "fridge_body_steel",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 0
+    },
+    {
+      "name": "fridge_body_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 1
+    },
+    {
+      "name": "fridge_body_tile_white_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 2
+    },
+    {
+      "name": "fridge_body_tile_white_dark",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 3
+    },
+    {
+      "name": "fridge_body_steel_dark",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 4
+    },
+    {
+      "name": "fridge_body_steel_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 5
+    },
+    {
+      "name": "fridge_body_tomato_red",
+      "extras": {
+        "role": "accent"
+      },
+      "mesh": 6
+    },
+    {
+      "name": "fridge_body_warm_white",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 7
+    },
+    {
+      "name": "fridge_body_butcher-block_wood",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 8
+    },
+    {
+      "translation": [
+        -0.606,
+        0,
+        0.3
+      ],
+      "name": "freezer_door",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.freezer_door",
+        "partLabel": "Freezer door"
+      },
+      "children": [
+        13,
+        14,
+        15
+      ]
+    },
+    {
+      "name": "freezer_door_steel",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 9
+    },
+    {
+      "name": "freezer_door_tile_white_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 10
+    },
+    {
+      "name": "freezer_door_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 11
+    },
+    {
+      "rotation": [
+        0,
+        -0.135931716851214,
+        0,
+        0.9907182083488126
+      ],
+      "translation": [
+        -0.606,
+        0,
+        0.3
+      ],
+      "name": "fridge_door",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.fridge_door",
+        "partLabel": "Fridge door"
+      },
+      "children": [
+        17,
+        18,
+        19,
+        20,
+        21
+      ]
+    },
+    {
+      "name": "fridge_door_steel",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 12
+    },
+    {
+      "name": "fridge_door_tile_white_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 13
+    },
+    {
+      "name": "fridge_door_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 14
+    },
+    {
+      "name": "fridge_door_steel_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 15
+    },
+    {
+      "name": "fridge_door_tomato_red",
+      "extras": {
+        "role": "accent"
+      },
+      "mesh": 16
+    },
+    {
+      "name": "housing",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.housing",
+        "partLabel": "Tall housing cabinet"
+      },
+      "children": [
+        23,
+        24,
+        25
+      ]
+    },
+    {
+      "name": "housing_butcher-block_wood",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 17
+    },
+    {
+      "name": "housing_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 18
+    },
+    {
+      "name": "housing_steel_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 19
+    },
+    {
+      "name": "oven",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.oven",
+        "partLabel": "Built-in oven"
+      },
+      "children": [
+        27,
+        28,
+        29,
+        30,
+        31
+      ]
+    },
+    {
+      "name": "oven_steel",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 20
+    },
+    {
+      "name": "oven_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 21
+    },
+    {
+      "name": "oven_steel_light",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 22
+    },
+    {
+      "name": "oven_tomato_red",
+      "extras": {
+        "role": "accent"
+      },
+      "mesh": 23
+    },
+    {
+      "name": "oven_steel_dark",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 24
+    },
+    {
+      "rotation": [
+        0.6946583704589973,
+        0,
+        0,
+        0.7193398003386512
+      ],
+      "translation": [
+        0.034,
+        0.86,
+        0.3
+      ],
+      "name": "oven_door",
+      "extras": {
+        "partId": "kitchen-oven-and-fridge-doors.oven_door",
+        "partLabel": "Oven door"
+      },
+      "children": [
+        33,
+        34,
+        35
+      ]
+    },
+    {
+      "name": "oven_door_steel",
+      "extras": {
+        "role": "base"
+      },
+      "mesh": 25
+    },
+    {
+      "name": "oven_door_soot_black",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 26
+    },
+    {
+      "name": "oven_door_steel_dark",
+      "extras": {
+        "role": "trim"
+      },
+      "mesh": 27
+    }
+  ],
+  "animations": [
+    {
+      "name": "scene-motion",
+      "samplers": [
+        {
+          "input": 56,
+          "output": 57,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 58,
+          "output": 59,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 60,
+          "output": 61,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 62,
+          "output": 63,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 64,
+          "output": 65,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 66,
+          "output": 67,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 68,
+          "output": 69,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 70,
+          "output": 71,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 72,
+          "output": 73,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 74,
+          "output": 75,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 76,
+          "output": 77,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 78,
+          "output": 79,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 80,
+          "output": 81,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 82,
+          "output": 83,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 84,
+          "output": 85,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 86,
+          "output": 87,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 88,
+          "output": 89,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 90,
+          "output": 91,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 92,
+          "output": 93,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 94,
+          "output": 95,
+          "interpolation": "LINEAR"
+        },
+        {
+          "input": 96,
+          "output": 97,
+          "interpolation": "LINEAR"
+        }
+      ],
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 1,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 1,
+          "target": {
+            "node": 1,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 2,
+          "target": {
+            "node": 1,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 3,
+          "target": {
+            "node": 2,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 4,
+          "target": {
+            "node": 2,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 5,
+          "target": {
+            "node": 2,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 6,
+          "target": {
+            "node": 12,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 7,
+          "target": {
+            "node": 12,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 8,
+          "target": {
+            "node": 12,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 9,
+          "target": {
+            "node": 16,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 10,
+          "target": {
+            "node": 16,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 11,
+          "target": {
+            "node": 16,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 12,
+          "target": {
+            "node": 22,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 13,
+          "target": {
+            "node": 22,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 14,
+          "target": {
+            "node": 22,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 15,
+          "target": {
+            "node": 26,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 16,
+          "target": {
+            "node": 26,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 17,
+          "target": {
+            "node": 26,
+            "path": "scale"
+          }
+        },
+        {
+          "sampler": 18,
+          "target": {
+            "node": 32,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 19,
+          "target": {
+            "node": 32,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 20,
+          "target": {
+            "node": 32,
+            "path": "scale"
+          }
+        }
+      ]
+    }
+  ],
+  "modelStoredOutsideRepository": true
+}

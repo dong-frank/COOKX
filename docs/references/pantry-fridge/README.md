@@ -94,3 +94,7 @@
 ## 核对范围
 
 A 和两个免费参考模型已下载并检查 GLB 结构；商用双门参考已进行静态帧渲染。B、C、D 为来源页与预览图核对，未购买源文件。所有模型都未在 Android 上验证。发布者提供的许可信息与模型来源、下载地址、文件大小、校验值见 [sources.json](sources.json)，几何与动画结构检查见 [model-inspection.json](model-inspection.json)。
+
+## 免费单侧开门冰箱补充
+
+用户接受单侧开门后，已补充[免费可开门冰箱清单](single-door/README.md)，其中两款检查了真实动画并渲染开门状态。

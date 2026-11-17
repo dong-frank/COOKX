@@ -1,0 +1,54 @@
+{
+  "bytes": 1470356,
+  "extensionsRequired": [],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "refrigerator_body",
+      "translation": [
+        0,
+        0,
+        -0.025662660598754883
+      ]
+    },
+    {
+      "mesh": 1,
+      "name": "refrigerator_door_freezer",
+      "translation": [
+        0.2919999957084656,
+        0,
+        0.2613373398780823
+      ]
+    },
+    {
+      "mesh": 2,
+      "name": "refrigerator_door_main",
+      "translation": [
+        0.2919999957084656,
+        0,
+        0.2613373398780823
+      ]
+    },
+    {
+      "children": [
+        0,
+        1,
+        2
+      ],
+      "extras": {
+        "license": "CC0-1.0",
+        "source": "grab3d.com",
+        "dimensions_m": "0.600 x 0.701 x 1.500",
+        "triangles": 10952,
+        "textures": "PBR 2048px: base color, roughness, metallic, normal (baked)",
+        "generator": "Created by grab3d",
+        "created": "2026-09-26",
+        "set": "Cozy Home Kit",
+        "real_size": "retro fridge-freezer 0.60 x 0.65 x 1.50 m (0.70 m deep incl. handles), freezer compartment on top",
+        "notes": "doors ('refrigerator_door_main', 'refrigerator_door_freezer') are separate objects; their origin lies on the right-hand hinge axis (vertical, local Z), rotate positive to open. Interior with white liner, shelves and door bins."
+      },
+      "name": "refrigerator"
+    }
+  ],
+  "animations": []
+}

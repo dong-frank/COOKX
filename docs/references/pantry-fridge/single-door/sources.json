@@ -1,0 +1,50 @@
+{
+  "date": "2026-11-17",
+  "scope": "research only; no App changes",
+  "downloadedModels": [
+    {
+      "file": "commercial-fridge.glb",
+      "sourcePage": "https://github.com/KhronosGroup/glTF-Sample-Assets/blob/main/Models/CommercialRefrigerator/README.md",
+      "download": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/CommercialRefrigerator/glTF-Binary/CommercialRefrigerator.glb",
+      "license": "CC-BY-4.0; see ATTRIBUTION.md",
+      "bytes": 10131180,
+      "sha256": "ef8da8b144e650c277ac953e6d9e50ac1689ff1ee88c2c5bd9551ae8bccb6065"
+    },
+    {
+      "file": "retro-fridge.glb",
+      "sourcePage": "https://grab3d.com/models/food/refrigerator/",
+      "download": "https://grab3d.com/dl/refrigerator/refrigerator.glb",
+      "license": "CC0-1.0; see retro-LICENSE.txt",
+      "bytes": 1470356,
+      "sha256": "6532664937813a213eedb08cdf4c67e1bee359f2e193c131847ee2ae8516d8dc"
+    }
+  ],
+  "privateLocalModel": {
+    "sourcePage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
+    "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-oven-and-fridge-doors/077490a3a8/model.glb",
+    "fileNotRedistributed": true,
+    "license": "Free personal/commercial project use, no attribution; no standalone redistribution",
+    "renderFrames": [
+      0,
+      72
+    ],
+    "renderChange": "Hide oven and housing for fridge inspection; original model unmodified"
+  },
+  "authorPreview": {
+    "file": "blendswap-fridge.png",
+    "page": "https://blendswap.com/blend/28297",
+    "url": "https://img.blendswap.com/archive/images/2021/6/12/Blend/28297/fridge.png",
+    "downloadStatus": "login required; blend not downloaded"
+  },
+  "otherPreviewImages": [
+    {
+      "file": "retro-fridge.webp",
+      "url": "https://grab3d.com/m/refrigerator/refrigerator-3d-model.webp"
+    },
+    {
+      "file": "commercial-fridge.jpg",
+      "url": "https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Assets/main/Models/CommercialRefrigerator/screenshot/screenshot_Large.jpg"
+    }
+  ],
+  "androidValidated": false
+}
