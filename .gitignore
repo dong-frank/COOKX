@@ -1,0 +1,15 @@
+.DS_Store
+.gradle/
+.kotlin/
+**/build/
+# Official skills include documentation under references/android/build/.
+!.agents/skills/**/build/
+!.agents/skills/**/build/**
+local.properties
+.idea/
+*.iml
+*.jks
+*.keystore
+.env
+captures/
+
