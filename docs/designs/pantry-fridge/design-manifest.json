@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "date": "2026-11-18",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
@@ -71,7 +71,22 @@
     "showPanelTitle": false,
     "quantitySource": "demonstration only; current App quantity storage not implemented",
     "spiceTrigger": "Click any of the three original canisters left of the sink, sharing one seasoning entry. Click again to dismiss. Close fridge before showing seasoning list.",
-    "addingTrigger": "Plus button inside the open fridge or seasoning sheet, including empty states. No add button on scene header. Add goes only to the current inventory context."
+    "addingTrigger": "Plus button inside the open fridge or seasoning sheet, including empty states. No add button on scene header. Add goes only to the current inventory context.",
+    "hitRegionsNormalized": {
+      "coordinateSpace": "contained 480x640 rendered image, not whole device",
+      "fridge": [
+        0.065,
+        0.175,
+        0.38,
+        0.835
+      ],
+      "seasoningBottles": [
+        0.415,
+        0.395,
+        0.655,
+        0.525
+      ]
+    }
   },
   "screens": [
     "screen-closed.png",
@@ -161,5 +176,15 @@
       "file": "frames/19.png",
       "sha256": "1d7df36b10401e9e4bf1dfb28acaa7fd2711424a0dde7203bc37a3073e2548ff"
     }
-  ]
+  ],
+  "handoff": {
+    "status": "approved-design-baseline",
+    "approvedDate": "2026-11-18",
+    "entryPoint": "README.md",
+    "modelGuide": "MODEL-ASSETS.md",
+    "modelsManifest": "model-assets.json",
+    "reproductionScript": "render_scene.py",
+    "appCodeModified": false,
+    "storageSchemaApproved": false
+  }
 }

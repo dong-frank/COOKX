@@ -4,6 +4,8 @@
 
 产品讨论见 [产品记录](docs/product-ideas.md)，开发约定见 [AGENTS.md](AGENTS.md)，当前数据结构见 [菜谱模型](docs/recipe-model.md)。
 
+囤囤鼠的[最终设计交接](docs/designs/pantry-fridge/README.md)集中保存定稿、交互预览、模型来源／授权及交互规则；属于待实现设计，不计入下方已实现功能。
+
 ## 当前功能
 
 - 家庭由用户主动创建；菜谱首页为左侧标签、右侧图片与名称。

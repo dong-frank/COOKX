@@ -1,0 +1,33 @@
+{
+  "approvedDate": "2026-11-18",
+  "licenseURL": "https://1designtool.com/3d/license",
+  "licenseChecked": "2026-11-18",
+  "sourceGeometryRedistributed": false,
+  "models": [
+    {
+      "id": "kitchen-oven-and-fridge-doors",
+      "filename": "kitchen-oven-and-fridge-doors.glb",
+      "sourcePage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
+      "downloadURL": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-oven-and-fridge-doors/077490a3a8/model.glb",
+      "bytes": 132008,
+      "sha256": "3570cc554e2d5532bc67b8621686ab8d0558f9b6ca8c7b0f18f060460f681419",
+      "meshes": 28,
+      "animationClips": [
+        "scene-motion"
+      ],
+      "sourceGeometryIncluded": false
+    },
+    {
+      "id": "kitchen-counter-and-cabinet-modules",
+      "filename": "kitchen-counter-and-cabinet-modules.glb",
+      "sourcePage": "https://1designtool.com/3d/models/kitchen-counter-and-cabinet-modules",
+      "downloadURL": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb",
+      "bytes": 115584,
+      "sha256": "2b3d95a167b311cfcae814cd2bc190d76b3a25980126aadca7d29ac1ece7bcb6",
+      "meshes": 20,
+      "animationClips": [],
+      "sourceGeometryIncluded": false
+    }
+  ],
+  "reproductionScript": "render_scene.py"
+}
