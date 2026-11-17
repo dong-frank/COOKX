@@ -248,7 +248,6 @@ import kotlinx.serialization.Serializable
     }
     Column(Modifier.fillMaxSize().verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
         Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-        MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
         if (step < recipe.steps.size) {
             Text("第 ${step + 1} / ${recipe.steps.size} 步", style = MaterialTheme.typography.headlineMedium)
             LinearProgressIndicator(progress = { (step + 1f) / recipe.steps.size }, modifier = Modifier.fillMaxWidth())
@@ -270,6 +269,7 @@ import kotlinx.serialization.Serializable
             Text("离开做菜页面后不提供后台计时通知。", style = MaterialTheme.typography.bodySmall)
         } else {
             Text("又完成了一道家的味道", style = MaterialTheme.typography.headlineLarge)
+            MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
             Text("记下这次的口味、难度，或下次想调整的地方。")
             OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
             Text("照片上传与独立评分项将在后续接入。", style = MaterialTheme.typography.bodySmall)
