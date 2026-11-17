@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "date": "2026-11-17",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
@@ -7,7 +7,7 @@
   "sourceGeometryRedistributed": false,
   "render": {
     "tool": "Blender 5.2.3 LTS",
-    "camera": "fixed front orthographic scene; fridge left, complete four-bay kitchen counter right",
+    "camera": "fixed front orthographic scene; fridge left, sink and two left counter bays right",
     "frameSize": [
       480,
       640
@@ -18,7 +18,12 @@
     "openingAngleDegrees": 100,
     "hiddenParts": [
       "housing",
-      "oven"
+      "oven",
+      "module_3",
+      "module_4",
+      "props_tomato_red",
+      "props_soot_black",
+      "props_dark_wood"
     ],
     "sceneSources": [
       {
@@ -31,14 +36,16 @@
     "counterAdaptation": {
       "keepCabinets": [
         "module_1",
-        "module_2",
-        "module_3",
-        "module_4"
+        "module_2"
       ],
-      "geometryEdits": false,
+      "geometryEdits": true,
+      "trimOriginalXMaximum": 0,
+      "capCutEdges": true,
+      "addRightEndPanel": true,
       "keepSink": true,
-      "keepOriginalProps": true,
-      "widthMeters": 2.46,
+      "keepThreeOriginalCanisters": true,
+      "removeRightProps": true,
+      "widthMeters": 1.23,
       "depthMeters": 0.624,
       "countertopHeightMeters": 0.9,
       "separateSpiceRack": false
@@ -75,83 +82,83 @@
   "frames": [
     {
       "file": "frames/00.png",
-      "sha256": "2fb00d919328368d580d53c45ee1c438046bef155ba1ccb1cda919c02016810e"
+      "sha256": "71af89322547c7a45290988a273131e01dc9a6ac80d91ca9b8f81c5e64c36097"
     },
     {
       "file": "frames/01.png",
-      "sha256": "82f43a5fc1a390f9fdbff577d4fb9f1105718b210908067612cbd1e1db4e766e"
+      "sha256": "7c946b8825ad26570359b6f5c57b0cb49395670c43920c74eef6e2426b038d13"
     },
     {
       "file": "frames/02.png",
-      "sha256": "a32764c5fdc15d813d0be31b5ffe5051be617d01144160ed3f69cbc76f5a5074"
+      "sha256": "c103e871ff2f3802b13478cf5de6e054309417e2ca535a91eeb3d7e7743ffbd5"
     },
     {
       "file": "frames/03.png",
-      "sha256": "5acc0cfd51bf7a1dcb4e4667e080c65b1a83c0dc1f42d33b5408823b93570b1c"
+      "sha256": "1d95779d67ffa82474a0d3e748b20047b3f299d12167adb0ac9c69af116e5da7"
     },
     {
       "file": "frames/04.png",
-      "sha256": "66034e4e2158b9959260bd66ac1264cb20b65f41bd3d571c3e7d7cb4b6335ef2"
+      "sha256": "90129f641b76394a7b7fdaca46f41b4e1dfcbf0d3d6187eeca52f810e18e3524"
     },
     {
       "file": "frames/05.png",
-      "sha256": "d7c4a3093c33ac26f5fbedc5e06b53537821bceb5dfe0ae24a2ac325be279b5e"
+      "sha256": "8a22f706461ac7d00a63653e77175d4a6364559ec74660ceef6c9ea933dd5fcf"
     },
     {
       "file": "frames/06.png",
-      "sha256": "96ee0adb36d132e6d4fc9314a112196e797125567727066ef7b0f6e55a0e160d"
+      "sha256": "6c32d2fe6f3517dba00237ec6e3c957a9ef4304703e8cf45e74e2483fd0a3dc3"
     },
     {
       "file": "frames/07.png",
-      "sha256": "578fc4bcd4f30fe4a73acc603fe2cca569580360b7b34de031ee9d0c2a373df7"
+      "sha256": "ecbbe1ad6dbd25c201e599fdabec4ecff07ecd6854cb3182e243dd033e9465d1"
     },
     {
       "file": "frames/08.png",
-      "sha256": "58435482d95e68ba5ec825c058ba8e67f25dc0a1d7d0febaaae617eb2b6fa4f6"
+      "sha256": "dd14a65a6c4549f856c82bacd62043dca9febfc3aca8e7a09b7f569a9955362e"
     },
     {
       "file": "frames/09.png",
-      "sha256": "7a1a913484b8eb79a2cc8a1472a086fb192967a8f7dd157ad001436944cfe0e9"
+      "sha256": "3dc0ca3c3fb998c6247e45f56f77d0bdcb082882f9c8492d3bf8228e03e52870"
     },
     {
       "file": "frames/10.png",
-      "sha256": "d54748aa518311e78c5d94be337d52a0580386aa24a071de8a6d37d2d11ab89e"
+      "sha256": "084b3f52b4b9ec0e3b16782249ebf0590fd181f590fcdd4c3efff9a11c70a7f1"
     },
     {
       "file": "frames/11.png",
-      "sha256": "907c106132e3d3c7ad96bc2f978b671db5ade36efc2d7592810855e9146b0798"
+      "sha256": "786416400236f3f04a6bc945794a72788140d55224648623b0ab6a9b95e1ad17"
     },
     {
       "file": "frames/12.png",
-      "sha256": "8d5323a5e5db23a53ca225501170952b2889d436bc200077b91f5370f508c94f"
+      "sha256": "048bba04340eb60584a193d88dafeac7663c0e244fb995fe25357ecb1dd6e5be"
     },
     {
       "file": "frames/13.png",
-      "sha256": "58029b85c1c7686cb4d5effd5470d293ae1721529d78c1075252465f918f25d2"
+      "sha256": "ef6c54c2d3960c3c5e39627a7895bd61eb696ca7dfc9f65e6029b89204ca7add"
     },
     {
       "file": "frames/14.png",
-      "sha256": "cfea49da9420a05307552c044afaebfc2b7297fd2959e5b06417d8dc8b641acb"
+      "sha256": "701bf20387c7cb2255ec44e216c6934a15628d763cf7ebd2722552ee49c5bf8a"
     },
     {
       "file": "frames/15.png",
-      "sha256": "bc8621b5b4e65947c5bb991b400b25626950a100c7a14286e9dadcf075273b19"
+      "sha256": "717dd54689e6b37e1f252c1c71c162abe02db363479535f84778940627918607"
     },
     {
       "file": "frames/16.png",
-      "sha256": "f782edcc1a4ad768f6c5c563f4f4e24c8d74141f68ad50db1b1ffb1ac7f2ba87"
+      "sha256": "75bc6f2152c8844381dd75afc2393500665ab27583e75dc7ed921bfaa57f0333"
     },
     {
       "file": "frames/17.png",
-      "sha256": "4826b2e6dd6f4e07545717e9a5932b460b7a31355c405a98a995c8c58178efe8"
+      "sha256": "ccd28c6699a8d8018036b93bd14053c596ba41534c2a93474f300e652dd74551"
     },
     {
       "file": "frames/18.png",
-      "sha256": "4d224961e31883f571f89f3c088c80a4cdea2b3131a926ecb9d46d9208b54682"
+      "sha256": "6587f0c805f711508e2b50d35fde03a681a956fbc9864b8567effb0f3687bcc9"
     },
     {
       "file": "frames/19.png",
-      "sha256": "9857e4c15c75d477201087c046d964292b5f3fb3c26f6b5b1b4c7e17988ab44f"
+      "sha256": "1d7df36b10401e9e4bf1dfb28acaa7fd2711424a0dde7203bc37a3073e2548ff"
     }
   ]
 }

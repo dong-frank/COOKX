@@ -44,7 +44,7 @@
       "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb",
       "license": "https://1designtool.com/3d/license",
       "storage": "Outside repository; standalone source redistribution prohibited",
-      "verification": "Complete original four-bay source counter, sink, faucet and props rendered with selected fridge in Blender 5.2.3. No geometry cropping or scaling. Three canisters left of sink are the seasoning entry. Supersedes trimmed two-bay design; source GLB not redistributed.",
+      "verification": "Current project render keeps left two source cabinets, full sink, faucet and three canisters. Trims original x>0 from carcass/worktop, caps cut edges, adds matching right end panel; excludes right cabinets, pot and cutting board. Supersedes complete four-bay layout. Original proportions preserved; no GLB redistributed.",
       "publisherPreview": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/poster.webp"
     },
     {
