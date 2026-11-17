@@ -1,0 +1,212 @@
+{
+  "version": 1,
+  "collectedDate": "2026-11-17",
+  "game": "The Legend of Zelda: Tears of the Kingdom",
+  "purpose": "烹饪交互研究参考",
+  "images": [
+    {
+      "file": "ingredient-selection.jpg",
+      "subject": "选材界面",
+      "language": "en",
+      "sourcePage": "https://gamewith.net/zelda-totk/article/show/38906",
+      "sourceImage": "https://img.gamewith.net/img/9e792c22da6a9810d6cd4abe52712a7a.jpg",
+      "visuallyReviewed": true,
+      "bytes": 24956,
+      "sha256": "571fad245bec3ba8cdbe08e0b3515cc59f5f68b2f9fa0d7b1092f3ad393b3e9b"
+    },
+    {
+      "file": "cooking-pot.jpg",
+      "subject": "锅前操作",
+      "language": "und",
+      "sourcePage": "https://gamewith.net/zelda-totk/article/show/38906",
+      "sourceImage": "https://img.gamewith.net/img/7a9219dc04bf505ce334b8a943c9f970.jpg",
+      "visuallyReviewed": true,
+      "bytes": 12525,
+      "sha256": "b3d128b4b2ef6218991c36eb933177c9d0fa6515431416797accb5f17346a55c"
+    },
+    {
+      "file": "cooking-animation.jpg",
+      "subject": "烹饪动画静帧",
+      "language": "und",
+      "sourcePage": "https://gamewith.net/zelda-totk/article/show/38906",
+      "sourceImage": "https://img.gamewith.jp/img/33527283ceead4f8c9f8f1623f9afd3e.jpg",
+      "visuallyReviewed": true,
+      "bytes": 22687,
+      "sha256": "a9fe3d50b871a1c6610b4544c552da1fcc03b9410645780807135c30ad8294f9"
+    },
+    {
+      "file": "recipe-card.png",
+      "subject": "配方与制作履历",
+      "language": "ja",
+      "sourcePage": "https://gamewith.net/zelda-totk/article/show/38906",
+      "sourceImage": "https://img.gamewith.jp/img/ee9198875f703276125352e3759e1479.png",
+      "visuallyReviewed": true,
+      "bytes": 32824,
+      "sha256": "225f47adeff306359ea87d28bb5a52dac89109d58214e5218075cf747137f6c3"
+    },
+    {
+      "file": "incompatible-ingredient-selection.png",
+      "subject": "不相容材料选择状态",
+      "language": "ja",
+      "sourcePage": "https://gamewith.net/zelda-totk/article/show/38906",
+      "sourceImage": "https://img.gamewith.jp/img/300c016a4a21fd3b3f62b16e90f8b284.png",
+      "visuallyReviewed": true,
+      "bytes": 45498,
+      "sha256": "e0d7e6ade29b85f8b9495d0b506df771fffca23857c91d266f3eab201b64cc63"
+    },
+    {
+      "file": "dish-result.jpg",
+      "subject": "出锅结果卡片",
+      "language": "en",
+      "sourcePage": "https://thenerdstash.com/how-to-complete-gourmets-gone-missing-in-zelda-tears-of-the-kingdom/",
+      "sourceImage": "https://image.thenerdstash.com/2023/05/gourmets-gone-missing-final.jpg",
+      "visuallyReviewed": true,
+      "bytes": 88596,
+      "sha256": "621e6941850b698a676607c16701d6460f9ab9a27440af41892a62761d0bd870"
+    }
+  ],
+  "audioTracks": [
+    {
+      "disc": 9,
+      "track": 39,
+      "name": "料理失敗",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 40,
+      "name": "料理成功",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 41,
+      "name": "料理大成功",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 47,
+      "name": "リンクのハミング 1",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 48,
+      "name": "リンクのハミング 2",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 49,
+      "name": "リンクのハミング 3",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 50,
+      "name": "リンクのハミング 4",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 51,
+      "name": "リンクのハミング 5",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 52,
+      "name": "リンクのハミング 6",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 53,
+      "name": "リンクのハミング 7",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 54,
+      "name": "リンクのハミング 8",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 55,
+      "name": "リンクのハミング 9",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    },
+    {
+      "disc": 9,
+      "track": 56,
+      "name": "リンクのハミング 10",
+      "source": "https://columbia.jp/zelda/",
+      "status": "catalog-verified-not-auditioned"
+    }
+  ],
+  "audioFilesDownloaded": true,
+  "audioReference": {
+    "url": "https://www.bilibili.com/video/BV1xL41167RV/?p=55",
+    "partTitle": "做料理（整合）",
+    "durationSeconds": 74,
+    "verification": "平台元数据已核对，未试听"
+  },
+  "downloadedAudio": [
+    {
+      "file": "cooking-success.mp3",
+      "name": "Cooking Success / 料理成功",
+      "disc": 9,
+      "track": 40,
+      "sourcePage": "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/9-40.%2520Cooking%2520Success.mp3",
+      "sourceAudio": "https://lambda.vgmtreasurechest.com/soundtracks/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/gzeyctnf/9-40.%20Cooking%20Success.mp3",
+      "catalogSource": "https://columbia.jp/zelda/",
+      "bytes": 239703,
+      "sha256": "04ca1ae2e4148b5f0a3aac91fdca62e3630d1963a8f74e18c9050d95e5d89ade"
+    },
+    {
+      "file": "cooking-great-success.mp3",
+      "name": "Major Cooking Success / 料理大成功",
+      "disc": 9,
+      "track": 41,
+      "sourcePage": "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/9-41.%2520Major%2520Cooking%2520Success.mp3",
+      "sourceAudio": "https://lambda.vgmtreasurechest.com/soundtracks/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/qkfwqpbm/9-41.%20Major%20Cooking%20Success.mp3",
+      "catalogSource": "https://columbia.jp/zelda/",
+      "bytes": 243194,
+      "sha256": "e42b78aa461ca61b5ec8a3b68a01636de9337af38828060c2df5db7cc4704861"
+    },
+    {
+      "file": "get-fanfare-item.mp3",
+      "name": "Get Fanfare (Item)",
+      "disc": 9,
+      "track": 31,
+      "sourcePage": "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/9-31.%2520Get%2520Fanfare%2520%2528Item%2529.mp3",
+      "sourceAudio": "https://lambda.vgmtreasurechest.com/soundtracks/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/lekqwlra/9-31.%20Get%20Fanfare%20%28Item%29.mp3",
+      "catalogSource": "https://columbia.jp/zelda/",
+      "bytes": 123772,
+      "sha256": "6b725174773741c7b656e360b522a48ec2382c5f2421268dc57858ff2a67c9dd",
+      "durationSeconds": 5.133333,
+      "sampleRate": 44100,
+      "channels": 2
+    }
+  ],
+  "selectedAudio": "cooking-great-success.mp3",
+  "selectedAudioSequence": [
+    "cooking-great-success.mp3",
+    "get-fanfare-item.mp3"
+  ],
+  "selectedAudioNote": "两段音频经裁剪衔接，最终时序见 ../../designs/cooking-result/handoff.json"
+}

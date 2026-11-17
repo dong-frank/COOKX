@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "date": "2026-11-17",
+  "scope": "Design and audio handoff only; no App code changes",
+  "design": {
+    "editable": "cooking-result.svg",
+    "preview": "cooking-result.svg.png",
+    "pageTitle": "出锅啦",
+    "cardText": "对应菜谱名称",
+    "showHearts": false,
+    "newBadge": "仅首次制作",
+    "firstCookingRuleStatus": "implementation proposal: no saved record for the same family and recipe"
+  },
+  "audio": {
+    "sequence": [
+      {
+        "file": "audio/01-cooking-great-success.wav",
+        "originalFile": "../../references/zelda-totk-cooking/cooking-great-success.mp3",
+        "disc": 9,
+        "track": 41,
+        "trimStartSeconds": 0,
+        "trimEndSeconds": 5.7,
+        "playAtSeconds": 0,
+        "sourcePage": "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/9-41.%2520Major%2520Cooking%2520Success.mp3",
+        "sourceAudio": "https://lambda.vgmtreasurechest.com/soundtracks/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/qkfwqpbm/9-41.%20Major%20Cooking%20Success.mp3",
+        "bytes": 1005558,
+        "sha256": "c2516a74c6f59f942c91ea122de1811877410b8a1f60e0971fdbe9b08913bf8e",
+        "durationSeconds": 5.7,
+        "sampleRate": 44100,
+        "channels": 2
+      },
+      {
+        "file": "audio/02-get-item.wav",
+        "originalFile": "../../references/zelda-totk-cooking/get-fanfare-item.mp3",
+        "disc": 9,
+        "track": 31,
+        "trimStartSeconds": 0.55,
+        "trimEndSeconds": 2.55,
+        "playAtSeconds": 5.6,
+        "sourcePage": "https://downloads.khinsider.com/game-soundtracks/album/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/9-31.%2520Get%2520Fanfare%2520%2528Item%2529.mp3",
+        "sourceAudio": "https://lambda.vgmtreasurechest.com/soundtracks/the-legend-of-zelda-tears-of-the-kingdom-original-soundtrack-2024/lekqwlra/9-31.%20Get%20Fanfare%20%28Item%29.mp3",
+        "bytes": 352878,
+        "sha256": "873778cf305eadc82cea665e7ec51f8841aef1d40ccf67f34f0a0172c632a693",
+        "durationSeconds": 2.0,
+        "sampleRate": 44100,
+        "channels": 2
+      }
+    ],
+    "overlapSeconds": 0.1,
+    "silenceDetection": {
+      "thresholdDb": -60,
+      "minimumDurationSeconds": 0.15,
+      "greatSuccessTrailingSilenceStartSeconds": 5.600317,
+      "itemLeadingSilenceEndSeconds": 0.572063,
+      "itemTrailingSilenceStartSeconds": 2.449887
+    },
+    "preview": {
+      "file": "audio/cooking-result-preview.mp3",
+      "bytes": 244968,
+      "sha256": "34bd8c9f2f17ecc7cc83fdaa071f04802704535c93380a6ec2ec4801768279eb",
+      "durationSeconds": 7.6,
+      "sampleRate": 44100,
+      "channels": 2
+    },
+    "timingStatus": "prepared preview for listening review; overlap in trailing near-silence authorized by user"
+  },
+  "pendingImplementationDecisions": [
+    "一次性播放触发与生命周期策略",
+    "设计稿返回步骤入口与现有固定底栏的整合"
+  ]
+}
