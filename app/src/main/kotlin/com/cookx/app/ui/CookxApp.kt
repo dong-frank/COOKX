@@ -30,6 +30,7 @@ import kotlinx.serialization.Serializable
 @Serializable data class Cook(val id: String, val initialDate: String? = null, val initialMeal: Meal? = null) : NavKey
 @Serializable data object TagSettings : NavKey
 @Serializable data class EditTags(val id: String) : NavKey
+@Serializable data class ShoppingList(val id: String) : NavKey
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,7 +73,7 @@ import kotlinx.serialization.Serializable
                             Home -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     HomeScreen(current, saving, model::addExamples,
-                                        { stack.add(Detail(it)) }, current.favoriteTags)
+                                        { stack.add(Detail(it)) }, current.favoriteTags, model::addPantryItem, model::setPantryAvailable)
                                 }
                             }
                             NewRecipe -> NavEntry(route) {
@@ -90,10 +91,21 @@ import kotlinx.serialization.Serializable
                                     }
                                 }
                             }
+                            is ShoppingList -> NavEntry(route) {
+                                LiveKitchen(model) { current, saving ->
+                                    val recipe = current.recipes.find { it.id == route.id && it.familyId == current.family?.id }
+                                    val memo = current.shoppingMemos.find { it.recipeId == route.id && it.familyId == current.family?.id }
+                                    if (recipe != null && memo != null) ShoppingMemoScreen(recipe, memo, saving,
+                                        { key, checked -> model.checkShoppingItem(recipe.id, key, checked) },
+                                        { model.recheckShoppingPantry(recipe.id) })
+                                    else Text("便签不存在，请返回菜谱重新打开。", Modifier.padding(20.dp))
+                                }
+                            }
                             is Detail -> NavEntry(route) {
-                                LiveKitchen(model) { current, _ ->
+                                LiveKitchen(model) { current, saving ->
                                     val recipe = current.recipes.find { it.id == route.id }
-                                    if (recipe != null) RecipeDetail(recipe, current, editTags = { stack.add(EditTags(recipe.id)) }) {
+                                    if (recipe != null) RecipeDetail(recipe, current, editTags = { stack.add(EditTags(recipe.id)) }, prepareEnabled = !saving,
+                                        prepareIngredients = { model.openShoppingMemo(recipe.id) { stack.add(ShoppingList(recipe.id)) } }) {
                                         val selection = mealAt(System.currentTimeMillis())
                                         stack.add(Cook(recipe.id, selection.date, selection.meal))
                                     }
@@ -142,12 +154,14 @@ import kotlinx.serialization.Serializable
 }
 
 @Composable private fun HomeScreen(state: KitchenState, busy: Boolean, examples: () -> Unit,
-    open: (String) -> Unit, favorites: List<String>) {
+    open: (String) -> Unit, favorites: List<String>, addPantry: (String) -> Unit, setPantryAvailable: (String, Boolean) -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         Box(Modifier.weight(1f).fillMaxWidth()) {
             if (tab == 0) {
                 RecipeBrowser(state.recipes, busy, examples, open, favorites)
+            } else if (tab == 2) {
+                PantryScreen(state, busy, addPantry, setPantryAvailable)
             } else {
                 LazyColumn(contentPadding = PaddingValues(22.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     item {
@@ -159,7 +173,6 @@ import kotlinx.serialization.Serializable
                     item {
                         when (tab) {
                             1 -> Section("家庭共用一本菜谱", "当前家庭：${state.family!!.name}\n菜谱与制作记录归属于这个家庭，数据目前仅保存在此设备。\n\n邀请码、账号与多人协作将在后续接入。") {}
-                            2 -> Section("冰箱有数，做饭有底", "这里将记录采购花费、食材余量与调料情况。\n\n库存精度和扣减方式仍待讨论，当前尚未开放录入。") {}
                             3 -> Section("从经验，到自己的配方", "未来协助整理帖子、替换食材与调料，回顾一天的饮食。\n\n尚未接入模型、小红书读取或健康分析。") {}
                         }
                     }
@@ -185,7 +198,7 @@ import kotlinx.serialization.Serializable
     }
 }
 
-@Composable private fun RecipeDetail(recipe: Recipe, state: KitchenState, editTags: () -> Unit, start: () -> Unit) {
+@Composable private fun RecipeDetail(recipe: Recipe, state: KitchenState, editTags: () -> Unit, prepareEnabled: Boolean, prepareIngredients: () -> Unit, start: () -> Unit) {
     LazyColumn(contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         item {
             Text(recipe.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
@@ -199,9 +212,12 @@ import kotlinx.serialization.Serializable
             Button(onClick = start, modifier = Modifier.fillMaxWidth()) { Text("开始制作") }
         }
         item {
-            Surface(shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+            Surface(onClick = prepareIngredients, enabled = prepareEnabled, shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("准备食材", style = MaterialTheme.typography.titleMedium)
+                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                        Text("准备食材", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
+                        Text("采购便签 ›", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
+                    }
                     Text(recipe.ingredients.joinToString("\n"), style = MaterialTheme.typography.bodyMedium)
                 }
             }

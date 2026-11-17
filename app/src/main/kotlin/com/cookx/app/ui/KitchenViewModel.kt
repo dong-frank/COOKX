@@ -81,4 +81,35 @@ class KitchenViewModel(application: Application) : AndroidViewModel(application)
         state.copy(recipes = state.recipes.map { if (it.id == id) it.copy(tags = normalized) else it },
             customTags = (state.customTags + normalized.filter { it !in PRESET_TAGS }).distinct())
     }
+    fun openShoppingMemo(recipeId: String, onSuccess: () -> Unit) = update(onSuccess) { state ->
+        val recipe = state.recipes.single { it.id == recipeId && it.familyId == state.family?.id }
+        val previous = state.shoppingMemos.find { it.recipeId == recipeId && it.familyId == recipe.familyId }
+        val memo = prepareShoppingMemo(recipe, state.pantryItems, previous)
+        state.copy(shoppingMemos = state.shoppingMemos.filterNot { it.recipeId == recipeId && it.familyId == recipe.familyId } + memo)
+    }
+    fun checkShoppingItem(recipeId: String, key: String, checked: Boolean) = update { state ->
+        val family = requireNotNull(state.family)
+        require(state.shoppingMemos.any { it.recipeId == recipeId && it.familyId == family.id })
+        state.copy(shoppingMemos = state.shoppingMemos.map {
+            if (it.recipeId == recipeId && it.familyId == family.id) it.markPrepared(key, checked) else it
+        })
+    }
+    fun recheckShoppingPantry(recipeId: String) = update { state ->
+        val recipe = state.recipes.single { it.id == recipeId && it.familyId == state.family?.id }
+        state.copy(shoppingMemos = state.shoppingMemos.map {
+            if (it.recipeId == recipeId && it.familyId == recipe.familyId) prepareShoppingMemo(recipe, state.pantryItems, it, true) else it
+        })
+    }
+    fun addPantryItem(name: String) = update { state ->
+        val family = requireNotNull(state.family)
+        val normalized = name.trim()
+        require(normalized.isNotEmpty() && normalized.length <= 64) { "请填写 1–64 个字的食材名称" }
+        val existing = state.pantryItems.find { it.familyId == family.id && it.name == normalized }
+        state.copy(pantryItems = if (existing == null) state.pantryItems + PantryItem(UUID.randomUUID().toString(), family.id, normalized)
+            else state.pantryItems.map { if (it.id == existing.id) it.copy(available = true) else it })
+    }
+    fun setPantryAvailable(id: String, available: Boolean) = update { state ->
+        require(state.pantryItems.any { it.id == id && it.familyId == state.family?.id })
+        state.copy(pantryItems = state.pantryItems.map { if (it.id == id && it.familyId == state.family?.id) it.copy(available = available) else it })
+    }
 }

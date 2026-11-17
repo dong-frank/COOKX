@@ -20,6 +20,8 @@ import kotlinx.serialization.Serializable
     val customTags: List<String> = emptyList(),
     val favoriteTags: List<String> = DEFAULT_FAVORITE_TAGS,
     val schemaVersion: Int = 1,
+    val pantryItems: List<PantryItem> = emptyList(),
+    val shoppingMemos: List<ShoppingMemo> = emptyList(),
 ) {
     fun lastCooked(recipeId: String): Long? = records.filter { it.recipeId == recipeId }
         .maxOfOrNull { it.completedAt }
