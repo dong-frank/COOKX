@@ -33,13 +33,13 @@ class KitchenJourneyTest {
             compose.onNodeWithText("本步食材").assertDoesNotExist()
             compose.onNodeWithText("番茄洗净后切块。").assertIsDisplayed()
             compose.onNodeWithTag("cookingDate").assertDoesNotExist()
-            compose.onNodeWithText("下一步").performScrollTo().performClick()
+            compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
             scenario.recreate()
             compose.onNodeWithText("备菜 · 第 2 / 2 步").assertExists()
-            compose.onNodeWithText("下一步").performScrollTo().performClick()
+            compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
             compose.onNodeWithText("烹饪 · 第 1 / 3 步").assertExists()
-            repeat(2) { compose.onNodeWithText("下一步").performScrollTo().performClick() }
-            compose.onNodeWithText("完成步骤").performScrollTo().performClick()
+            repeat(2) { compose.onNodeWithText("下一页").assertIsDisplayed().performClick() }
+            compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
             compose.onNodeWithTag("cookingDate").assertExists()
             compose.onNodeWithText("本次制作心得（选填）").performTextInput("下次少放盐")
             compose.onNodeWithText("保存制作记录").performScrollTo().performClick()

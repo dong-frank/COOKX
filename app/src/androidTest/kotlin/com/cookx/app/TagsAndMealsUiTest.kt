@@ -60,12 +60,12 @@ class TagsAndMealsUiTest {
         }
         compose.onNodeWithTag("cookingDate").assertDoesNotExist()
         compose.onNodeWithTag("meal:DINNER").assertDoesNotExist()
-        compose.onNodeWithText("下一步").performScrollTo().performClick()
+        compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
         restore.emulateSavedInstanceStateRestore()
         compose.onNodeWithText("备菜 · 第 2 / 2 步").assertExists()
         compose.onNodeWithTag("cookingDate").assertDoesNotExist()
-        repeat(3) { compose.onNodeWithText("下一步").performScrollTo().performClick() }
-        compose.onNodeWithText("完成步骤").performScrollTo().performClick()
+        repeat(3) { compose.onNodeWithText("下一页").assertIsDisplayed().performClick() }
+        compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
         compose.onNodeWithText("制作日期：2026-11-16").assertExists()
         compose.onNodeWithTag("meal:DINNER").assertIsSelected()
         compose.onNodeWithTag("meal:BREAKFAST").performScrollTo().performClick()
@@ -75,10 +75,10 @@ class TagsAndMealsUiTest {
         restore.emulateSavedInstanceStateRestore()
         compose.onNodeWithText("制作日期：2026-11-17").assertExists()
         compose.onNodeWithTag("meal:BREAKFAST").assertIsSelected()
-        compose.onNodeWithText("回看最后一步").performScrollTo().performClick()
+        compose.onNodeWithText("上一页").assertIsDisplayed().performClick()
         compose.onNodeWithTag("cookingDate").assertDoesNotExist()
         compose.onNodeWithTag("meal:BREAKFAST").assertDoesNotExist()
-        compose.onNodeWithText("完成步骤").performScrollTo().performClick()
+        compose.onNodeWithText("下一页").assertIsDisplayed().performClick()
         compose.onNodeWithText("制作日期：2026-11-17").assertExists()
         compose.onNodeWithText("保存制作记录").performScrollTo().performClick()
         assertEquals(MealSelection("2026-11-17", Meal.BREAKFAST), saved)

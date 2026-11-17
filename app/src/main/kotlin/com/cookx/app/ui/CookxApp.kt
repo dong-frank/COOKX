@@ -12,6 +12,9 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.painterResource
+import com.cookx.app.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -260,6 +263,9 @@ import kotlinx.serialization.Serializable
     var deadline by rememberSaveable { mutableLongStateOf(0L) }
     var remaining by remember { mutableLongStateOf(0L) }
     var note by rememberSaveable { mutableStateOf("") }
+    var timerOpen by rememberSaveable { mutableStateOf(false) }
+    var timerDefault by rememberSaveable { mutableIntStateOf(60) }
+    var timerCondition by rememberSaveable { mutableStateOf<String?>(null) }
     LaunchedEffect(deadline) {
         while (deadline > 0L) {
             remaining = ((deadline - System.currentTimeMillis() + 999) / 1000).coerceAtLeast(0)
@@ -267,45 +273,55 @@ import kotlinx.serialization.Serializable
             delay(250)
         }
     }
-    Column(Modifier.fillMaxSize().verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
-        Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-        if (step < playback.size) {
-            val current = playback[step]
-            Text("${current.phase.label} · 第 ${current.phaseIndex} / ${current.phaseSize} 步", style = MaterialTheme.typography.headlineMedium)
-            LinearProgressIndicator(progress = { (step + 1f) / playback.size }, modifier = Modifier.fillMaxWidth())
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                OperationBadge(current.step.operationType, 56.dp)
-                Text(current.step.title, Modifier.padding(start = 14.dp).weight(1f), style = MaterialTheme.typography.headlineMedium)
-            }
-            Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
-                Text(current.step.description, modifier = Modifier.fillMaxWidth().padding(24.dp),
-                    style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            val parameters = current.step.parameters
-            val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize)
-            if (details.isNotEmpty()) Text(details.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
-            current.step.timer?.let { timer ->
-                OutlinedButton(onClick = { deadline = System.currentTimeMillis() + timer.durationSeconds * 1000L }) {
-                    Text("计时 ${timer.durationSeconds} 秒")
+    Scaffold(contentWindowInsets = WindowInsets(0, 0, 0, 0), bottomBar = {
+        BottomAppBar(windowInsets = WindowInsets(0, 0, 0, 0), containerColor = MaterialTheme.colorScheme.surfaceContainer,
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)) {
+            OutlinedButton(onClick = { step-- }, enabled = step > 0, modifier = Modifier.weight(1f)) { Text("上一页") }
+            FilledTonalButton(onClick = {
+                val configured = playback.getOrNull(step)?.step?.timer
+                timerDefault = configured?.durationSeconds ?: 60
+                timerCondition = configured?.startCondition
+                timerOpen = true
+            }, modifier = Modifier.padding(horizontal = 12.dp).widthIn(min = 88.dp).testTag("openCookingTimer"),
+                contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Icon(painterResource(R.drawable.ic_timer), contentDescription = "计时器", modifier = Modifier.size(24.dp))
+                    Text(if (deadline > 0L) timerText(remaining) else "计时器", style = MaterialTheme.typography.labelMedium)
                 }
-                Text(timer.startCondition, style = MaterialTheme.typography.bodyMedium)
             }
-            if (deadline != 0L) {
+            Button(onClick = { step++ }, enabled = step < playback.size, modifier = Modifier.weight(1f)) { Text("下一页") }
+        }
+    }) { padding ->
+        Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
+            Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            if (step < playback.size) {
+                val current = playback[step]
+                Text("${current.phase.label} · 第 ${current.phaseIndex} / ${current.phaseSize} 步", style = MaterialTheme.typography.headlineMedium)
+                LinearProgressIndicator(progress = { (step + 1f) / playback.size }, modifier = Modifier.fillMaxWidth())
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(if (remaining == 0L) "时间到" else "%02d:%02d".format(remaining / 60, remaining % 60), style = MaterialTheme.typography.titleLarge)
-                    TextButton(onClick = { deadline = 0L; remaining = 0L }) { Text("取消计时") }
+                    OperationBadge(current.step.operationType, 56.dp)
+                    Text(current.step.title, Modifier.padding(start = 14.dp).weight(1f), style = MaterialTheme.typography.headlineMedium)
                 }
+                Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                    Text(current.step.description, modifier = Modifier.fillMaxWidth().padding(24.dp),
+                        style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                }
+                val parameters = current.step.parameters
+                val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize)
+                if (details.isNotEmpty()) Text(details.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
+
+            } else {
+                Text("又完成了一道家的味道", style = MaterialTheme.typography.headlineLarge)
+                MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
+                OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
+                Button(onClick = { finish(note, MealSelection(cookingDate, Meal.valueOf(mealName))) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
             }
-            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                OutlinedButton(onClick = { step-- }, enabled = step > 0, modifier = Modifier.weight(1f)) { Text("上一步") }
-                Button(onClick = { step++ }, modifier = Modifier.weight(1f)) { Text(if (step == playback.lastIndex) "完成步骤" else "下一步") }
-            }
-        } else {
-            Text("又完成了一道家的味道", style = MaterialTheme.typography.headlineLarge)
-            MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
-            OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
-            Button(onClick = { finish(note, MealSelection(cookingDate, Meal.valueOf(mealName))) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
-            TextButton(onClick = { step-- }) { Text("回看最后一步") }
         }
     }
+    if (timerOpen) CookingTimerDialog(timerDefault, timerCondition, deadline > 0L, remaining,
+        dismiss = { timerOpen = false }, stop = { deadline = 0L; remaining = 0L }, start = { seconds ->
+            remaining = seconds.toLong()
+            deadline = System.currentTimeMillis() + seconds * 1000L
+            timerOpen = false
+        })
 }
