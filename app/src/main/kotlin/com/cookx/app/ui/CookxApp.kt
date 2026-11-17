@@ -277,9 +277,9 @@ import kotlinx.serialization.Serializable
                 OperationBadge(current.step.operationType, 56.dp)
                 Text(current.step.title, Modifier.padding(start = 14.dp).weight(1f), style = MaterialTheme.typography.headlineMedium)
             }
-            Text(current.step.description, style = MaterialTheme.typography.bodyLarge)
-            if (current.step.ingredients.isNotEmpty()) {
-                Section("本步食材", current.step.ingredients.joinToString("\n") { it.displayText(recipe.ingredients) }) {}
+            Surface(shape = RoundedCornerShape(24.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                Text(current.step.description, modifier = Modifier.fillMaxWidth().padding(24.dp),
+                    style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             val parameters = current.step.parameters
             val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize, parameters.endCondition)

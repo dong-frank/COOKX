@@ -28,7 +28,9 @@ class StructuredPlaybackTest {
         restore.setContent { COOKXTheme { Box(Modifier.safeDrawingPadding()) {
             CookingScreen(recipe, Cook("r", "2026-11-17", Meal.LUNCH), false) { _, _ -> }
         } } }
-        compose.onNodeWithText("土豆 1个").assertExists()
+        compose.onNodeWithText("本步食材").assertDoesNotExist()
+        compose.onNodeWithText("土豆 1个").assertDoesNotExist()
+        compose.onNodeWithText("清洗土豆。").assertIsDisplayed()
         compose.onNodeWithText("计时 120 秒").performScrollTo().performClick()
         compose.onNodeWithText("下一步").performScrollTo().performClick()
         compose.onNodeWithText("烹饪 · 第 1 / 1 步").assertExists()
