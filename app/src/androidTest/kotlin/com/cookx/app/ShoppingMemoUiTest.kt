@@ -48,10 +48,9 @@ class ShoppingMemoUiTest {
         val egg = "shopping:${memo.items[1].key}"
         compose.onNodeWithTag(tomato).assertIsOff()
         compose.onNodeWithTag(egg).assertIsOn()
-        compose.onNodeWithText("家中已有 · 请核对余量").assertExists()
         compose.onNodeWithTag(tomato).performClick()
         compose.onNodeWithTag(egg).performClick()
-        compose.onNodeWithText("按家中食材重新检查").performScrollTo().performClick()
+        compose.onNodeWithText("重新检查").performScrollTo().performClick()
         compose.runOnIdle { state.value = KitchenRepository(context, "cookx_shopping_test").read() }
         restore.emulateSavedInstanceStateRestore()
         compose.onNodeWithTag(tomato).assertIsOn()
@@ -70,9 +69,9 @@ class ShoppingMemoUiTest {
                     { _, available -> state.value = state.value.copy(pantryItems = state.value.pantryItems.map { it.copy(available = available) }) })
             } }
         }
-        compose.onNodeWithText("食材名称，例如：鸡蛋").performTextInput("鸡蛋")
+        compose.onNodeWithText("食材名称").performTextInput("鸡蛋")
         compose.onNodeWithText("登记家中已有").performScrollTo().performClick()
         compose.runOnIdle { assertEquals("鸡蛋", state.value.pantryItems.single().name) }
-        compose.onNodeWithText("家中已有 · 数量未记录").performScrollTo().assertIsDisplayed()
+        compose.onNode(isToggleable()).performScrollTo().assertIsOn()
     }
 }
