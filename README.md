@@ -11,6 +11,7 @@
 - 录入时逐项添加食材、步骤，选择操作类型、关联本步食材和用量；可配置火候、温度、切制尺寸、完成标准与计时。
 - 支持自定义步骤和标准模板步骤；读取 JSON 中六个已确认模板。支持食材用量、可选动作、下料顺序及按需计时，具体做法保存为菜谱内副本。
 - 制作模式按两阶段顺序播放，显示操作图标、本步食材和参数；固定底栏提供上一页、计时器、下一页。计时器打开时预填步骤时长，未配置则为 1 分钟，点击开始才倒计时；切换步骤不重置运行中的计时。
+- 完成页采用“出锅啦”结果卡片，按当前家庭的该菜谱记录展示首次 NEW；首次进入完成页播放交接包中的衔接音效，同次制作不重复播放。
 - 只在完成页显示日期与餐次设置；开始制作时自动预选，完成后保存日期、餐次与心得。
 - 读取 JSON 中 33 个预设标签，支持自定义多标签，以及家庭常用标签选择和排序；首页隐藏没有菜谱的标签。
 - 点击“准备食材”打开采购便签，按食材 ID 保留进度；可与囤囤鼠的已有食材登记联动。勾选不改变库存或花费。
@@ -76,9 +77,9 @@ source scripts/android-env.sh
 ./gradlew :app:connectedDebugAndroidTest
 ```
 
-2026-11-17 已验证：Debug／Release 构建与 Lint、18 项单元测试、15 项设备用例。标签长列表测试改用滚动到目标节点后，标签组 3 项复测通过。设备全流程测试会清空调试 App 的 v3 家庭数据并使用测试家庭，请使用专用模拟器。Release 构建尚未配置正式签名。
+2026-11-17 已验证：Debug／Release 构建与 Lint、19 项单元测试、完成页及制作流程的 8 项相关设备用例。设备全流程测试会清空调试 App 的 v3 家庭数据并使用测试家庭，请使用专用模拟器。Release 构建尚未配置正式签名。
 
-当前页面：[首页](docs/screenshots/recipes.png)、[结构化详情](docs/screenshots/recipe-detail.png)、[两阶段制作](docs/screenshots/cooking-structured.png)、[计时器](docs/screenshots/cooking-timer.png)、[清空后首次启动](docs/screenshots/clean-start.png)。
+当前页面：[首页](docs/screenshots/recipes.png)、[结构化详情](docs/screenshots/recipe-detail.png)、[两阶段制作](docs/screenshots/cooking-structured.png)、[计时器](docs/screenshots/cooking-timer.png)、[清空后首次启动](docs/screenshots/clean-start.png)、[首次出锅](docs/screenshots/cooking-result-first.png)、[再次出锅](docs/screenshots/cooking-result-repeat.png)。
 
 ## 官方 Android skills
 

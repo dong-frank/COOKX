@@ -118,7 +118,7 @@ import kotlinx.serialization.Serializable
                             is Cook -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     val recipe = current.recipes.find { it.id == route.id }
-                                    if (recipe != null) CookingScreen(recipe, route, saving) { note, selection -> model.finish(recipe.id, note, selection, back) }
+                                    if (recipe != null) CookingScreen(recipe, route, saving, firstCooking = current.isFirstCooking(recipe)) { note, selection -> model.finish(recipe.id, note, selection, back) }
                                     else Text("找不到这道菜", Modifier.padding(24.dp))
                                 }
                             }
@@ -252,7 +252,7 @@ import kotlinx.serialization.Serializable
     }
 }
 
-@Composable internal fun CookingScreen(recipe: Recipe, route: Cook, busy: Boolean, finish: (String, MealSelection) -> Unit) {
+@Composable internal fun CookingScreen(recipe: Recipe, route: Cook, busy: Boolean, firstCooking: Boolean = true, finish: (String, MealSelection) -> Unit) {
     val playback = remember(recipe) { recipe.orderedSteps() }
     val initial = remember { mealAt(System.currentTimeMillis()) }
     var cookingDate by rememberSaveable { mutableStateOf(route.initialDate ?: initial.date) }
@@ -263,6 +263,7 @@ import kotlinx.serialization.Serializable
     var deadline by rememberSaveable { mutableLongStateOf(0L) }
     var remaining by remember { mutableLongStateOf(0L) }
     var note by rememberSaveable { mutableStateOf("") }
+    var completionSoundPlayed by rememberSaveable { mutableStateOf(false) }
     var timerOpen by rememberSaveable { mutableStateOf(false) }
     var timerDefault by rememberSaveable { mutableIntStateOf(60) }
     var timerCondition by rememberSaveable { mutableStateOf<String?>(null) }
@@ -293,7 +294,7 @@ import kotlinx.serialization.Serializable
         }
     }) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding).verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
-            Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+            if (step < playback.size) Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
             if (step < playback.size) {
                 val current = playback[step]
                 Text("${current.phase.label} · 第 ${current.phaseIndex} / ${current.phaseSize} 步", style = MaterialTheme.typography.headlineMedium)
@@ -311,13 +312,15 @@ import kotlinx.serialization.Serializable
                 if (details.isNotEmpty()) Text(details.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
 
             } else {
-                Text("又完成了一道家的味道", style = MaterialTheme.typography.headlineLarge)
+                Text("出锅啦", style = MaterialTheme.typography.headlineLarge, color = MaterialTheme.colorScheme.primary)
+                CookingResultCard(recipe, firstCooking)
                 MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
                 OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
                 Button(onClick = { finish(note, MealSelection(cookingDate, Meal.valueOf(mealName))) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
             }
         }
     }
+    if (step == playback.size && !busy) CookingResultSound(completionSoundPlayed) { completionSoundPlayed = true }
     if (timerOpen) CookingTimerDialog(timerDefault, timerCondition, deadline > 0L, remaining,
         dismiss = { timerOpen = false }, stop = { deadline = 0L; remaining = 0L }, start = { seconds ->
             remaining = seconds.toLong()

@@ -38,4 +38,11 @@ class TagsAndMealsTest {
         assertEquals(listOf("全部"), recipeCategories(emptyList(), listOf("素菜")))
         assertEquals(listOf("全部", "未打标签"), recipeCategories(listOf(recipes.first().copy(tags = emptyList())), listOf("家常菜")))
     }
+    @Test fun firstCookingUsesFamilyAndRecipeIdentityRatherThanName() {
+        val recipe = exampleRecipes("f").first()
+        val record = CookingRecord("r", "f", recipe.id, 1, "", "2026-11-17", Meal.DINNER)
+        assertTrue(KitchenState().isFirstCooking(recipe))
+        assertTrue(KitchenState(records = listOf(record.copy(familyId = "other"), record.copy(recipeId = "other"))).isFirstCooking(recipe))
+        assertFalse(KitchenState(records = listOf(record)).isFirstCooking(recipe))
+    }
 }

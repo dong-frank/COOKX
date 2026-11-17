@@ -48,3 +48,7 @@ fun KitchenState.recordsFor(recipeId: String) = records.filter { it.recipeId == 
 fun recipeCategories(recipes: List<Recipe>, favoriteTags: List<String>): List<String> =
     (listOf("全部") + favoriteTags.filter { tag -> recipes.any { it.matchesTag(tag) } } +
         listOf("未打标签").filter { recipes.any { recipe -> recipe.tags.isEmpty() } }).distinct()
+
+fun KitchenState.isFirstCooking(recipe: Recipe): Boolean = records.none {
+    it.familyId == recipe.familyId && it.recipeId == recipe.id
+}
