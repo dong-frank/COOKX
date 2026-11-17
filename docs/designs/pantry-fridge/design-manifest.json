@@ -33,9 +33,12 @@
     ],
     "inventoryFields": [
       "name",
-      "available"
+      "quantityText"
     ],
-    "openingTrigger": "Click either upper or lower fridge door; same opening action, no separate open button"
+    "openingTrigger": "Click upper or lower fridge door to open; click same region again to close; no separate opening/closing buttons",
+    "showUnavailable": false,
+    "showPanelTitle": false,
+    "quantitySource": "demonstration only; current App quantity storage not implemented"
   },
   "screens": [
     "screen-closed.png",
