@@ -1,0 +1,19 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="160dp" android:height="160dp" android:viewportWidth="160" android:viewportHeight="160">
+<path android:fillColor="#EEE7D9" android:pathData="M0,0h160v160h-160z"/>
+<path android:fillColor="#D8D0C0" android:pathData="M16,83a64,61 0,1 0,128 0a64,61 0,1 0,-128 0"/>
+<path android:fillColor="#FFFCF5" android:pathData="M16,78a64,61 0,1 0,128 0a64,61 0,1 0,-128 0"/>
+<path android:fillColor="#F0EDDF" android:pathData="M28,78a52,49 0,1 0,104 0a52,49 0,1 0,-104 0"/>
+<path android:fillColor="#B49371" android:pathData="M35,54Q34,35 50,35Q66,35 65,54L54,57L56,69L45,69L47,57z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M39,51Q41,39 50,39Q61,39 61,51L51,54L53,65L49,65L49,54z"/>
+<path android:fillColor="#B49371" android:pathData="M76,48Q75,29 91,29Q107,29 106,48L95,51L97,63L86,63L88,51z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M80,45Q82,33 91,33Q102,33 102,45L92,48L94,59L90,59L90,48z"/>
+<path android:fillColor="#B49371" android:pathData="M62,83Q61,64 77,64Q93,64 92,83L81,86L83,98L72,98L74,86z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M66,80Q68,68 77,68Q88,68 88,80L78,83L80,94L76,94L76,83z"/>
+<path android:fillColor="#B49371" android:pathData="M26,93Q25,74 41,74Q57,74 56,93L45,96L47,108L36,108L38,96z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M30,90Q32,78 41,78Q52,78 52,90L42,93L44,104L40,104L40,93z"/>
+<path android:fillColor="#B49371" android:pathData="M91,88Q90,69 106,69Q122,69 121,88L110,91L112,103L101,103L103,91z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M95,85Q97,73 106,73Q117,73 117,85L107,88L109,99L105,99L105,88z"/>
+<path android:fillColor="#B49371" android:pathData="M71,112Q70,93 86,93Q102,93 101,112L90,115L92,127L81,127L83,115z"/>
+<path android:fillColor="#E9DBC3" android:pathData="M75,109Q77,97 86,97Q97,97 97,109L87,112L89,123L85,123L85,112z"/>
+<path android:fillColor="#52794C" android:pathData="M52,78l14,-7 3,5 -14,7z M97,111l15,-8 3,5 -15,8z M33,64l8,-5 3,5 -8,5z"/>
+</vector>

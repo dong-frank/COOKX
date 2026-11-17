@@ -43,17 +43,17 @@ class KitchenJourneyTest {
             compose.onNode(hasScrollAction()).performScrollToNode(hasText("下次少放盐"))
             compose.onNodeWithText("下次少放盐").assertIsDisplayed()
             compose.onNodeWithText("返回").performClick()
-            compose.onNodeWithText("演示小厨房").assertIsDisplayed()
-            compose.onNodeWithText("2 道菜 · 1 次制作记录").assertIsDisplayed()
-            compose.onNodeWithText("＋ 记录一道菜").performClick()
+            compose.onNodeWithTag("recipeList").assertIsDisplayed()
+            compose.onNodeWithText("2 道菜 · 1 次制作记录").assertDoesNotExist()
+            compose.onNodeWithText("新增菜谱").performClick()
             compose.onNodeWithText("保存菜谱").performScrollTo().performClick()
             compose.onNodeWithText("请填写菜名").assertIsDisplayed()
             compose.onNodeWithText("菜名").performScrollTo().performTextInput("蒜香青菜")
             compose.onNodeWithText("食材与用量，每行一种").performScrollTo().performTextInput("青菜 1 把\n蒜 2 瓣")
             compose.onNodeWithText("制作步骤，每行一步").performScrollTo().performTextInput("洗净切好\n炒熟出锅")
             compose.onNodeWithText("保存菜谱").performScrollTo().performClick()
-            compose.waitUntil(10_000) { compose.onAllNodesWithText("3 道菜 · 1 次制作记录").fetchSemanticsNodes().isNotEmpty() }
-            compose.onNode(hasScrollAction()).performScrollToNode(hasText("蒜香青菜"))
+            compose.waitUntil(10_000) { compose.onAllNodesWithText("蒜香青菜").fetchSemanticsNodes().isNotEmpty() }
+            compose.onNodeWithTag("recipeList").performScrollToNode(hasText("蒜香青菜"))
             compose.onNodeWithText("蒜香青菜").assertIsDisplayed()
         }
     }

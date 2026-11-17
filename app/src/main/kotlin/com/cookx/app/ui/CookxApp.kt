@@ -45,8 +45,11 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
         contentWindowInsets = WindowInsets.safeDrawing,
         topBar = { TopAppBar(title = { Text("COOKX", fontWeight = FontWeight.Bold) },
             navigationIcon = { if (stack.size > 1) TextButton(onClick = back) { Text("返回") } },
-            actions = { Text("让每一餐，留下经验", style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(end = 16.dp)) }) },
+            actions = {
+                if (stack.lastOrNull() == Home && state?.family != null) {
+                    TextButton(onClick = { stack.add(NewRecipe) }) { Text("新增菜谱") }
+                }
+            }) },
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding).consumeWindowInsets(padding),
             horizontalAlignment = Alignment.CenterHorizontally) {
@@ -70,7 +73,7 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
                             Home -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     HomeScreen(current, saving, model::addExamples,
-                                        { stack.add(Detail(it)) }, { stack.add(NewRecipe) })
+                                        { stack.add(Detail(it)) })
                                 }
                             }
                             NewRecipe -> NavEntry(route) {
@@ -127,53 +130,28 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
 }
 
 @Composable private fun HomeScreen(state: KitchenState, busy: Boolean, examples: () -> Unit,
-    open: (String) -> Unit, add: () -> Unit) {
+    open: (String) -> Unit) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
-        LazyColumn(Modifier.weight(1f).fillMaxWidth(), contentPadding = PaddingValues(22.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)) {
-            item {
-                Text(state.family!!.name, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-                Spacer(Modifier.height(8.dp))
-                Text(listOf("我们家的菜谱", "家庭小厨房", "囤囤鼠", "厨房助手")[tab],
-                    style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-            }
-            when (tab) {
-                0 -> {
+        Box(Modifier.weight(1f).fillMaxWidth()) {
+            if (tab == 0) {
+                RecipeBrowser(state.recipes, busy, examples, open)
+            } else {
+                LazyColumn(contentPadding = PaddingValues(22.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     item {
-                        Text("${state.recipes.size} 道菜 · ${state.records.size} 次制作记录", color = MaterialTheme.colorScheme.onSurfaceVariant)
-                        Spacer(Modifier.height(14.dp))
-                        Button(onClick = add) { Text("＋ 记录一道菜") }
+                        Text(state.family!!.name, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+                        Spacer(Modifier.height(8.dp))
+                        Text(listOf("", "家庭小厨房", "囤囤鼠", "厨房助手")[tab],
+                            style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
                     }
-                    if (state.recipes.isEmpty()) item {
-                        Section("给家的味道留个位置", "先记下一道拿手菜，或加入两道示例菜谱，体验分步制作。") {
-                            OutlinedButton(onClick = examples, enabled = !busy) { Text("加入示例菜谱") }
-                        }
-                    }
-                    items(state.recipes, key = { it.id }) { recipe ->
-                        Card(onClick = { open(recipe.id) }, modifier = Modifier.fillMaxWidth(),
-                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow)) {
-                            Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-                                Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.primaryContainer) {
-                                    Text(if (recipe.name.contains("蛋")) "番茄\n炒蛋" else "家常\n好菜",
-                                        modifier = Modifier.padding(18.dp), fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onPrimaryContainer)
-                                }
-                                Spacer(Modifier.width(18.dp))
-                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                    Text(recipe.name, style = MaterialTheme.typography.titleLarge)
-                                    Text("${recipe.ingredients.size} 种食材 · ${recipe.steps.size} 个步骤", style = MaterialTheme.typography.bodyMedium)
-                                    Text(state.lastCooked(recipe.id)?.let { "上次制作 ${date(it)}" } ?: "还没有制作记录",
-                                        style = MaterialTheme.typography.labelSmall)
-                                    if (recipe.isExample) Text("示例菜谱", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.primary)
-                                }
-                            }
+                    item {
+                        when (tab) {
+                            1 -> Section("家庭共用一本菜谱", "当前家庭：${state.family!!.name}\n菜谱与制作记录归属于这个家庭，数据目前仅保存在此设备。\n\n邀请码、账号与多人协作将在后续接入。") {}
+                            2 -> Section("冰箱有数，做饭有底", "这里将记录采购花费、食材余量与调料情况。\n\n库存精度和扣减方式仍待讨论，当前尚未开放录入。") {}
+                            3 -> Section("从经验，到自己的配方", "未来协助整理帖子、替换食材与调料，回顾一天的饮食。\n\n尚未接入模型、小红书读取或健康分析。") {}
                         }
                     }
                 }
-                1 -> item { Section("家庭共用一本菜谱", "当前家庭：${state.family!!.name}\n菜谱与制作记录归属于这个家庭，数据目前仅保存在此设备。\n\n邀请码、账号与多人协作将在后续接入。") {} }
-                2 -> item { Section("冰箱有数，做饭有底", "这里将记录采购花费、食材余量与调料情况。\n\n库存精度和扣减方式仍待讨论，当前尚未开放录入。") {} }
-                3 -> item { Section("从经验，到自己的配方", "未来协助整理帖子、替换食材与调料，回顾一天的饮食。\n\n尚未接入模型、小红书读取或健康分析。") {} }
             }
         }
         NavigationBar {
@@ -218,17 +196,19 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
 @Composable private fun RecipeEditor(familyId: String, busy: Boolean, save: (Recipe) -> Unit) {
     var name by rememberSaveable { mutableStateOf("") }
     var ingredients by rememberSaveable { mutableStateOf("") }
+    var category by rememberSaveable { mutableStateOf("家常菜") }
     var steps by rememberSaveable { mutableStateOf("") }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         Text("记下一道拿手菜", style = MaterialTheme.typography.headlineMedium)
         Text("写入家庭共用的菜谱，之后可以随时开始制作。")
         OutlinedTextField(name, { name = it }, label = { Text("菜名") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
+        OutlinedTextField(category, { category = it }, label = { Text("分类") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
         OutlinedTextField(ingredients, { ingredients = it }, label = { Text("食材与用量，每行一种") }, modifier = Modifier.fillMaxWidth(), minLines = 3)
         OutlinedTextField(steps, { steps = it }, label = { Text("制作步骤，每行一步") }, modifier = Modifier.fillMaxWidth(), minLines = 4)
         error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         Button(onClick = {
-            runCatching { recipeDraft(familyId, name, ingredients, steps) }
+            runCatching { recipeDraft(familyId, name, ingredients, steps, category) }
                 .onSuccess { error = null; save(it) }.onFailure { error = it.message }
         }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存菜谱") }
     }
