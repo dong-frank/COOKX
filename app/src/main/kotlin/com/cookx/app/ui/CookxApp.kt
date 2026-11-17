@@ -282,7 +282,7 @@ import kotlinx.serialization.Serializable
                     style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             val parameters = current.step.parameters
-            val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize, parameters.endCondition)
+            val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize)
             if (details.isNotEmpty()) Text(details.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
             current.step.timer?.let { timer ->
                 OutlinedButton(onClick = { deadline = System.currentTimeMillis() + timer.durationSeconds * 1000L }) {
