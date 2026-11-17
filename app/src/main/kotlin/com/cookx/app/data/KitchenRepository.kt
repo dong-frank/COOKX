@@ -1,28 +1,20 @@
 package com.cookx.app.data
 
 import android.content.Context
-import com.cookx.app.domain.KitchenState
-import com.cookx.app.domain.migrateKitchen
+import com.cookx.app.domain.*
 import kotlinx.serialization.json.Json
 
-/** Local starter storage. Replace behind this boundary when persistence/sync requirements are agreed. */
-class KitchenRepository(context: Context, storageName: String = "cookx_kitchen_v1") {
+class KitchenRepository(context: Context, storageName: String = "cookx_kitchen_v3") {
+    private val presets = PresetRepository(context)
     private val preferences = context.getSharedPreferences(storageName, Context.MODE_PRIVATE)
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true }
     fun read(): KitchenState {
-        val raw = preferences.getString("state", null) ?: return KitchenState(schemaVersion = 2)
-        val old = json.decodeFromString<KitchenState>(raw)
-        val migrated = migrateKitchen(old)
-        if (migrated != old) {
-            val editor = preferences.edit()
-            if (!preferences.contains("state_backup_before_tags_meals")) editor.putString("state_backup_before_tags_meals", raw)
-            check(editor.putString("state", json.encodeToString(migrated)).commit()) { "旧数据升级保存失败，原数据已保留" }
-        }
-        return migrated
+        val raw = preferences.getString("state", null)
+        return (raw?.let { json.decodeFromString<KitchenState>(it) } ?: KitchenState())
+            .copy(presetTags = presets.tags.map { it.name }).also(::validateKitchen)
     }
     fun write(state: KitchenState) {
-        check(preferences.edit().putString("state", json.encodeToString(state)).commit()) {
-            "保存失败，请重试"
-        }
+        validateKitchen(state)
+        check(preferences.edit().putString("state", json.encodeToString(state)).commit()) { "保存失败，请重试" }
     }
 }

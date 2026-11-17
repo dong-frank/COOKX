@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.cookx.app.domain.exampleRecipes
+import androidx.compose.runtime.mutableStateOf
 import com.cookx.app.ui.RecipeBrowser
 import com.cookx.app.ui.theme.COOKXTheme
 import org.junit.Assert.assertEquals
@@ -33,9 +34,21 @@ class RecipeBrowserTest {
         compose.onNodeWithText("素菜").assertIsSelected()
         compose.onNodeWithText("清炒口蘑").performClick()
         assertEquals("example-mushrooms", opened)
-        compose.onNodeWithText("汤羹").performClick()
-        compose.onNodeWithText("这个标签还没有菜谱").assertIsDisplayed()
+        compose.onNodeWithText("汤羹").assertDoesNotExist()
+        compose.onNodeWithText("未打标签").assertDoesNotExist()
         compose.onNodeWithText("全部").performClick()
         compose.onNodeWithText("番茄炒蛋").assertIsDisplayed()
+    }
+    @Test fun selectedTagDisappearingFallsBackToAll() {
+        val recipes = mutableStateOf(exampleRecipes("f"))
+        compose.setContent { COOKXTheme { RecipeBrowser(recipes.value, false, {}, {}, listOf("素菜", "快手菜")) } }
+        compose.onNodeWithText("素菜").performClick()
+        compose.runOnIdle { recipes.value = recipes.value.filterNot { "素菜" in it.tags } }
+        compose.onNodeWithText("素菜").assertDoesNotExist()
+        compose.onNodeWithText("全部").assertIsSelected()
+        compose.onNodeWithText("番茄炒蛋").assertIsDisplayed()
+        compose.runOnIdle { recipes.value = recipes.value.map { it.copy(tags = emptyList()) } }
+        compose.onNodeWithText("快手菜").assertDoesNotExist()
+        compose.onNodeWithText("未打标签").assertIsDisplayed()
     }
 }

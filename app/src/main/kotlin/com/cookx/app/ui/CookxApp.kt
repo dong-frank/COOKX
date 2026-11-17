@@ -78,7 +78,7 @@ import kotlinx.serialization.Serializable
                             }
                             NewRecipe -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
-                                    RecipeEditor(requireNotNull(current.family).id, current.availableTags(), saving) { recipe -> model.addRecipe(recipe, back) }
+                                    StructuredRecipeEditor(requireNotNull(current.family).id, current.availableTags(), saving) { recipe -> model.addRecipe(recipe, back) }
                                 }
                             }
                             TagSettings -> NavEntry(route) {
@@ -148,8 +148,6 @@ import kotlinx.serialization.Serializable
         Button(onClick = { create(name) }, enabled = name.isNotBlank() && !busy, modifier = Modifier.fillMaxWidth()) {
             Text(if (busy) "正在创建…" else "创建我的家庭")
         }
-        Text("当前版本保存在本机。邀请码加入与多成员同步尚未接入。",
-            style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 
@@ -218,12 +216,22 @@ import kotlinx.serialization.Serializable
                         Text("准备食材", Modifier.weight(1f), style = MaterialTheme.typography.titleMedium)
                         Text("采购便签 ›", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
                     }
-                    Text(recipe.ingredients.joinToString("\n"), style = MaterialTheme.typography.bodyMedium)
+                    Text(recipe.ingredients.joinToString("\n") { it.displayText() }, style = MaterialTheme.typography.bodyMedium)
                 }
             }
         }
-        item { Text("做法预览", style = MaterialTheme.typography.titleMedium) }
-        items(recipe.steps.size) { index -> Text("${index + 1}. ${recipe.steps[index]}", style = MaterialTheme.typography.bodyMedium) }
+        recipe.phases.forEach { phase ->
+            item { Text(phase.type.label, style = MaterialTheme.typography.titleMedium) }
+            items(phase.steps, key = { it.id }) { step ->
+                Row(verticalAlignment = Alignment.Top) {
+                    OperationBadge(step.operationType)
+                    Column(Modifier.weight(1f).padding(start = 12.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Text(step.title, style = MaterialTheme.typography.titleSmall)
+                        Text(step.description, style = MaterialTheme.typography.bodyMedium)
+                    }
+                }
+            }
+        }
         item { Text("制作记录", style = MaterialTheme.typography.titleMedium) }
         val records = state.recordsFor(recipe.id)
         if (records.isEmpty()) item {
@@ -241,28 +249,8 @@ import kotlinx.serialization.Serializable
     }
 }
 
-@Composable private fun RecipeEditor(familyId: String, availableTags: List<String>, busy: Boolean, save: (Recipe) -> Unit) {
-    var name by rememberSaveable { mutableStateOf("") }
-    var ingredients by rememberSaveable { mutableStateOf("") }
-    var selectedTags by rememberSaveable { mutableStateOf(arrayListOf<String>()) }
-    var steps by rememberSaveable { mutableStateOf("") }
-    var error by rememberSaveable { mutableStateOf<String?>(null) }
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
-        Text("记下一道拿手菜", style = MaterialTheme.typography.headlineMedium)
-        Text("写入家庭共用的菜谱，之后可以随时开始制作。")
-        OutlinedTextField(name, { name = it }, label = { Text("菜名") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-        TagSelector(availableTags, selectedTags) { selectedTags = ArrayList(it) }
-        OutlinedTextField(ingredients, { ingredients = it }, label = { Text("食材与用量，每行一种") }, modifier = Modifier.fillMaxWidth(), minLines = 3)
-        OutlinedTextField(steps, { steps = it }, label = { Text("制作步骤，每行一步") }, modifier = Modifier.fillMaxWidth(), minLines = 4)
-        error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
-        Button(onClick = {
-            runCatching { recipeDraft(familyId, name, ingredients, steps, selectedTags) }
-                .onSuccess { error = null; save(it) }.onFailure { error = it.message }
-        }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存菜谱") }
-    }
-}
-
 @Composable internal fun CookingScreen(recipe: Recipe, route: Cook, busy: Boolean, finish: (String, MealSelection) -> Unit) {
+    val playback = remember(recipe) { recipe.orderedSteps() }
     val initial = remember { mealAt(System.currentTimeMillis()) }
     var cookingDate by rememberSaveable { mutableStateOf(route.initialDate ?: initial.date) }
     var mealName by rememberSaveable { mutableStateOf((route.initialMeal ?: initial.meal).name) }
@@ -281,31 +269,41 @@ import kotlinx.serialization.Serializable
     }
     Column(Modifier.fillMaxSize().verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
         Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
-        if (step < recipe.steps.size) {
-            Text("第 ${step + 1} / ${recipe.steps.size} 步", style = MaterialTheme.typography.headlineMedium)
-            LinearProgressIndicator(progress = { (step + 1f) / recipe.steps.size }, modifier = Modifier.fillMaxWidth())
-            Text(recipe.steps[step], style = MaterialTheme.typography.headlineLarge)
-            Section("厨房计时器", when {
-                deadline == 0L -> "手动开启，切换步骤仍会继续"
-                remaining == 0L -> "时间到，请检查锅中的食材"
-                else -> "%02d:%02d".format(remaining / 60, remaining % 60)
-            }) {
-                Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                    OutlinedButton(onClick = { deadline = System.currentTimeMillis() + 60_000 }) { Text("计时 1 分钟") }
-                    if (deadline != 0L) TextButton(onClick = { deadline = 0L; remaining = 0 }) { Text("取消计时") }
+        if (step < playback.size) {
+            val current = playback[step]
+            Text("${current.phase.label} · 第 ${current.phaseIndex} / ${current.phaseSize} 步", style = MaterialTheme.typography.headlineMedium)
+            LinearProgressIndicator(progress = { (step + 1f) / playback.size }, modifier = Modifier.fillMaxWidth())
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                OperationBadge(current.step.operationType, 56.dp)
+                Text(current.step.title, Modifier.padding(start = 14.dp).weight(1f), style = MaterialTheme.typography.headlineMedium)
+            }
+            Text(current.step.description, style = MaterialTheme.typography.bodyLarge)
+            if (current.step.ingredients.isNotEmpty()) {
+                Section("本步食材", current.step.ingredients.joinToString("\n") { it.displayText(recipe.ingredients) }) {}
+            }
+            val parameters = current.step.parameters
+            val details = listOfNotNull(parameters.heat, parameters.temperature, parameters.cutSize, parameters.endCondition)
+            if (details.isNotEmpty()) Text(details.joinToString(" · "), style = MaterialTheme.typography.bodyMedium)
+            current.step.timer?.let { timer ->
+                OutlinedButton(onClick = { deadline = System.currentTimeMillis() + timer.durationSeconds * 1000L }) {
+                    Text("计时 ${timer.durationSeconds} 秒")
+                }
+                Text(timer.startCondition, style = MaterialTheme.typography.bodyMedium)
+            }
+            if (deadline != 0L) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(if (remaining == 0L) "时间到" else "%02d:%02d".format(remaining / 60, remaining % 60), style = MaterialTheme.typography.titleLarge)
+                    TextButton(onClick = { deadline = 0L; remaining = 0L }) { Text("取消计时") }
                 }
             }
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 OutlinedButton(onClick = { step-- }, enabled = step > 0, modifier = Modifier.weight(1f)) { Text("上一步") }
-                Button(onClick = { step++ }, modifier = Modifier.weight(1f)) { Text(if (step == recipe.steps.lastIndex) "完成步骤" else "下一步") }
+                Button(onClick = { step++ }, modifier = Modifier.weight(1f)) { Text(if (step == playback.lastIndex) "完成步骤" else "下一步") }
             }
-            Text("离开做菜页面后不提供后台计时通知。", style = MaterialTheme.typography.bodySmall)
         } else {
             Text("又完成了一道家的味道", style = MaterialTheme.typography.headlineLarge)
             MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
-            Text("记下这次的口味、难度，或下次想调整的地方。")
             OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
-            Text("照片上传与独立评分项将在后续接入。", style = MaterialTheme.typography.bodySmall)
             Button(onClick = { finish(note, MealSelection(cookingDate, Meal.valueOf(mealName))) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
             TextButton(onClick = { step-- }) { Text("回看最后一步") }
         }

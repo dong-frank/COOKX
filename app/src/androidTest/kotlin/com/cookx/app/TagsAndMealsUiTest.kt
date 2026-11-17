@@ -9,6 +9,8 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.junit4.StateRestorationTester
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.cookx.app.domain.*
+import com.cookx.app.data.PresetRepository
+import androidx.test.platform.app.InstrumentationRegistry
 import com.cookx.app.ui.*
 import com.cookx.app.ui.theme.COOKXTheme
 import org.junit.Assert.*
@@ -23,7 +25,7 @@ class TagsAndMealsUiTest {
         var saved: List<String>? = null
         compose.setContent {
             COOKXTheme { Box(Modifier.safeDrawingPadding()) {
-                RecipeTagsEditor(exampleRecipes("f").first(), PRESET_TAGS, false) { saved = it }
+                RecipeTagsEditor(exampleRecipes("f").first(), PresetRepository(InstrumentationRegistry.getInstrumentation().targetContext).tags.map { it.name }, false) { saved = it }
             } }
         }
         compose.onNodeWithText("川菜").performScrollTo().performClick()
@@ -35,7 +37,7 @@ class TagsAndMealsUiTest {
         assertEquals(listOf("素菜", "快手菜"), exampleRecipes("f")[1].tags)
     }
     @Test fun familyCanReorderAndHideFavoriteTags() {
-        val kitchen = mutableStateOf(KitchenState(favoriteTags = listOf("快手菜", "川菜")))
+        val kitchen = mutableStateOf(KitchenState(favoriteTags = listOf("快手菜", "川菜"), presetTags = PresetRepository(InstrumentationRegistry.getInstrumentation().targetContext).tags.map { it.name }))
         compose.setContent {
             COOKXTheme { Box(Modifier.safeDrawingPadding()) {
                 FamilyTagSettings(kitchen.value, false, {}, { kitchen.value = kitchen.value.copy(favoriteTags = it) })
@@ -43,7 +45,8 @@ class TagsAndMealsUiTest {
         }
         compose.onNodeWithTag("moveUp:川菜").performScrollTo().performClick()
         compose.runOnIdle { assertEquals(listOf("川菜", "快手菜"), kitchen.value.favoriteTags) }
-        compose.onNodeWithTag("favorite:川菜").performScrollTo().performClick()
+        compose.onNode(hasScrollAction()).performScrollToNode(hasTestTag("favorite:川菜"))
+        compose.onNodeWithTag("favorite:川菜").performClick()
         compose.runOnIdle { assertEquals(listOf("快手菜"), kitchen.value.favoriteTags) }
     }
     @Test fun chosenMealAndDateSurviveStepsAndStateRestoration() {
@@ -59,9 +62,9 @@ class TagsAndMealsUiTest {
         compose.onNodeWithTag("meal:DINNER").assertDoesNotExist()
         compose.onNodeWithText("下一步").performScrollTo().performClick()
         restore.emulateSavedInstanceStateRestore()
-        compose.onNodeWithText("第 2 / 3 步").assertExists()
+        compose.onNodeWithText("备菜 · 第 2 / 2 步").assertExists()
         compose.onNodeWithTag("cookingDate").assertDoesNotExist()
-        compose.onNodeWithText("下一步").performScrollTo().performClick()
+        repeat(3) { compose.onNodeWithText("下一步").performScrollTo().performClick() }
         compose.onNodeWithText("完成步骤").performScrollTo().performClick()
         compose.onNodeWithText("制作日期：2026-11-16").assertExists()
         compose.onNodeWithTag("meal:DINNER").assertIsSelected()

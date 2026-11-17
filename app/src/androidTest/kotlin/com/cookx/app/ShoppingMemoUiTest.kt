@@ -26,7 +26,7 @@ class ShoppingMemoUiTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val repository = KitchenRepository(context, "cookx_shopping_test")
         val recipe = exampleRecipes("f").first()
-        val initial = KitchenState(family = Family("f", "测试家庭"), recipes = listOf(recipe), schemaVersion = 2,
+        val initial = KitchenState(family = Family("f", "测试家庭"), recipes = listOf(recipe), schemaVersion = CURRENT_SCHEMA_VERSION,
             pantryItems = listOf(PantryItem("egg", "f", "鸡蛋")))
         val memo = prepareShoppingMemo(recipe, initial.pantryItems)
         repository.write(initial.copy(shoppingMemos = listOf(memo)))
@@ -55,7 +55,7 @@ class ShoppingMemoUiTest {
         restore.emulateSavedInstanceStateRestore()
         compose.onNodeWithTag(tomato).assertIsOn()
         compose.onNodeWithTag(egg).assertIsOff()
-        compose.onNodeWithText("已准备 1 / 3").assertExists()
+        compose.onNodeWithText("已准备 1 / 4").assertExists()
         val saved = KitchenRepository(context, "cookx_shopping_test").read()
         assertEquals(initial.pantryItems, saved.pantryItems)
         assertEquals(initial.records, saved.records)

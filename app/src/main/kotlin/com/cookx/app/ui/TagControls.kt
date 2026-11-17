@@ -48,7 +48,6 @@ import com.cookx.app.domain.*
     LazyColumn(contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         item {
             Text("家庭常用标签", style = MaterialTheme.typography.headlineMedium)
-            Text("勾选要显示在首页左侧的标签，用上移、下移调整顺序。", Modifier.padding(top = 12.dp))
         }
         items(state.favoriteTags, key = { "favorite:$it" }) { tag ->
             val index = state.favoriteTags.indexOf(tag)

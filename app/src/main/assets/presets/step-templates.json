@@ -1,0 +1,838 @@
+{
+  "version": 1,
+  "templates": [
+    {
+      "id": "marinate-meat-strips",
+      "version": 1,
+      "name": "肉丝腌制",
+      "operationType": "marinate",
+      "suggestedStage": "preparation",
+      "stageEditable": true,
+      "scope": "后续用于炒制的肉丝",
+      "precondition": "肉已切丝，放入容器；切肉丝作为独立的前置步骤。",
+      "completionState": "已完成腌制，等待后续烹饪；不代表肉已熟。",
+      "parameters": [
+        {
+          "id": "meat",
+          "name": "肉类及本步用量",
+          "type": "ingredient-use",
+          "required": true,
+          "quantityRequired": true,
+          "allowAll": true,
+          "default": null
+        },
+        {
+          "id": "seasonings",
+          "name": "调味料及各自用量",
+          "type": "ingredient-use-list",
+          "required": true,
+          "editableItems": true,
+          "quantityRequired": true,
+          "default": null
+        },
+        {
+          "id": "addLiquid",
+          "name": "是否打水",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        },
+        {
+          "id": "liquid",
+          "name": "打水用液体及总量",
+          "type": "ingredient-use",
+          "enabledWhen": {
+            "parameter": "addLiquid",
+            "equals": true
+          },
+          "requiredWhenEnabled": true,
+          "quantityRequired": true,
+          "default": null
+        },
+        {
+          "id": "starch",
+          "name": "淀粉及用量",
+          "type": "ingredient-use",
+          "required": true,
+          "quantityRequired": true,
+          "default": null
+        },
+        {
+          "id": "addOil",
+          "name": "是否拌油",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        },
+        {
+          "id": "oil",
+          "name": "食用油及用量",
+          "type": "ingredient-use",
+          "enabledWhen": {
+            "parameter": "addOil",
+            "equals": true
+          },
+          "requiredWhenEnabled": true,
+          "quantityRequired": true,
+          "default": null
+        },
+        {
+          "id": "durationMinutes",
+          "name": "腌制时长",
+          "type": "duration",
+          "unit": "minute",
+          "required": false,
+          "default": null
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "examples": [
+          "克",
+          "毫升",
+          "勺",
+          "适量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "season",
+          "name": "调味",
+          "uses": [
+            "meat",
+            "seasonings"
+          ],
+          "instruction": "向肉丝中加入所选调味料，抓拌均匀。"
+        },
+        {
+          "id": "hydrate",
+          "name": "打水",
+          "enabledWhen": {
+            "parameter": "addLiquid",
+            "equals": true
+          },
+          "uses": [
+            "liquid"
+          ],
+          "instruction": "将所选液体少量分次加入，每次抓拌至看不到明显游离液体后，再加下一次。"
+        },
+        {
+          "id": "coat-with-starch",
+          "name": "上浆",
+          "uses": [
+            "starch"
+          ],
+          "instruction": "加入淀粉，抓拌至肉丝表面均匀裹浆。"
+        },
+        {
+          "id": "mix-oil",
+          "name": "拌油",
+          "enabledWhen": {
+            "parameter": "addOil",
+            "equals": true
+          },
+          "uses": [
+            "oil"
+          ],
+          "instruction": "加入食用油，轻轻拌匀。"
+        },
+        {
+          "id": "rest",
+          "name": "静置",
+          "uses": [
+            "durationMinutes"
+          ],
+          "instruction": "静置腌制 {durationMinutes} 分钟。",
+          "instructionWhenDurationMissing": "静置腌制。"
+        }
+      ],
+      "timer": {
+        "durationParameter": "durationMinutes",
+        "availableAtAction": "rest",
+        "startMode": "manual",
+        "omitWhenDurationMissing": true
+      },
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量和调味料可按具体菜谱调整，不提供通用默认配方或时长。",
+        "打水和拌油是可选动作；上浆为本模板固定流程。",
+        "不默认加入小苏打或蛋清，后续需要时另行讨论。",
+        "改变操作顺序或主要手法时，再考虑另一种模板。"
+      ],
+      "researchSources": [
+        {
+          "url": "https://www.xiaohongshu.com/explore/6a5ae0fc000000000101c491",
+          "basis": "正文中的调味、分次打水、上浆和拌油流程"
+        },
+        {
+          "url": "https://www.xiaohongshu.com/explore/6aab521f000000000b000f67",
+          "basis": "正文中具体菜谱的腌制流程和用量参数示例"
+        }
+      ],
+      "sourceNote": "参考来源辅助讨论；本模板为用户确认的整理方案，不表示原帖对本模板全部内容作出说明，也不将原帖的原理解释或固定配方视为通用结论。"
+    },
+    {
+      "id": "cut-roll",
+      "version": 1,
+      "name": "切滚刀块",
+      "operationType": "cut",
+      "suggestedStage": "preparation",
+      "stageEditable": true,
+      "scope": "胡萝卜、白萝卜等适合滚动切块的食材",
+      "precondition": "食材已按菜谱要求清洗、去皮等处理。",
+      "completionState": "切成大小接近的滚刀块。",
+      "parameters": [
+        {
+          "id": "main",
+          "name": "食材及本步用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "allowAll": true
+        },
+        {
+          "id": "size",
+          "name": "块大小",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "小块",
+            "大块",
+            "约3厘米"
+          ]
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "position",
+          "name": "放稳食材",
+          "uses": [
+            "main"
+          ],
+          "instruction": "将处理好的食材放稳，斜切下一块。"
+        },
+        {
+          "id": "rotate-cut",
+          "name": "转动后斜切",
+          "uses": [
+            "main"
+          ],
+          "instruction": "停刀，沿食材长轴转动一定角度，再斜切下一块。"
+        },
+        {
+          "id": "repeat",
+          "name": "重复切制",
+          "uses": [
+            "main",
+            "size"
+          ],
+          "instruction": "重复切制，调整下刀间距，使各块大小接近。"
+        }
+      ],
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量、尺寸等按具体菜谱配置，允许粗略或原文表达，不提供通用固定数值。",
+        "清洗、去皮以及切后浸泡或冲洗按菜谱需要独立安排。"
+      ],
+      "sourceNote": "依据本对话中用户确认的讨论稿保存；不是对来源帖子的逐字转录。"
+    },
+    {
+      "id": "cut-uniform",
+      "version": 1,
+      "name": "切均匀块",
+      "operationType": "cut",
+      "suggestedStage": "preparation",
+      "stageEditable": true,
+      "scope": "土豆等需要切成大小接近块状的食材",
+      "precondition": "食材已按菜谱要求清洗、去皮等处理。",
+      "completionState": "切成大小、厚度接近的块，不要求标准正方体。",
+      "parameters": [
+        {
+          "id": "main",
+          "name": "食材及本步用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "allowAll": true
+        },
+        {
+          "id": "size",
+          "name": "块大小",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "一口大小",
+            "约2厘米"
+          ]
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "position",
+          "name": "放稳食材",
+          "uses": [
+            "main"
+          ],
+          "instruction": "将处理好的食材放稳；圆形食材可先切出一个平面，平面朝下。"
+        },
+        {
+          "id": "cut",
+          "name": "切块",
+          "uses": [
+            "main",
+            "size"
+          ],
+          "instruction": "切成大小、厚度接近的块。"
+        }
+      ],
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量、尺寸等按具体菜谱配置，允许粗略或原文表达，不提供通用固定数值。",
+        "清洗、去皮以及切后浸泡或冲洗按菜谱需要独立安排。"
+      ],
+      "sourceNote": "依据本对话中用户确认的讨论稿保存；不是对来源帖子的逐字转录。"
+    },
+    {
+      "id": "meat-blanch-cold",
+      "version": 1,
+      "name": "肉类焯水",
+      "operationType": "blanch",
+      "suggestedStage": "preparation",
+      "stageEditable": true,
+      "scope": "准备继续炖煮的肉块，如排骨、牛腩；本版仅采用冷水下锅流程。",
+      "precondition": "肉已按具体菜谱处理成块。",
+      "completionState": "完成焯水，等待继续烹饪；不代表肉已熟。",
+      "parameters": [
+        {
+          "id": "meat",
+          "name": "肉类及本步用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "allowAll": true
+        },
+        {
+          "id": "water",
+          "name": "冷水及用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "quantityExamples": [
+            "没过食材",
+            "适量"
+          ]
+        },
+        {
+          "id": "aromatics",
+          "name": "辅料及用量",
+          "type": "ingredient-use-list",
+          "required": false,
+          "default": null,
+          "editableItems": true,
+          "quantityRequired": false,
+          "emptyListAllowed": true
+        },
+        {
+          "id": "heat",
+          "name": "火力",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "中火",
+            "大火"
+          ]
+        },
+        {
+          "id": "durationMinutes",
+          "name": "焯水时长",
+          "type": "duration",
+          "required": false,
+          "default": null,
+          "unit": "minute"
+        },
+        {
+          "id": "timerStart",
+          "name": "计时起点",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "requiredWhen": {
+            "parameter": "durationMinutes",
+            "isSet": true
+          },
+          "examples": [
+            "水沸后"
+          ]
+        },
+        {
+          "id": "target",
+          "name": "观察要求",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "撇去浮沫"
+          ]
+        },
+        {
+          "id": "rinseWarm",
+          "name": "捞出后是否用温水清理",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "cold-start",
+          "name": "冷水下锅",
+          "uses": [
+            "meat",
+            "water"
+          ],
+          "instruction": "将肉块放入锅中，加入冷水。"
+        },
+        {
+          "id": "add-aromatics",
+          "name": "加入辅料",
+          "uses": [
+            "aromatics"
+          ],
+          "instruction": "加入辅料。",
+          "omitWhenEmpty": "aromatics"
+        },
+        {
+          "id": "heat-skim",
+          "name": "加热撇沫",
+          "uses": [
+            "heat"
+          ],
+          "instruction": "加热，随浮沫出现撇去浮沫。"
+        },
+        {
+          "id": "blanch",
+          "name": "继续焯水",
+          "uses": [
+            "durationMinutes",
+            "timerStart",
+            "target"
+          ],
+          "instruction": "继续焯水。"
+        },
+        {
+          "id": "drain",
+          "name": "捞出",
+          "uses": [],
+          "instruction": "捞出肉块。"
+        },
+        {
+          "id": "rinse",
+          "name": "温水清理",
+          "uses": [],
+          "instruction": "用温水清理肉块表面残留浮沫。",
+          "enabledWhen": {
+            "parameter": "rinseWarm",
+            "equals": true
+          }
+        }
+      ],
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量、尺寸等按具体菜谱配置，允许粗略或原文表达，不提供通用固定数值。"
+      ],
+      "timer": {
+        "durationParameter": "durationMinutes",
+        "availableAtAction": "blanch",
+        "startMode": "manual",
+        "omitWhenDurationMissing": true,
+        "startConditionParameter": "timerStart"
+      },
+      "sourceNote": "依据本对话中用户确认的讨论稿保存；不是对来源帖子的逐字转录。"
+    },
+    {
+      "id": "broccoli-blanch",
+      "version": 1,
+      "name": "西兰花焯水",
+      "operationType": "blanch",
+      "suggestedStage": "preparation",
+      "stageEditable": true,
+      "scope": "西兰花焯水，按后续炒制或凉拌需要设置时长和目标状态。",
+      "precondition": "西兰花已分成小朵并洗净。",
+      "completionState": "已捞出沥干；如选择过凉，则已过凉并再次沥干。",
+      "parameters": [
+        {
+          "id": "broccoli",
+          "name": "西兰花及本步用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "allowAll": true
+        },
+        {
+          "id": "water",
+          "name": "水及用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false,
+          "quantityExamples": [
+            "适量"
+          ]
+        },
+        {
+          "id": "addSalt",
+          "name": "是否加盐",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        },
+        {
+          "id": "salt",
+          "name": "盐及用量",
+          "type": "ingredient-use",
+          "required": false,
+          "default": null,
+          "quantityRequired": false,
+          "enabledWhen": {
+            "parameter": "addSalt",
+            "equals": true
+          },
+          "requiredWhenEnabled": true
+        },
+        {
+          "id": "addOil",
+          "name": "是否加食用油",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        },
+        {
+          "id": "oil",
+          "name": "食用油及用量",
+          "type": "ingredient-use",
+          "required": false,
+          "default": null,
+          "quantityRequired": false,
+          "enabledWhen": {
+            "parameter": "addOil",
+            "equals": true
+          },
+          "requiredWhenEnabled": true
+        },
+        {
+          "id": "durationMinutes",
+          "name": "焯水时长",
+          "type": "duration",
+          "required": false,
+          "default": null,
+          "unit": "minute"
+        },
+        {
+          "id": "timerStart",
+          "name": "计时起点",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "requiredWhen": {
+            "parameter": "durationMinutes",
+            "isSet": true
+          },
+          "examples": [
+            "下锅后",
+            "水再次沸腾后"
+          ]
+        },
+        {
+          "id": "target",
+          "name": "目标状态",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "保留脆嫩口感"
+          ]
+        },
+        {
+          "id": "cool",
+          "name": "是否过凉",
+          "type": "boolean",
+          "required": true,
+          "default": null
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "boil-water",
+          "name": "烧水",
+          "uses": [
+            "water"
+          ],
+          "instruction": "锅中加水烧开。"
+        },
+        {
+          "id": "add-salt",
+          "name": "加盐",
+          "uses": [
+            "salt"
+          ],
+          "instruction": "加入所选用量的盐。",
+          "enabledWhen": {
+            "parameter": "addSalt",
+            "equals": true
+          }
+        },
+        {
+          "id": "add-oil",
+          "name": "加油",
+          "uses": [
+            "oil"
+          ],
+          "instruction": "加入所选用量的食用油。",
+          "enabledWhen": {
+            "parameter": "addOil",
+            "equals": true
+          }
+        },
+        {
+          "id": "blanch",
+          "name": "焯水",
+          "uses": [
+            "broccoli",
+            "durationMinutes",
+            "timerStart",
+            "target"
+          ],
+          "instruction": "放入西兰花焯水。"
+        },
+        {
+          "id": "drain",
+          "name": "捞出沥干",
+          "uses": [],
+          "instruction": "捞出西兰花并沥干。"
+        },
+        {
+          "id": "cool-drain",
+          "name": "过凉沥干",
+          "uses": [],
+          "instruction": "将西兰花过凉，再次沥干。",
+          "enabledWhen": {
+            "parameter": "cool",
+            "equals": true
+          }
+        }
+      ],
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量、尺寸等按具体菜谱配置，允许粗略或原文表达，不提供通用固定数值。",
+        "盐、食用油和过凉均按具体菜谱选择，不默认添加盐或油。"
+      ],
+      "timer": {
+        "durationParameter": "durationMinutes",
+        "availableAtAction": "blanch",
+        "startMode": "manual",
+        "omitWhenDurationMissing": true,
+        "startConditionParameter": "timerStart"
+      },
+      "sourceNote": "依据本对话中用户确认的讨论稿保存；不是对来源帖子的逐字转录。"
+    },
+    {
+      "id": "aromatics-saute",
+      "version": 1,
+      "name": "葱姜蒜爆香",
+      "operationType": "saute-aromatics",
+      "suggestedStage": "cooking",
+      "stageEditable": true,
+      "scope": "使用所选香料进行爆香，不要求葱、姜、蒜全部使用。",
+      "precondition": "所需香料已按具体菜谱切好。",
+      "completionState": "香味释放、尚未焦糊，进入后续步骤。",
+      "parameters": [
+        {
+          "id": "aromatics",
+          "name": "香料及各自用量",
+          "type": "ingredient-use-list",
+          "required": true,
+          "default": null,
+          "editableItems": true,
+          "quantityRequired": false
+        },
+        {
+          "id": "oil",
+          "name": "食用油及用量",
+          "type": "ingredient-use",
+          "required": true,
+          "default": null,
+          "quantityRequired": false
+        },
+        {
+          "id": "heat",
+          "name": "火力",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "examples": [
+            "小火",
+            "中小火"
+          ]
+        },
+        {
+          "id": "additionOrder",
+          "name": "下料顺序",
+          "type": "ingredient-order",
+          "required": true,
+          "default": null,
+          "ingredientListParameter": "aromatics",
+          "modes": [
+            "together",
+            "ordered"
+          ],
+          "modeLabels": {
+            "together": "一起下",
+            "ordered": "按所选顺序下"
+          },
+          "referenceRule": "顺序只引用本模板已选香料；每种已选香料出现一次。"
+        },
+        {
+          "id": "durationMinutes",
+          "name": "爆香时长",
+          "type": "duration",
+          "required": false,
+          "default": null,
+          "unit": "minute"
+        },
+        {
+          "id": "target",
+          "name": "目标状态",
+          "type": "text",
+          "required": false,
+          "default": null,
+          "defaultText": "出香且未焦糊"
+        }
+      ],
+      "quantityRules": {
+        "ingredientReferenceRequired": true,
+        "acceptedForms": [
+          "数量与单位",
+          "原文用量"
+        ],
+        "convertUnspecifiedSpoonCapacity": false,
+        "inferMissingValues": false
+      },
+      "actions": [
+        {
+          "id": "heat-oil",
+          "name": "加油加热",
+          "uses": [
+            "oil",
+            "heat"
+          ],
+          "instruction": "锅中加入食用油，按所设火力加热。"
+        },
+        {
+          "id": "saute",
+          "name": "下料爆香",
+          "uses": [
+            "aromatics",
+            "additionOrder",
+            "durationMinutes",
+            "target"
+          ],
+          "instruction": "按下料顺序加入香料，轻轻翻动，至香味释放、尚未焦糊。"
+        }
+      ],
+      "presentation": {
+        "singleStepPage": true,
+        "actionsOnSeparateLines": true,
+        "showResolvedIngredientsAndQuantities": true,
+        "hideDisabledActionsAndQuantities": true
+      },
+      "adaptationRules": [
+        "时间、用量、尺寸等按具体菜谱配置，允许粗略或原文表达，不提供通用固定数值。",
+        "初期不要求为每种香料分别设置秒数；加入主料放在后续步骤。"
+      ],
+      "timer": {
+        "durationParameter": "durationMinutes",
+        "availableAtAction": "saute",
+        "startMode": "manual",
+        "omitWhenDurationMissing": true,
+        "startConditionText": "开始下香料时"
+      },
+      "defaultTargetText": "出香且未焦糊",
+      "sourceNote": "依据本对话中用户确认的讨论稿保存；不是对来源帖子的逐字转录。"
+    }
+  ]
+}

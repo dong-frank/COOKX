@@ -56,8 +56,9 @@ class KitchenViewModel(application: Application) : AndroidViewModel(application)
     }
     fun addRecipe(recipe: Recipe, onSuccess: () -> Unit) = update(onSuccess) { state ->
         require(recipe.familyId == state.family?.id)
+        validateRecipe(recipe)
         state.copy(recipes = state.recipes + recipe,
-            customTags = (state.customTags + recipe.tags.filter { it !in PRESET_TAGS }).distinct())
+            customTags = (state.customTags + recipe.tags.filter { it !in state.presetTags }).distinct())
     }
     fun finish(recipeId: String, note: String, selection: MealSelection, onSuccess: () -> Unit) = update(onSuccess) { state ->
         val family = requireNotNull(state.family)
@@ -68,7 +69,7 @@ class KitchenViewModel(application: Application) : AndroidViewModel(application)
     }
     fun createTag(name: String) = update { state ->
         val tag = normalizeTags(listOf(name)).singleOrNull() ?: error("请填写标签名")
-        state.copy(customTags = (state.customTags + tag.takeIf { it !in PRESET_TAGS }.let { listOfNotNull(it) }).distinct())
+        state.copy(customTags = (state.customTags + tag.takeIf { it !in state.presetTags }.let { listOfNotNull(it) }).distinct())
     }
     fun setFavorites(tags: List<String>) = update { state ->
         val normalized = normalizeTags(tags)
@@ -79,7 +80,7 @@ class KitchenViewModel(application: Application) : AndroidViewModel(application)
         val normalized = normalizeTags(tags)
         require(state.recipes.any { it.id == id && it.familyId == state.family?.id })
         state.copy(recipes = state.recipes.map { if (it.id == id) it.copy(tags = normalized) else it },
-            customTags = (state.customTags + normalized.filter { it !in PRESET_TAGS }).distinct())
+            customTags = (state.customTags + normalized.filter { it !in state.presetTags }).distinct())
     }
     fun openShoppingMemo(recipeId: String, onSuccess: () -> Unit) = update(onSuccess) { state ->
         val recipe = state.recipes.single { it.id == recipeId && it.familyId == state.family?.id }

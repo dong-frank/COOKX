@@ -1,6 +1,5 @@
 package com.cookx.app.domain
 
-import kotlinx.serialization.json.Json
 import org.junit.Assert.*
 import org.junit.Test
 import java.util.TimeZone
@@ -25,20 +24,6 @@ class TagsAndMealsTest {
         assertFalse(recipe.matchesTag("未打标签")); assertFalse(recipe.matchesTag("川菜"))
         assertTrue(recipe.copy(tags = emptyList()).matchesTag("未打标签"))
     }
-    @Test fun legacyMigrationKeepsOwnershipAndIsIdempotent() {
-        val legacy = Json.decodeFromString<KitchenState>("""{"family":{"id":"f","name":"家"},"recipes":[{"id":"r","familyId":"f","name":"旧菜","ingredients":["盐"],"steps":["炒熟"],"category":"周末大餐"}],"records":[{"id":"x","familyId":"f","recipeId":"r","completedAt":0,"note":"经验"}]}""")
-        val migrated = migrateKitchen(legacy, TimeZone.getTimeZone("UTC"))
-        assertEquals(listOf("周末大餐"), migrated.recipes.single().tags)
-        assertEquals("f", migrated.recipes.single().familyId)
-        assertTrue("周末大餐" in migrated.customTags)
-        assertTrue("周末大餐" in migrated.favoriteTags)
-        assertEquals("1970-01-01", migrated.records.single().cookingDate)
-        assertEquals(Meal.LATE_NIGHT, migrated.records.single().meal)
-        assertTrue(migrated.records.single().mealInferred)
-        assertEquals("经验", migrated.records.single().note)
-        assertEquals(migrated, migrateKitchen(migrated))
-        assertEquals(migrated, Json.decodeFromString<KitchenState>(Json.encodeToString(migrated)))
-    }
     @Test fun recordOrderingUsesChosenDateAndMealRatherThanSaveTime() {
         val state = KitchenState(records = listOf(
             CookingRecord("new-save", "f", "r", 999, "", "2026-11-16", Meal.DINNER),
@@ -46,5 +31,11 @@ class TagsAndMealsTest {
             CookingRecord("lunch", "f", "r", 50, "", "2026-11-17", Meal.LUNCH)))
         assertEquals(listOf("lunch", "breakfast", "new-save"), state.recordsFor("r").map { it.id })
         assertEquals("2026-11-17 · 午餐", state.recordsFor("r").first().mealLabel())
+    }
+    @Test fun emptyTagsAreHiddenAndFavoriteOrderIsPreserved() {
+        val recipes = exampleRecipes("f")
+        assertEquals(listOf("全部", "素菜", "家常菜"), recipeCategories(recipes, listOf("汤羹", "素菜", "家常菜")))
+        assertEquals(listOf("全部"), recipeCategories(emptyList(), listOf("素菜")))
+        assertEquals(listOf("全部", "未打标签"), recipeCategories(listOf(recipes.first().copy(tags = emptyList())), listOf("家常菜")))
     }
 }

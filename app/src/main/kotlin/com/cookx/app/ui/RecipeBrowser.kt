@@ -25,13 +25,15 @@ import com.cookx.app.R
 import com.cookx.app.domain.Recipe
 import com.cookx.app.domain.DEFAULT_FAVORITE_TAGS
 import com.cookx.app.domain.matchesTag
+import com.cookx.app.domain.recipeCategories
 
 /** Ordering-menu layout: independent category rail and an image/name-only recipe list. */
 @Composable internal fun RecipeBrowser(recipes: List<Recipe>, busy: Boolean,
     examples: () -> Unit, open: (String) -> Unit, favoriteTags: List<String> = DEFAULT_FAVORITE_TAGS) {
-    val categories = (listOf("全部") + favoriteTags + "未打标签").distinct()
+    val categories = recipeCategories(recipes, favoriteTags)
     var selected by rememberSaveable { mutableStateOf("全部") }
     val active = selected.takeIf { it in categories } ?: "全部"
+    LaunchedEffect(categories) { if (selected !in categories) selected = "全部" }
     val visible = recipes.filter { it.matchesTag(active) }
     val listState = rememberLazyListState()
     LaunchedEffect(active) { listState.scrollToItem(0) }

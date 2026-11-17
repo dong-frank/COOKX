@@ -5,31 +5,40 @@ import org.junit.Assert.*
 import org.junit.Test
 
 class ModelsTest {
-    @Test fun recipeInputTrimsAndRejectsEmptySteps() {
-        val draft = recipeDraft("family-a", "  家常菜 ", "鸡蛋 2 个\n\n 盐 少许", " 准备 \n炒熟 ")
-        assertEquals("家常菜", draft.name)
-        assertEquals(listOf("鸡蛋 2 个", "盐 少许"), draft.ingredients)
-        assertEquals(listOf("准备", "炒熟"), draft.steps)
-        assertEquals("family-a", draft.familyId)
-        assertThrows(IllegalArgumentException::class.java) { recipeDraft("family-a", "菜", "盐", " \n") }
+    @Test fun cleanStateHasNoImplicitHouseholdOrExamples() {
+        val state = KitchenState()
+        validateKitchen(state)
+        assertEquals(3, state.schemaVersion)
+        assertNull(state.family)
+        assertTrue(state.recipes.isEmpty() && state.records.isEmpty() && state.pantryItems.isEmpty() && state.shoppingMemos.isEmpty())
     }
-    @Test fun lastCookedUsesLatestMatchingRecord() {
-        val state = KitchenState(records = listOf(
-            CookingRecord("a", "family-a", "recipe-a", 200, ""),
-            CookingRecord("b", "family-a", "recipe-b", 500, ""),
-            CookingRecord("c", "family-a", "recipe-a", 100, "")))
-        assertEquals(200L, state.lastCooked("recipe-a"))
-        assertNull(state.lastCooked("missing"))
+    @Test fun structuredRecipeRoundTripPreservesSourceAndUnknownAmounts() {
+        val recipe = exampleRecipes("f").first().copy(source = RecipeSource("xiaohongshu", "https://example.com/note", "原帖"),
+            reviewItems = listOf(ReviewItem("MISSING_AMOUNT", "油量需确认", listOf("oil"))))
+        val missing = recipe.copy(ingredients = recipe.ingredients.map { if (it.id == "oil") it.copy(quantityText = null) else it })
+        assertNull(missing.ingredients.single { it.id == "oil" }.amountText())
+        assertEquals(missing, Json.decodeFromString<Recipe>(Json.encodeToString(missing)))
+        validateRecipe(missing)
     }
-    @Test fun storedStateRoundTripKeepsOwnershipAndHistory() {
-        val state = KitchenState(Family("family-a", "家"), exampleRecipes("family-a"),
-            listOf(CookingRecord("record-a", "family-a", "example-tomato-eggs", 123, "少放盐")))
-        assertEquals(state, Json.decodeFromString<KitchenState>(Json.encodeToString(state)))
-        assertTrue(state.recipes.all { it.familyId == state.family!!.id })
+    @Test fun brokenReferencesDuplicateIdsAndInvalidTimersAreRejected() {
+        val recipe = exampleRecipes("f").first()
+        val first = recipe.orderedSteps().first().step
+        assertThrows(IllegalArgumentException::class.java) { validateRecipe(recipe.copy(ingredients = recipe.ingredients + recipe.ingredients.first())) }
+        assertThrows(IllegalArgumentException::class.java) { validateStep(first.copy(ingredients = listOf(StepIngredientUse("missing"))), recipe.ingredients) }
+        assertThrows(IllegalArgumentException::class.java) { validateStep(first.copy(timer = StepTimer(0)), recipe.ingredients) }
+        assertThrows(IllegalArgumentException::class.java) { validateRecipe(recipe.copy(phases = recipe.phases.reversed())) }
+        assertThrows(IllegalArgumentException::class.java) { validateRecipe(recipe.copy(ingredients = recipe.ingredients.map { it.copy(quantity = Double.NaN) })) }
     }
-    @Test fun oldRecipeDataDefaultsToUncategorized() {
-        val recipe = Json.decodeFromString<Recipe>("""{"id":"old","familyId":"family-a","name":"旧菜谱","ingredients":["盐"],"steps":["炒熟"]}""")
-        assertEquals("未分类", recipe.category)
-        assertEquals("素菜", recipeDraft("family-a", "菜", "青菜", "炒熟", listOf(" 素菜 ")).tags.single())
+    @Test fun phaseOrderAndEditingKeepStableStepIdentity() {
+        val recipe = exampleRecipes("f").first()
+        assertEquals(listOf(PhaseType.PREP, PhaseType.PREP, PhaseType.COOK, PhaseType.COOK, PhaseType.COOK), recipe.orderedSteps().map { it.phase })
+        val first = recipe.orderedSteps().first().step
+        val edited = recipe.putStep(PhaseType.PREP, first.copy(title = "新标题"))
+        assertEquals(recipe.orderedSteps().map { it.step.id }, edited.orderedSteps().map { it.step.id })
+        val moved = edited.putStep(PhaseType.COOK, first)
+        assertEquals(1, moved.orderedSteps().count { it.step.id == first.id })
+        assertEquals(first.id, moved.phases.last().steps.last().id)
+        validateRecipe(moved)
+        validateRecipe(recipe.copy(phases = listOf(RecipePhase(PhaseType.PREP), RecipePhase(PhaseType.COOK, recipe.phases.last().steps))))
     }
 }
