@@ -44,7 +44,7 @@
       "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb",
       "license": "https://1designtool.com/3d/license",
       "storage": "Outside repository; standalone source redistribution prohibited",
-      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered.",
+      "verification": "Downloaded and inspected. Adapted right two cabinets and matching worktop by clipping at original x=0, capping cuts and adding left end panel. Excluded sink and props. Rendered with selected fridge and rack in Blender 5.2.3; no original or derived GLB redistributed.",
       "publisherPreview": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/poster.webp"
     },
     {

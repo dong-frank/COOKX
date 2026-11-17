@@ -1,26 +1,29 @@
 {
   "fridgeClosed": [
-    0.10575158149003983,
-    0.13226014375686646,
-    0.4215686321258545,
-    0.8776857033371925
+    0.09169396758079529,
+    0.1925453543663025,
+    0.35573768615722656,
+    0.8157700151205063
   ],
   "rack": [
-    0.6715033054351807,
-    0.3798291087150574,
-    0.8722876310348511,
-    0.5770586729049683
+    0.6127868890762329,
+    0.35284411907196045,
+    0.7806558012962341,
+    0.5177409648895264
   ],
-  "table": [
-    0.6050980687141418,
-    0.5626982748508453,
-    0.9386928081512451,
-    0.8737599104642868
+  "counter": [
+    0.4125683009624481,
+    0.4691373109817505,
+    0.9502732753753662,
+    0.816499873995781
   ],
-  "tableScaleLocal": [
-    0.58,
-    0.65,
-    1
+  "counterSource": "kitchen-counter-and-cabinet-modules",
+  "retainedCabinets": [
+    "module_3",
+    "module_4"
   ],
-  "tabletopHeightMeters": 0.75
+  "counterWidthMeters": 1.23,
+  "counterDepthMeters": 0.624,
+  "countertopHeightMeters": 0.9,
+  "geometryEdits": "Trim carcass and worktop at original x=0, cap cut edges, add matching left end panel. Exclude left cabinets, sink and original props."
 }

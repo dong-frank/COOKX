@@ -1,5 +1,5 @@
 {
-  "version": 2,
+  "version": 3,
   "date": "2026-11-17",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
@@ -7,7 +7,7 @@
   "sourceGeometryRedistributed": false,
   "render": {
     "tool": "Blender 5.2.3 LTS",
-    "camera": "fixed front orthographic scene; fridge left, pedestal table and rack right",
+    "camera": "fixed front orthographic scene; fridge left, two-bay kitchen counter and rack right",
     "frameSize": [
       480,
       640
@@ -19,11 +19,10 @@
     "hiddenParts": [
       "housing",
       "oven",
-      "banquette",
-      "cushions",
-      "breakfast",
-      "chair_front",
-      "chair_end"
+      "module_1",
+      "module_2",
+      "sink",
+      "props"
     ],
     "sceneSources": [
       {
@@ -32,12 +31,26 @@
         "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-spice-racks/507a7244aa/model.glb"
       },
       {
-        "id": "kitchen-breakfast-nook",
-        "page": "https://1designtool.com/3d/models/kitchen-breakfast-nook",
-        "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-breakfast-nook/fc15f485a4/model.glb"
+        "id": "kitchen-counter-and-cabinet-modules",
+        "page": "https://1designtool.com/3d/models/kitchen-counter-and-cabinet-modules",
+        "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb"
       }
     ],
-    "sceneLayout": "scene-layout.json"
+    "sceneLayout": "scene-layout.json",
+    "counterAdaptation": {
+      "keepCabinets": [
+        "module_3",
+        "module_4"
+      ],
+      "trimOriginalXMinimum": 0,
+      "capCutEdges": true,
+      "addLeftEndPanel": true,
+      "widthMeters": 1.23,
+      "depthMeters": 0.624,
+      "countertopHeightMeters": 0.9,
+      "rackBaseHeightMeters": 0.9,
+      "nonUniformCompression": false
+    }
   },
   "prototype": {
     "file": "prototype.html",
@@ -70,83 +83,83 @@
   "frames": [
     {
       "file": "frames/00.png",
-      "sha256": "b8353d21a627a89af1b0fe8306cf81622b26db97736f9bd4b6f59dc81832932c"
+      "sha256": "b114bdd13a1a98dc06fcf686294b78d656c5e1ec8a2c34ef1c7a8dc7b882cada"
     },
     {
       "file": "frames/01.png",
-      "sha256": "e54cefda6495f79e85f47197aac5bcf84560a05e7b6e63d12556221802df8e3a"
+      "sha256": "1d23c6f4f8dc86881bbf0bc9dee9c086a1239e5f43d17610ed70dc9a3423bd2f"
     },
     {
       "file": "frames/02.png",
-      "sha256": "badffa8ff434c3e1716d0956b957bbe3530248d166cf4be7d4b911caea660750"
+      "sha256": "5bbae4b6ca6a6f0c29868e6696d4400662df5a29479d7f3eb96c76bdc8c5f832"
     },
     {
       "file": "frames/03.png",
-      "sha256": "f9be13ce523c5986aba7cad7513c6ace86a5a5432322bcf682f92b3854cfcd94"
+      "sha256": "c160ec096515f83fadd7fd881e676a8cecc2d127fca3e9a70aea888caf26cbd2"
     },
     {
       "file": "frames/04.png",
-      "sha256": "dc3266fe15e4e3fb4ca0bf3f365a47046c1ed90b89edd6b74dde881fc7a107bb"
+      "sha256": "e5b8fe8e3d1f7ee4be4949b9945f39d9f863413c556f98699b33dfca62038b0e"
     },
     {
       "file": "frames/05.png",
-      "sha256": "afc6032a3913b3e7abedd9180f7e9e677ce16345348de536f9e44fa3b734837d"
+      "sha256": "bf94bd3fc733cc9b3ed7e48a088be22287e8ed050504843ef585bb2be27a8105"
     },
     {
       "file": "frames/06.png",
-      "sha256": "541a04f2b354e0f6b46d08aae30f49050546737b8ea3a3c39ea3922136f67cc2"
+      "sha256": "9ba3d8b99c8b425ff7e9aa4ab92a94762a4828648cc56710409d146a10f4e39d"
     },
     {
       "file": "frames/07.png",
-      "sha256": "c77aab60efce437a5e0e5ccb72efa7fccb55fb34ef4461cb37f2acc7f7b4fcd3"
+      "sha256": "3e1152a34b5a9ffcd1ae9d726bb2f0fdb3d6707ff18ba55507342a244e09b71e"
     },
     {
       "file": "frames/08.png",
-      "sha256": "1036be8713785cb29dcf26487affacff8a4f26fa42a6f65ef5c504d7942f4c31"
+      "sha256": "632ac5ce58940b4f402be43cb68b8e4b21e82b1bcf6ace78432b4adcc0317504"
     },
     {
       "file": "frames/09.png",
-      "sha256": "4b67312733cce9a9a9e1064c960ebaae00a76527735ab47111dff65d10340ed6"
+      "sha256": "5ef4f3b1f022e2da5e1711d00d9a8f55353b920817792e1146499be2131aa592"
     },
     {
       "file": "frames/10.png",
-      "sha256": "3ff74cbe3659dda8e1ce8c8ca6c0ea71d35daa0b94b0a6e81f38f9cc27a255a2"
+      "sha256": "6a1d6756bf35f9719ece8da4d769cdf3fa5418df7a9f9f0f142cf39ebc404f37"
     },
     {
       "file": "frames/11.png",
-      "sha256": "de6c238b45688a63b45691411ad0a46e65b8af50cac82de81a3180af80d26c10"
+      "sha256": "d15d91c0c2af431cd601ccf6e3b5c2b60e81c6545c865e5ab8d670b42a080d02"
     },
     {
       "file": "frames/12.png",
-      "sha256": "365bb2474ed5bd04e5f3bbe70791f924f6679740faf045e3d85222963a3a8cd8"
+      "sha256": "be049096bbb4d911939a7fa32fe04b49a35ee3b846431e0f79331833bf7e92b4"
     },
     {
       "file": "frames/13.png",
-      "sha256": "34f218c40c33453ddf0b09b7680fbe2258ee78b16309750b4e99ceae9b450df0"
+      "sha256": "c03397bf9b0fd6510cbc135e2d6b457be133b7640f407b05f7c9d142e838d8a0"
     },
     {
       "file": "frames/14.png",
-      "sha256": "1a982ef0dfa487f0ad39914dca06a3abb18f74e4682c860e1a081475a308753f"
+      "sha256": "5666c4038034287180a64d509a95ee81a8a305811c9c39efd7c7486072cd3c38"
     },
     {
       "file": "frames/15.png",
-      "sha256": "7b6aea69f890e366d901831f71e0e9403ffc58208a4b89091cab4069f07c279f"
+      "sha256": "0c7a8faab5feb328f518d48de1bf795d28ac1abd56e36ee7d63f5e729a07c4fd"
     },
     {
       "file": "frames/16.png",
-      "sha256": "d3687dc54a7223c93e648adeca89c02bce00672fb24037e8e0c5a6301d5703fb"
+      "sha256": "336fae0e2ec286254ca1d88908ffdd7f79245b9f49f9a3e2027e8e2819348f6c"
     },
     {
       "file": "frames/17.png",
-      "sha256": "fe45268f156ad337055b9f99754e5608d801885ee6239fed47b5db804d23765f"
+      "sha256": "1fa9ac1475b11b848bce0958a74d687fa772caaef8b56e0c64e2fb4876da2721"
     },
     {
       "file": "frames/18.png",
-      "sha256": "d0990f6d6f40f332507294a5fdda02f899319f19ed2483451c7eefde24a311fc"
+      "sha256": "0c48f70bc287e8fefc2a298bb1d7db43fc77169ae1743f348702783aded77218"
     },
     {
       "file": "frames/19.png",
-      "sha256": "09be3f880b743f699b585c46114975b6b3bdf80b2e4284598313f58c7dffc1bc"
+      "sha256": "d3b3c25857c7b2589b931a6d123f070438277ed4de9378625e7bb1df3957ff07"
     }
   ]
 }

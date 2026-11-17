@@ -13,7 +13,7 @@
 <main class="device" id="device" data-phase="closed" aria-label="囤囤鼠界面设计预览">
  <div class="status" aria-hidden="true"><span>9:41</span><span class="battery">▂▄▆ ▰</span></div>
  <header class="app-header"><h1>囤囤鼠</h1><button class="add" id="add" aria-label="登记物品">＋</button></header>
- <div class="scene"><div class="scene-visual" id="scene-visual"><img id="frame" src="frames/00.png" alt="冰箱在左，右侧木桌上放着三层调料架"><button class="fridge" id="fridge" aria-label="打开冰箱"></button><button class="spice-rack" id="spice-rack" aria-label="查看调料" aria-expanded="false"></button></div></div>
+ <div class="scene"><div class="scene-visual" id="scene-visual"><img id="frame" src="frames/00.png" alt="冰箱在左，右侧厨房操作台上放着三层调料架"><button class="fridge" id="fridge" aria-label="打开冰箱"></button><button class="spice-rack" id="spice-rack" aria-label="查看调料" aria-expanded="false"></button></div></div>
  <section class="sheet" id="sheet" aria-label="物品" inert>
   <div class="handle" aria-hidden="true"></div>
   <div id="list-view"><div class="items" id="items"></div></div>
@@ -35,11 +35,11 @@
  const spiceStock=q.has('empty')?[]:[{id:101,name:'盐',icon:'🧂',available:true,quantityText:'半罐'},{id:102,name:'黑胡椒',icon:'🫙',available:true,quantityText:'1 罐'},{id:103,name:'辣椒粉',icon:'🌶️',available:true,quantityText:'半罐'}];
  function currentStock(){return mode==='spices'?spiceStock:fridgeStock;}
  function visibleItems(){return currentStock().filter(x=>x.available);}
- function placeTargets(){const el=document.getElementById('scene-visual'),w=el.clientWidth,h=el.clientHeight,ih=Math.min(h,w*640/480),iw=ih*.75,ox=(w-iw)/2,oy=(h-ih)/2;[[fridge,[.075,.12,.46,.89]],[rack,[.65,.36,.90,.59]]].forEach(([el,b])=>{el.style.left=(ox+b[0]*iw)+'px';el.style.top=(oy+b[1]*ih)+'px';el.style.width=((b[2]-b[0])*iw)+'px';el.style.height=((b[3]-b[1])*ih)+'px';});}window.addEventListener('resize',placeTargets);placeTargets();
+ function placeTargets(){const el=document.getElementById('scene-visual'),w=el.clientWidth,h=el.clientHeight,ih=Math.min(h,w*640/480),iw=ih*.75,ox=(w-iw)/2,oy=(h-ih)/2;[[fridge,[.065,.18,.38,.83]],[rack,[.59,.33,.81,.54]]].forEach(([el,b])=>{el.style.left=(ox+b[0]*iw)+'px';el.style.top=(oy+b[1]*ih)+'px';el.style.width=((b[2]-b[0])*iw)+'px';el.style.height=((b[3]-b[1])*ih)+'px';});}window.addEventListener('resize',placeTargets);placeTargets();
  const frames=Array.from({length:20},(_,i)=>{const img=new Image();img.src=`frames/${String(i).padStart(2,'0')}.png`;return img;});
  const listView=document.getElementById('list-view'),detailView=document.getElementById('detail-view'),items=document.getElementById('items');
  function setPhase(v){phase=v;device.dataset.phase=v;sheet.inert=!['open','spices'].includes(v);rack.disabled=v==='opening'||v==='closing';rack.setAttribute('aria-expanded',String(v==='spices'));rack.setAttribute('aria-label',v==='spices'?'收起调料':'查看调料');fridge.disabled=v==='opening'||v==='closing';fridge.setAttribute('aria-label',v==='open'?'关闭冰箱':'打开冰箱');fridge.setAttribute('aria-expanded',String(v==='open'));}
- function setFrame(v){progress=v;frame.src=frames[Math.max(0,Math.min(19,Math.round(v*19)))].src;frame.alt=v>.9?'左侧冰箱打开，右侧木桌上放着三层调料架':'左侧冰箱关闭，右侧木桌上放着三层调料架';}
+ function setFrame(v){progress=v;frame.src=frames[Math.max(0,Math.min(19,Math.round(v*19)))].src;frame.alt=v>.9?'左侧冰箱打开，右侧厨房操作台上放着三层调料架':'左侧冰箱关闭，右侧厨房操作台上放着三层调料架';}
  function showList(){selected=null;detailView.hidden=true;listView.hidden=false;render();}
  function render(){items.replaceChildren();const shown=visibleItems();
   if(!shown.length){const box=document.createElement('div');box.className='empty';const label=document.createElement('p');label.textContent=mode==='spices'?'还没有调料':'还没有物品';const add=document.createElement('button');add.textContent=mode==='spices'?'登记调料':'登记物品';add.onclick=openAdd;box.append(label,add);items.append(box);return;}
