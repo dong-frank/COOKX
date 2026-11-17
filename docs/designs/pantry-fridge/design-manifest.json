@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "date": "2026-11-17",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
@@ -7,7 +7,7 @@
   "sourceGeometryRedistributed": false,
   "render": {
     "tool": "Blender 5.2.3 LTS",
-    "camera": "fixed front perspective",
+    "camera": "fixed front orthographic scene; fridge left, pedestal table and rack right",
     "frameSize": [
       480,
       640
@@ -18,8 +18,26 @@
     "openingAngleDegrees": 100,
     "hiddenParts": [
       "housing",
-      "oven"
-    ]
+      "oven",
+      "banquette",
+      "cushions",
+      "breakfast",
+      "chair_front",
+      "chair_end"
+    ],
+    "sceneSources": [
+      {
+        "id": "kitchen-spice-racks",
+        "page": "https://1designtool.com/3d/models/kitchen-spice-racks",
+        "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-spice-racks/507a7244aa/model.glb"
+      },
+      {
+        "id": "kitchen-breakfast-nook",
+        "page": "https://1designtool.com/3d/models/kitchen-breakfast-nook",
+        "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-breakfast-nook/fc15f485a4/model.glb"
+      }
+    ],
+    "sceneLayout": "scene-layout.json"
   },
   "prototype": {
     "file": "prototype.html",
@@ -29,7 +47,8 @@
       "closed",
       "opening",
       "open",
-      "closing"
+      "closing",
+      "spices"
     ],
     "inventoryFields": [
       "name",
@@ -38,94 +57,96 @@
     "openingTrigger": "Click upper or lower fridge door to open; click same region again to close; no separate opening/closing buttons",
     "showUnavailable": false,
     "showPanelTitle": false,
-    "quantitySource": "demonstration only; current App quantity storage not implemented"
+    "quantitySource": "demonstration only; current App quantity storage not implemented",
+    "spiceTrigger": "Click whole rack to show sample spice inventory; click again to dismiss. Proposed transition closes fridge before showing spices."
   },
   "screens": [
     "screen-closed.png",
     "screen-open.png",
     "screen-item.png",
-    "screen-empty.png"
+    "screen-empty.png",
+    "screen-spices.png"
   ],
   "frames": [
     {
       "file": "frames/00.png",
-      "sha256": "f71875290797fc57a5f519b35ffd0a309858bdab37c62c240991164d5581c359"
+      "sha256": "b8353d21a627a89af1b0fe8306cf81622b26db97736f9bd4b6f59dc81832932c"
     },
     {
       "file": "frames/01.png",
-      "sha256": "ffcaea9756894b456478d1cae4fdbe090a2754f2691ef3cda8dd594bf8253f40"
+      "sha256": "e54cefda6495f79e85f47197aac5bcf84560a05e7b6e63d12556221802df8e3a"
     },
     {
       "file": "frames/02.png",
-      "sha256": "633f9ade5a52677af1e23942c6da680d386c244bb123bc515bcbe29621e841dd"
+      "sha256": "badffa8ff434c3e1716d0956b957bbe3530248d166cf4be7d4b911caea660750"
     },
     {
       "file": "frames/03.png",
-      "sha256": "4624a1e7298ad49045848636ee35f533153cc7471116f82adaf85e1045dfe635"
+      "sha256": "f9be13ce523c5986aba7cad7513c6ace86a5a5432322bcf682f92b3854cfcd94"
     },
     {
       "file": "frames/04.png",
-      "sha256": "50a358befa46898498cb47119fdee061358d573865ea2c34e0f644ae2a15c213"
+      "sha256": "dc3266fe15e4e3fb4ca0bf3f365a47046c1ed90b89edd6b74dde881fc7a107bb"
     },
     {
       "file": "frames/05.png",
-      "sha256": "f5893dcf21449e82fde0075ebfbf2ff87a98c204224c44abad133ff07e4f7d8c"
+      "sha256": "afc6032a3913b3e7abedd9180f7e9e677ce16345348de536f9e44fa3b734837d"
     },
     {
       "file": "frames/06.png",
-      "sha256": "6639ed3337e379749d642615dac4ab26eb343b7cb1d3b639abdabd0bd4279b81"
+      "sha256": "541a04f2b354e0f6b46d08aae30f49050546737b8ea3a3c39ea3922136f67cc2"
     },
     {
       "file": "frames/07.png",
-      "sha256": "8e78f0cc1613d2c8fa3e2a713a518db1d990143c9e5587bcdd4941a2c460853b"
+      "sha256": "c77aab60efce437a5e0e5ccb72efa7fccb55fb34ef4461cb37f2acc7f7b4fcd3"
     },
     {
       "file": "frames/08.png",
-      "sha256": "053a4e4bbda17794954375f1e5298b207db8cac249202c643e33c4f181a1833e"
+      "sha256": "1036be8713785cb29dcf26487affacff8a4f26fa42a6f65ef5c504d7942f4c31"
     },
     {
       "file": "frames/09.png",
-      "sha256": "0a102be42c9869bdef0ae1a3b9c2fe247140323412fa4eaec626008e85f27cd2"
+      "sha256": "4b67312733cce9a9a9e1064c960ebaae00a76527735ab47111dff65d10340ed6"
     },
     {
       "file": "frames/10.png",
-      "sha256": "d798e2c285b2a941f9a7cfeea5c06d0440121079d7e427c1668eddc84eb07a08"
+      "sha256": "3ff74cbe3659dda8e1ce8c8ca6c0ea71d35daa0b94b0a6e81f38f9cc27a255a2"
     },
     {
       "file": "frames/11.png",
-      "sha256": "129c79fcb2232002fe55c3b8e55c5c75878471085e02d240a8d150ba5969c5fb"
+      "sha256": "de6c238b45688a63b45691411ad0a46e65b8af50cac82de81a3180af80d26c10"
     },
     {
       "file": "frames/12.png",
-      "sha256": "7c01f0d0a1f34b1fdec75331f19c30245912d4627b19fa642b3768c68e1f3360"
+      "sha256": "365bb2474ed5bd04e5f3bbe70791f924f6679740faf045e3d85222963a3a8cd8"
     },
     {
       "file": "frames/13.png",
-      "sha256": "2a795a57058071ab7cd163962ed6f4aac054fb7d1223805bdaec4683edaca068"
+      "sha256": "34f218c40c33453ddf0b09b7680fbe2258ee78b16309750b4e99ceae9b450df0"
     },
     {
       "file": "frames/14.png",
-      "sha256": "49393783f04b1c4ea6090a6239722aac090ac37cb12edaf3b0768e79193ba004"
+      "sha256": "1a982ef0dfa487f0ad39914dca06a3abb18f74e4682c860e1a081475a308753f"
     },
     {
       "file": "frames/15.png",
-      "sha256": "95e24076d4ced634ababcb229a5c5355a0c5594f239e4793763d2d5834c3cab0"
+      "sha256": "7b6aea69f890e366d901831f71e0e9403ffc58208a4b89091cab4069f07c279f"
     },
     {
       "file": "frames/16.png",
-      "sha256": "154a5ce3bcb60add8efe3427c90282c265f6945518bea4751aa0401a28f0d14c"
+      "sha256": "d3687dc54a7223c93e648adeca89c02bce00672fb24037e8e0c5a6301d5703fb"
     },
     {
       "file": "frames/17.png",
-      "sha256": "3eac9dfb2182c641b1baad5f756f13a5431be094963c11b5da33f74b9f9f1a23"
+      "sha256": "fe45268f156ad337055b9f99754e5608d801885ee6239fed47b5db804d23765f"
     },
     {
       "file": "frames/18.png",
-      "sha256": "e67d669be377201cd95be1acb8c42935d24fd88b05888fa27c68d328f388b529"
+      "sha256": "d0990f6d6f40f332507294a5fdda02f899319f19ed2483451c7eefde24a311fc"
     },
     {
       "file": "frames/19.png",
-      "sha256": "e3fd4734db846e09db4da95eb4aaa6d48c7d8f32e7f08ce78f69bf801e02cd83"
+      "sha256": "09be3f880b743f699b585c46114975b6b3bdf80b2e4284598313f58c7dffc1bc"
     }
   ]
 }

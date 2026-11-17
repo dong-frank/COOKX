@@ -388,5 +388,388 @@
         ]
       }
     ]
+  },
+  {
+    "id": "kitchen-breakfast-nook",
+    "bytes": 134260,
+    "sha256": "5b1c176be1b132a88edb548dbf5966285045bbfe3db78ef63b1d479f6dc3db64",
+    "meshes": 20,
+    "animations": 0,
+    "nodes": [
+      {
+        "name": "model",
+        "mesh": null
+      },
+      {
+        "name": "kitchen-breakfast-nook",
+        "mesh": null
+      },
+      {
+        "name": "banquette",
+        "mesh": null
+      },
+      {
+        "name": "banquette_steel",
+        "mesh": 0
+      },
+      {
+        "name": "banquette_dark_wood",
+        "mesh": 1
+      },
+      {
+        "name": "banquette_butcher-block_wood",
+        "mesh": 2
+      },
+      {
+        "name": "cushions",
+        "mesh": null
+      },
+      {
+        "name": "cushions_tomato_red",
+        "mesh": 3
+      },
+      {
+        "name": "table",
+        "mesh": null
+      },
+      {
+        "name": "table_butcher-block_wood",
+        "mesh": 4
+      },
+      {
+        "name": "table_dark_wood",
+        "mesh": 5
+      },
+      {
+        "name": "table_soot_black",
+        "mesh": 6
+      },
+      {
+        "name": "breakfast",
+        "mesh": null
+      },
+      {
+        "name": "breakfast_tile_white_light",
+        "mesh": 7
+      },
+      {
+        "name": "breakfast_butcher-block_wood",
+        "mesh": 8
+      },
+      {
+        "name": "breakfast_warm_white",
+        "mesh": 9
+      },
+      {
+        "name": "breakfast_dark_wood",
+        "mesh": 10
+      },
+      {
+        "name": "breakfast_steel_light",
+        "mesh": 11
+      },
+      {
+        "name": "breakfast_tomato_red",
+        "mesh": 12
+      },
+      {
+        "name": "breakfast_steel",
+        "mesh": 13
+      },
+      {
+        "name": "breakfast_steel_dark",
+        "mesh": 14
+      },
+      {
+        "name": "breakfast_soot_black",
+        "mesh": 15
+      },
+      {
+        "name": "chair_front",
+        "mesh": null
+      },
+      {
+        "name": "chair_front_dark_wood",
+        "mesh": 16
+      },
+      {
+        "name": "chair_front_butcher-block_wood",
+        "mesh": 17
+      },
+      {
+        "name": "chair_end",
+        "mesh": null
+      },
+      {
+        "name": "chair_end_dark_wood",
+        "mesh": 18
+      },
+      {
+        "name": "chair_end_butcher-block_wood",
+        "mesh": 19
+      }
+    ]
+  },
+  {
+    "id": "kitchen-counter-and-cabinet-modules",
+    "bytes": 115584,
+    "sha256": "2b3d95a167b311cfcae814cd2bc190d76b3a25980126aadca7d29ac1ece7bcb6",
+    "meshes": 20,
+    "animations": 0,
+    "nodes": [
+      {
+        "name": "model",
+        "mesh": null
+      },
+      {
+        "name": "kitchen-counter-and-cabinet-modules",
+        "mesh": null
+      },
+      {
+        "name": "carcass",
+        "mesh": null
+      },
+      {
+        "name": "carcass_dark_wood",
+        "mesh": 0
+      },
+      {
+        "name": "carcass_tile_white_dark",
+        "mesh": 1
+      },
+      {
+        "name": "module_1",
+        "mesh": null
+      },
+      {
+        "name": "module_1_steel",
+        "mesh": 2
+      },
+      {
+        "name": "module_1_soot_black",
+        "mesh": 3
+      },
+      {
+        "name": "module_2",
+        "mesh": null
+      },
+      {
+        "name": "module_2_steel",
+        "mesh": 4
+      },
+      {
+        "name": "module_2_soot_black",
+        "mesh": 5
+      },
+      {
+        "name": "module_3",
+        "mesh": null
+      },
+      {
+        "name": "module_3_steel",
+        "mesh": 6
+      },
+      {
+        "name": "module_3_soot_black",
+        "mesh": 7
+      },
+      {
+        "name": "module_4",
+        "mesh": null
+      },
+      {
+        "name": "module_4_steel",
+        "mesh": 8
+      },
+      {
+        "name": "module_4_soot_black",
+        "mesh": 9
+      },
+      {
+        "name": "worktop",
+        "mesh": null
+      },
+      {
+        "name": "worktop_butcher-block_wood",
+        "mesh": 10
+      },
+      {
+        "name": "worktop_dark_wood",
+        "mesh": 11
+      },
+      {
+        "name": "sink",
+        "mesh": null
+      },
+      {
+        "name": "sink_steel_light",
+        "mesh": 12
+      },
+      {
+        "name": "sink_soot_black",
+        "mesh": 13
+      },
+      {
+        "name": "sink_steel",
+        "mesh": 14
+      },
+      {
+        "name": "props",
+        "mesh": null
+      },
+      {
+        "name": "props_tomato_red",
+        "mesh": 15
+      },
+      {
+        "name": "props_soot_black",
+        "mesh": 16
+      },
+      {
+        "name": "props_tile_white_light",
+        "mesh": 17
+      },
+      {
+        "name": "props_steel",
+        "mesh": 18
+      },
+      {
+        "name": "props_dark_wood",
+        "mesh": 19
+      }
+    ]
+  },
+  {
+    "id": "kitchen-island",
+    "bytes": 152364,
+    "sha256": "aa43e42fb4787c8980129fa5e7b39c2d66a7b32e79cf7b6e34b93f4cb07e8b74",
+    "meshes": 21,
+    "animations": 0,
+    "nodes": [
+      {
+        "name": "model",
+        "mesh": null
+      },
+      {
+        "name": "kitchen-island",
+        "mesh": null
+      },
+      {
+        "name": "plinth",
+        "mesh": null
+      },
+      {
+        "name": "plinth_soot_black",
+        "mesh": 0
+      },
+      {
+        "name": "cabinet",
+        "mesh": null
+      },
+      {
+        "name": "cabinet_steel",
+        "mesh": 1
+      },
+      {
+        "name": "fronts",
+        "mesh": null
+      },
+      {
+        "name": "fronts_steel",
+        "mesh": 2
+      },
+      {
+        "name": "fronts_soot_black",
+        "mesh": 3
+      },
+      {
+        "name": "worktop",
+        "mesh": null
+      },
+      {
+        "name": "worktop_dark_wood",
+        "mesh": 4
+      },
+      {
+        "name": "worktop_butcher-block_wood",
+        "mesh": 5
+      },
+      {
+        "name": "sink",
+        "mesh": null
+      },
+      {
+        "name": "sink_steel",
+        "mesh": 6
+      },
+      {
+        "name": "sink_steel_light",
+        "mesh": 7
+      },
+      {
+        "name": "sink_soot_black",
+        "mesh": 8
+      },
+      {
+        "name": "breakfast_bar",
+        "mesh": null
+      },
+      {
+        "name": "breakfast_bar_dark_wood",
+        "mesh": 9
+      },
+      {
+        "name": "breakfast_bar_steel_light",
+        "mesh": 10
+      },
+      {
+        "name": "breakfast_bar_soot_black",
+        "mesh": 11
+      },
+      {
+        "name": "towel_bar",
+        "mesh": null
+      },
+      {
+        "name": "towel_bar_steel_light",
+        "mesh": 12
+      },
+      {
+        "name": "towel_bar_tomato_red",
+        "mesh": 13
+      },
+      {
+        "name": "towel_bar_tile_white",
+        "mesh": 14
+      },
+      {
+        "name": "props",
+        "mesh": null
+      },
+      {
+        "name": "props_tile_white",
+        "mesh": 15
+      },
+      {
+        "name": "props_tile_white_dark",
+        "mesh": 16
+      },
+      {
+        "name": "props_tomato_red",
+        "mesh": 17
+      },
+      {
+        "name": "props_dark_wood",
+        "mesh": 18
+      },
+      {
+        "name": "props_steel_light",
+        "mesh": 19
+      },
+      {
+        "name": "props_soot_black",
+        "mesh": 20
+      }
+    ]
   }
 ]

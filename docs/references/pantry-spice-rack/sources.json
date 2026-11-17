@@ -29,6 +29,30 @@
       "author": "tabitown",
       "license": "CC BY 4.0 https://creativecommons.org/licenses/by/4.0/",
       "verification": "Public metadata and preview only. Two rows, excluded from three-tier recommendations."
+    },
+    {
+      "id": "kitchen-breakfast-nook",
+      "page": "https://1designtool.com/3d/models/kitchen-breakfast-nook",
+      "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-breakfast-nook/fc15f485a4/model.glb",
+      "license": "https://1designtool.com/3d/license",
+      "storage": "Outside repository; standalone source redistribution prohibited",
+      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered."
+    },
+    {
+      "id": "kitchen-counter-and-cabinet-modules",
+      "page": "https://1designtool.com/3d/models/kitchen-counter-and-cabinet-modules",
+      "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb",
+      "license": "https://1designtool.com/3d/license",
+      "storage": "Outside repository; standalone source redistribution prohibited",
+      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered."
+    },
+    {
+      "id": "kitchen-island",
+      "page": "https://1designtool.com/3d/models/kitchen-island",
+      "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-island/05beb036e1/model.glb",
+      "license": "https://1designtool.com/3d/license",
+      "storage": "Outside repository; standalone source redistribution prohibited",
+      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered."
     }
   ]
 }
