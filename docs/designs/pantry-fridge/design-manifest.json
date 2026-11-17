@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "date": "2026-11-17",
+  "version": 6,
+  "date": "2026-11-18",
   "scope": "Design prototype only; no Android App source changes",
   "sourceModelPage": "https://1designtool.com/3d/models/kitchen-oven-and-fridge-doors",
   "sourceModelURL": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-oven-and-fridge-doors/077490a3a8/model.glb",
@@ -70,7 +70,8 @@
     "showUnavailable": false,
     "showPanelTitle": false,
     "quantitySource": "demonstration only; current App quantity storage not implemented",
-    "spiceTrigger": "Click any of the three original canisters left of the sink, sharing one seasoning entry. Click again to dismiss. Close fridge before showing seasoning list."
+    "spiceTrigger": "Click any of the three original canisters left of the sink, sharing one seasoning entry. Click again to dismiss. Close fridge before showing seasoning list.",
+    "addingTrigger": "Plus button inside the open fridge or seasoning sheet, including empty states. No add button on scene header. Add goes only to the current inventory context."
   },
   "screens": [
     "screen-closed.png",
