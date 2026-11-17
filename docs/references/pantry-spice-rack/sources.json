@@ -44,7 +44,8 @@
       "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/model.glb",
       "license": "https://1designtool.com/3d/license",
       "storage": "Outside repository; standalone source redistribution prohibited",
-      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered."
+      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered.",
+      "publisherPreview": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-counter-and-cabinet-modules/b3618a921a/poster.webp"
     },
     {
       "id": "kitchen-island",
@@ -52,7 +53,8 @@
       "download": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-island/05beb036e1/model.glb",
       "license": "https://1designtool.com/3d/license",
       "storage": "Outside repository; standalone source redistribution prohibited",
-      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered."
+      "verification": "Downloaded and inspected. Breakfast nook table extracted for project scene rendering; other two not rendered.",
+      "publisherPreview": "https://assets.stoicsoft.com/1designtool/3d/models/kitchen-island/05beb036e1/poster.webp"
     }
   ]
 }
