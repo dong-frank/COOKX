@@ -186,25 +186,42 @@ import kotlinx.serialization.Serializable
 }
 
 @Composable private fun RecipeDetail(recipe: Recipe, state: KitchenState, editTags: () -> Unit, start: () -> Unit) {
-    LazyColumn(contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
+    LazyColumn(contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
         item {
-            Text(recipe.name, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
-            Text(if (recipe.isExample) "示例菜谱 · 可体验制作流程" else "家庭菜谱", color = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.height(16.dp))
-            Text(state.recordsFor(recipe.id).firstOrNull()?.let { "上次制作：${it.mealLabel()}" } ?: "还没有做过这道菜")
-            Spacer(Modifier.height(12.dp))
-            Text(recipe.tags.joinToString(" · ").ifEmpty { "尚未添加标签" })
+            Text(recipe.name, style = MaterialTheme.typography.headlineMedium, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(10.dp))
+            Text(state.recordsFor(recipe.id).firstOrNull()?.let { "上次制作：${it.mealLabel()}" } ?: "还没有做过这道菜",
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(8.dp))
+            Text(recipe.tags.joinToString(" · ").ifEmpty { "尚未添加标签" }, style = MaterialTheme.typography.bodyMedium)
             TextButton(onClick = editTags) { Text("编辑标签") }
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(8.dp))
             Button(onClick = start, modifier = Modifier.fillMaxWidth()) { Text("开始制作") }
         }
-        item { Section("准备食材", recipe.ingredients.joinToString("\n")) {} }
-        item { Text("做法预览", style = MaterialTheme.typography.titleLarge) }
-        items(recipe.steps.size) { index -> Text("${index + 1}. ${recipe.steps[index]}", style = MaterialTheme.typography.bodyLarge) }
-        item { Text("制作记录", style = MaterialTheme.typography.titleLarge) }
+        item {
+            Surface(shape = RoundedCornerShape(16.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                    Text("准备食材", style = MaterialTheme.typography.titleMedium)
+                    Text(recipe.ingredients.joinToString("\n"), style = MaterialTheme.typography.bodyMedium)
+                }
+            }
+        }
+        item { Text("做法预览", style = MaterialTheme.typography.titleMedium) }
+        items(recipe.steps.size) { index -> Text("${index + 1}. ${recipe.steps[index]}", style = MaterialTheme.typography.bodyMedium) }
+        item { Text("制作记录", style = MaterialTheme.typography.titleMedium) }
         val records = state.recordsFor(recipe.id)
-        if (records.isEmpty()) item { Text("完成制作后，在这里留下今天的经验。") }
-        items(records, key = { it.id }) { record -> Section(record.mealLabel() + if (record.mealInferred) "（历史时间推定）" else "", record.note.ifBlank { "完成了一次制作" }) {} }
+        if (records.isEmpty()) item {
+            Text("完成制作后，在这里留下今天的经验。", style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        items(records, key = { it.id }) { record ->
+            Surface(shape = RoundedCornerShape(12.dp), color = MaterialTheme.colorScheme.surfaceContainerLow) {
+                Column(Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 10.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(record.mealLabel(), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    Text(record.note.ifBlank { "完成了一次制作" }, style = MaterialTheme.typography.bodySmall)
+                }
+            }
+        }
     }
 }
 
