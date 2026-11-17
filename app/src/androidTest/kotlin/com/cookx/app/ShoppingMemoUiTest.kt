@@ -61,17 +61,4 @@ class ShoppingMemoUiTest {
         assertEquals(initial.records, saved.records)
         assertEquals(initial.recipes, saved.recipes)
     }
-    @Test fun pantryPresenceEntryWorksWithKeyboardVisible() {
-        val state = mutableStateOf(KitchenState(family = Family("f", "家")))
-        compose.setContent {
-            COOKXTheme { Box(Modifier.safeDrawingPadding()) {
-                PantryScreen(state.value, false, { name -> state.value = state.value.copy(pantryItems = listOf(PantryItem("a", "f", name))) },
-                    { _, available -> state.value = state.value.copy(pantryItems = state.value.pantryItems.map { it.copy(available = available) }) })
-            } }
-        }
-        compose.onNodeWithText("食材名称").performTextInput("鸡蛋")
-        compose.onNodeWithText("登记家中已有").performScrollTo().performClick()
-        compose.runOnIdle { assertEquals("鸡蛋", state.value.pantryItems.single().name) }
-        compose.onNode(isToggleable()).performScrollTo().assertIsOn()
-    }
 }

@@ -42,13 +42,14 @@ import kotlinx.serialization.Serializable
     val error by model.error.collectAsStateWithLifecycle()
     val busy by model.busy.collectAsStateWithLifecycle()
     val stack = rememberNavBackStack(Home)
+    var homeTab by rememberSaveable { mutableIntStateOf(0) }
     val back: () -> Unit = { if (stack.size > 1) stack.removeLastOrNull() }
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
-        topBar = { TopAppBar(title = { Text("COOKX", fontWeight = FontWeight.Bold) },
+        topBar = { TopAppBar(title = { Text(if (stack.lastOrNull() == Home && homeTab == 2) "囤囤鼠" else "COOKX", fontWeight = FontWeight.Bold) },
             navigationIcon = { if (stack.size > 1) TextButton(onClick = back) { Text("返回") } },
             actions = {
-                if (stack.lastOrNull() == Home && state?.family != null) {
+                if (stack.lastOrNull() == Home && homeTab == 0 && state?.family != null) {
                     TextButton(onClick = { stack.add(TagSettings) }) { Text("标签管理") }
                     TextButton(onClick = { stack.add(NewRecipe) }) { Text("新增菜谱") }
                 }
@@ -76,7 +77,7 @@ import kotlinx.serialization.Serializable
                             Home -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     HomeScreen(current, saving, model::addExamples,
-                                        { stack.add(Detail(it)) }, current.favoriteTags, model::addPantryItem, model::setPantryAvailable)
+                                        { stack.add(Detail(it)) }, current.favoriteTags, homeTab, { homeTab = it }, model::savePantryItem, error)
                                 }
                             }
                             NewRecipe -> NavEntry(route) {
@@ -155,14 +156,14 @@ import kotlinx.serialization.Serializable
 }
 
 @Composable private fun HomeScreen(state: KitchenState, busy: Boolean, examples: () -> Unit,
-    open: (String) -> Unit, favorites: List<String>, addPantry: (String) -> Unit, setPantryAvailable: (String, Boolean) -> Unit) {
-    var tab by rememberSaveable { mutableIntStateOf(0) }
+    open: (String) -> Unit, favorites: List<String>, tab: Int, changeTab: (Int) -> Unit,
+    savePantry: (PantryItem, () -> Unit) -> Unit, pantryError: String?) {
     Column(Modifier.fillMaxSize()) {
         Box(Modifier.weight(1f).fillMaxWidth()) {
             if (tab == 0) {
                 RecipeBrowser(state.recipes, busy, examples, open, favorites)
             } else if (tab == 2) {
-                PantryScreen(state, busy, addPantry, setPantryAvailable)
+                PantryScreen(state, busy, savePantry, pantryError)
             } else {
                 LazyColumn(contentPadding = PaddingValues(22.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     item {
@@ -182,7 +183,7 @@ import kotlinx.serialization.Serializable
         }
         NavigationBar {
             listOf("菜谱", "家庭", "囤囤鼠", "助手").forEachIndexed { index, title ->
-                NavigationBarItem(selected = tab == index, onClick = { tab = index },
+                NavigationBarItem(selected = tab == index, onClick = { changeTab(index) },
                     icon = { Text(listOf("食", "家", "藏", "助")[index], fontWeight = FontWeight.Bold) }, label = { Text(title) })
             }
         }

@@ -125,6 +125,8 @@ fun validateKitchen(state: KitchenState) {
         dateToUtcMillis(record.cookingDate)
     }
     require(state.pantryItems.all { it.familyId == familyId }) { "库存归属不匹配" }
+    require(state.pantryItems.map { it.id }.distinct().size == state.pantryItems.size) { "物品标识重复" }
+    state.pantryItems.forEach { normalizedPantryItem(it) }
     state.shoppingMemos.forEach { memo ->
         val recipe = state.recipes.singleOrNull { it.id == memo.recipeId }
         require(memo.familyId == familyId && recipe != null) { "便签归属不匹配" }

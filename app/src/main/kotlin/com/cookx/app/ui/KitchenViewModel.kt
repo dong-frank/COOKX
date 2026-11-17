@@ -101,16 +101,8 @@ class KitchenViewModel(application: Application) : AndroidViewModel(application)
             if (it.recipeId == recipeId && it.familyId == recipe.familyId) prepareShoppingMemo(recipe, state.pantryItems, it, true) else it
         })
     }
-    fun addPantryItem(name: String) = update { state ->
-        val family = requireNotNull(state.family)
-        val normalized = name.trim()
-        require(normalized.isNotEmpty() && normalized.length <= 64) { "请填写 1–64 个字的食材名称" }
-        val existing = state.pantryItems.find { it.familyId == family.id && it.name == normalized }
-        state.copy(pantryItems = if (existing == null) state.pantryItems + PantryItem(UUID.randomUUID().toString(), family.id, normalized)
-            else state.pantryItems.map { if (it.id == existing.id) it.copy(available = true) else it })
-    }
-    fun setPantryAvailable(id: String, available: Boolean) = update { state ->
-        require(state.pantryItems.any { it.id == id && it.familyId == state.family?.id })
-        state.copy(pantryItems = state.pantryItems.map { if (it.id == id && it.familyId == state.family?.id) it.copy(available = available) else it })
+    fun savePantryItem(item: PantryItem, onSuccess: () -> Unit) {
+        mutableError.value = null
+        update(onSuccess) { state -> state.savePantry(item) }
     }
 }

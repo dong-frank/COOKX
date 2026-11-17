@@ -4,9 +4,11 @@
 
 产品讨论见 [产品记录](docs/product-ideas.md)，开发约定见 [AGENTS.md](AGENTS.md)，当前数据结构见 [菜谱模型](docs/recipe-model.md)。
 
-囤囤鼠的[最终设计交接](docs/designs/pantry-fridge/README.md)集中保存定稿、交互预览、模型来源／授权及交互规则；属于待实现设计，不计入下方已实现功能。
+囤囤鼠的[最终设计交接](docs/designs/pantry-fridge/README.md)集中保存定稿、交互预览、模型来源／授权及交互规则；现已采用交付渲染帧接入 App。
 
 ## 当前功能
+
+- 囤囤鼠使用冰箱与水槽场景：点击冰箱开关物品面板，三个瓶子共用调料入口；在面板内添加、查看及修改名称和数量。仅显示当前家庭有库存的条目；零数量不参与采购便签预勾选。
 
 - 家庭由用户主动创建；菜谱首页为左侧标签、右侧图片与名称。
 - 食材独立记录名称和用量，步骤按备菜、烹饪两个阶段保存。
@@ -79,9 +81,11 @@ source scripts/android-env.sh
 ./gradlew :app:connectedDebugAndroidTest
 ```
 
-2026-11-17 已验证：Debug／Release 构建与 Lint、19 项单元测试、完成页及制作流程的 8 项相关设备用例。设备全流程测试会清空调试 App 的 v3 家庭数据并使用测试家庭，请使用专用模拟器。Release 构建尚未配置正式签名。
+2026-11-18 已验证：Debug／Release 构建与 Lint、22 项单元测试、囤囤鼠／采购便签／存储的 7 项相关设备用例。设备全流程测试会清空调试 App 的 v3 家庭数据并使用测试家庭，请使用专用模拟器。Release 构建尚未配置正式签名。
 
 当前页面：[首页](docs/screenshots/recipes.png)、[结构化详情](docs/screenshots/recipe-detail.png)、[两阶段制作](docs/screenshots/cooking-structured.png)、[计时器](docs/screenshots/cooking-timer.png)、[清空后首次启动](docs/screenshots/clean-start.png)、[首次出锅](docs/screenshots/cooking-result-first.png)、[再次出锅](docs/screenshots/cooking-result-repeat.png)。
+
+囤囤鼠实机截图：[默认场景](docs/screenshots/pantry-scene-closed.png)、[冰箱物品面板](docs/screenshots/pantry-scene-open.png)、[调料面板](docs/screenshots/pantry-scene-spices.png)。
 
 ## 官方 Android skills
 

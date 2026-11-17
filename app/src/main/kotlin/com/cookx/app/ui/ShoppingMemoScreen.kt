@@ -45,30 +45,3 @@ import com.cookx.app.domain.*
         }
     }
 }
-
-@Composable internal fun PantryScreen(state: KitchenState, busy: Boolean, add: (String) -> Unit,
-    setAvailable: (String, Boolean) -> Unit) {
-    var name by rememberSaveable { mutableStateOf("") }
-    val pantry = state.pantryItems.filter { it.familyId == state.family?.id }
-    LazyColumn(contentPadding = PaddingValues(20.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
-        item {
-            Text("囤囤鼠", style = MaterialTheme.typography.headlineMedium)
-            Text("家中已有食材", Modifier.padding(top = 12.dp), style = MaterialTheme.typography.titleMedium)
-        }
-        item {
-            OutlinedTextField(name, { name = it.take(64) }, label = { Text("食材名称") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-            Button(onClick = { add(name) }, enabled = name.isNotBlank() && !busy, modifier = Modifier.padding(top = 10.dp)) { Text("登记家中已有") }
-        }
-        if (pantry.isEmpty()) item { Text("暂无食材", style = MaterialTheme.typography.bodyMedium) }
-        items(pantry, key = { it.id }) { item ->
-            Row(Modifier.fillMaxWidth().heightIn(min = 48.dp).toggleable(item.available, enabled = !busy, role = Role.Checkbox,
-                onValueChange = { setAvailable(item.id, it) }).padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(checked = item.available, onCheckedChange = null, enabled = !busy)
-                Spacer(Modifier.width(12.dp))
-                Column {
-                    Text(item.name, style = MaterialTheme.typography.bodyLarge)
-                }
-            }
-        }
-    }
-}

@@ -2,7 +2,8 @@ package com.cookx.app.domain
 
 import kotlinx.serialization.Serializable
 
-@Serializable data class PantryItem(val id: String, val familyId: String, val name: String, val available: Boolean = true)
+@Serializable data class PantryItem(val id: String, val familyId: String, val name: String, val available: Boolean = true,
+    val zone: PantryZone = PantryZone.FRIDGE, val quantityText: String? = null)
 @Serializable enum class PreparationSource { PANTRY, MANUAL, PENDING }
 @Serializable data class ShoppingMemoItem(
     val key: String, val ingredient: String, val checked: Boolean = false,
@@ -13,7 +14,7 @@ import kotlinx.serialization.Serializable
 fun prepareShoppingMemo(recipe: Recipe, pantry: List<PantryItem>, previous: ShoppingMemo? = null,
     recheckPantry: Boolean = false): ShoppingMemo {
     require(previous == null || previous.recipeId == recipe.id && previous.familyId == recipe.familyId)
-    val available = pantry.filter { it.familyId == recipe.familyId && it.available }.map { it.name.trim() }.toSet()
+    val available = pantry.filter { it.familyId == recipe.familyId && it.inStock() }.map { it.name.trim() }.toSet()
     val items = recipe.ingredients.map { ingredient ->
         val key = ingredient.id
         val old = previous?.items?.find { it.key == key }
