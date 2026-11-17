@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-17",
+  "scope": "Asset research only, no App code changes",
+  "styleDecision": "User will select after seeing assets",
+  "models": [
+    {
+      "file": "kenney.glb",
+      "page": "https://poly.pizza/m/McgsrFB5x6",
+      "url": "https://static.poly.pizza/d8314c0e-41d5-4530-bd81-633815bd92b7.glb",
+      "license": "CC0 (publisher declaration)",
+      "bytes": 38556,
+      "sha256": "a91407b9906f09a7588377f368316deb0b3e9616fc3e24d924214f1345cd5bd3"
+    },
+    {
+      "file": "quaternius.glb",
+      "page": "https://poly.pizza/m/8sjRm8fnHh",
+      "url": "https://static.poly.pizza/f4b6db1d-0eed-48b1-9a59-df879aaee393.glb",
+      "license": "CC0 (publisher declaration)",
+      "bytes": 17360,
+      "sha256": "65437d539065381839fdfdff5ea10b7133d28e762e38ff1b6d7e3723f798e408"
+    },
+    {
+      "file": "fridge-double.glb",
+      "page": "https://3dassets.dev/assets/restaurant-kitchen-and-dining-upright-fridge-double-06328b60",
+      "url": "https://cdn.3dassets.dev/assets/16451/v1/model.glb",
+      "license": "CC0 (publisher declaration)",
+      "bytes": 131972,
+      "sha256": "fc7d0b6eeedb2b3d6fbe91031a7015f9d47f146feafa175398dae11cf737838e"
+    },
+    {
+      "file": "fridge-open-left.glb",
+      "page": "https://3dassets.dev/assets/restaurant-kitchen-and-dining-upright-fridge-double-op-548910de",
+      "url": "https://cdn.3dassets.dev/assets/16479/v1/model.glb",
+      "license": "CC0 (publisher declaration)",
+      "bytes": 138720,
+      "sha256": "88c1e95b5deb43a3b3cbe3a21867efd19acae2c0bd65d745012ecacb97276dae"
+    }
+  ],
+  "referenceImages": [
+    {
+      "file": "kenney.jpg",
+      "page": "https://poly.pizza/m/McgsrFB5x6",
+      "url": "https://static.poly.pizza/d8314c0e-41d5-4530-bd81-633815bd92b7.jpg",
+      "bytes": 364060,
+      "sha256": "489f473143befe62f04299f7834ffc7055a3ddc0d075a1dfd0a80c2219c2707a"
+    },
+    {
+      "file": "quaternius.jpg",
+      "page": "https://poly.pizza/m/8sjRm8fnHh",
+      "url": "https://static.poly.pizza/f4b6db1d-0eed-48b1-9a59-df879aaee393.jpg",
+      "bytes": 396145,
+      "sha256": "aa41e78810179058b6ad4b9cb52d0fc1dcd9f4c6444e7029351573ebf7993544"
+    },
+    {
+      "file": "cc0-fridge.webp",
+      "page": "https://3dassets.dev/assets/restaurant-kitchen-and-dining-upright-fridge-double-op-548910de",
+      "url": "https://cdn.3dassets.dev/assets/16479/v1/poster.webp",
+      "bytes": 24726,
+      "sha256": "dd6ba9b074deec57ac20cbc25ef51c6ebcbe4a737080584aa5af7d3046814c99"
+    },
+    {
+      "file": "vx92-open.jpg",
+      "page": "https://www.fab.com/listings/7feeb440-1c0e-41c7-9af7-fb586cb213ba?lang=en",
+      "url": "https://media.fab.com/image_previews/gallery_images/a4778cc4-bf44-4b07-92e4-89b3cc885ed7/487d74ad-e0ff-4321-bd93-a94192bee9ed.jpg",
+      "bytes": 4743,
+      "sha256": "59fa22961e63d99f69db883bbb6d4c92b1e9d5d6f07db22ebf4553cfde4334a5"
+    },
+    {
+      "file": "vx92-detail.jpg",
+      "page": "https://www.fab.com/listings/7feeb440-1c0e-41c7-9af7-fb586cb213ba?lang=en",
+      "url": "https://media.fab.com/image_previews/gallery_images/fd56fb48-78e6-4ced-b998-5b94d6b6f40a/e5e0181b-e198-4677-8b6b-b6eb1c5e1c8c.jpg",
+      "bytes": 6676,
+      "sha256": "edc4d489232c67ad3a6a3706bbc2cebbcc29fff0696c281835f8ad9e67ba2e4c"
+    },
+    {
+      "file": "fab-fridge.jpg",
+      "page": "https://www.fab.com/listings/c054c6f7-8cf6-4182-a9d6-4cf809b27f97",
+      "url": "https://media.fab.com/image_previews/gallery_images/2c84e8b2-13ef-425a-adee-0ea7830f0f0b/bdd699ef-0bec-4021-918e-60396f254783.jpg",
+      "bytes": 7363,
+      "sha256": "c224d3eb35d9594d82df5c1a1c6fdde9ecda162e579f23d819153bfe13e3cecb"
+    },
+    {
+      "file": "blue-fridge.webp",
+      "page": "https://www.cgtrader.com/3d-models/electronics/other/modern-double-door-refrigerator",
+      "url": "https://img-new.cgtrader.com/items/7321458/b2f3bc4b77/modern-double-door-refrigerator-3d-model-b2f3bc4b77.webp",
+      "bytes": 41692,
+      "sha256": "2a6dcd0a1c3e3761d64e7abf09346b0f24d6f93a7746ec900d1ac29aa88a45de"
+    }
+  ],
+  "localRenders": {
+    "files": [
+      "cc0-front-closed.png",
+      "cc0-front-open.png"
+    ],
+    "sourceModel": "fridge-double.glb",
+    "tool": "Blender 5.2.3 LTS",
+    "frames": [
+      0,
+      40
+    ],
+    "view": "front, fixed perspective camera",
+    "observedIssue": "closed solid face behind animated doors; no usable shelves/interior"
+  },
+  "purchases": [],
+  "priceAndPaidLicenseStatus": "not verified"
+}

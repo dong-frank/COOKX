@@ -1,0 +1,320 @@
+[
+  {
+    "file": "kenney.glb",
+    "bytes": 38556,
+    "triangles": 584,
+    "meshes": 4,
+    "materials": 2,
+    "nodes": [
+      {
+        "id": 0,
+        "name": "kitchenFridgeLarge",
+        "translation": null,
+        "children": null
+      },
+      {
+        "id": 1,
+        "name": "kitchenFridgeLarge_1",
+        "translation": null,
+        "children": null
+      },
+      {
+        "id": 2,
+        "name": "doorLeft",
+        "translation": null,
+        "children": null
+      },
+      {
+        "id": 3,
+        "name": "doorRight",
+        "translation": null,
+        "children": null
+      }
+    ],
+    "animations": []
+  },
+  {
+    "file": "fridge-double.glb",
+    "bytes": 131972,
+    "triangles": 2766,
+    "meshes": 7,
+    "materials": 3,
+    "nodes": [
+      {
+        "id": 0,
+        "name": "upright-fridge-double",
+        "translation": null,
+        "children": [
+          1,
+          2,
+          4,
+          7,
+          9
+        ]
+      },
+      {
+        "id": 1,
+        "name": "upright-fridge-double_0",
+        "translation": [
+          0,
+          1.1039000237360597,
+          0.012500002980232239
+        ],
+        "children": null
+      },
+      {
+        "id": 2,
+        "name": "upright-fridge-double_1",
+        "translation": [
+          0,
+          1.000499963760376,
+          0.031000003218650818
+        ],
+        "children": null
+      },
+      {
+        "id": 3,
+        "name": "door-left/metal",
+        "translation": [
+          0.3400000023841858,
+          0.8149999982118606,
+          0.07049554693698878
+        ],
+        "children": null
+      },
+      {
+        "id": 4,
+        "name": "door-left",
+        "translation": [
+          -0.6849999999999999,
+          0.28,
+          0.354
+        ],
+        "children": [
+          3,
+          5
+        ]
+      },
+      {
+        "id": 5,
+        "name": "door-left/dark",
+        "translation": [
+          0.34000000241212547,
+          0.8150000430177897,
+          -0.006000010180287063
+        ],
+        "children": null
+      },
+      {
+        "id": 6,
+        "name": "door-right/metal",
+        "translation": [
+          -0.3400000023841858,
+          0.8149999982118606,
+          0.07049554693698878
+        ],
+        "children": null
+      },
+      {
+        "id": 7,
+        "name": "door-right",
+        "translation": [
+          0.6849999999999999,
+          0.28,
+          0.354
+        ],
+        "children": [
+          6,
+          8
+        ]
+      },
+      {
+        "id": 8,
+        "name": "door-right/dark",
+        "translation": [
+          -0.34000000241212547,
+          0.8150000430177897,
+          -0.006000010180287063
+        ],
+        "children": null
+      },
+      {
+        "id": 9,
+        "name": "upright-fridge-double_6",
+        "translation": [
+          0.5299999862909317,
+          1.9776000380516052,
+          0.431999996304512
+        ],
+        "children": null
+      }
+    ],
+    "animations": [
+      {
+        "name": "open",
+        "targets": [
+          "door-left",
+          "door-right"
+        ]
+      },
+      {
+        "name": "close",
+        "targets": [
+          "door-left",
+          "door-right"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "fridge-open-left.glb",
+    "bytes": 138720,
+    "triangles": 2766,
+    "meshes": 7,
+    "materials": 3,
+    "nodes": [
+      {
+        "id": 0,
+        "name": "upright-fridge-double-open",
+        "translation": null,
+        "children": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          8
+        ]
+      },
+      {
+        "id": 1,
+        "name": "upright-fridge-double-open_0",
+        "translation": [
+          0,
+          1.1039000237360597,
+          0.012500002980232239
+        ],
+        "children": null
+      },
+      {
+        "id": 2,
+        "name": "upright-fridge-double-open_1",
+        "translation": [
+          0,
+          1.000499963760376,
+          0.031000003218650818
+        ],
+        "children": null
+      },
+      {
+        "id": 3,
+        "name": "door-left",
+        "translation": [
+          -0.6617019152641296,
+          1.0949999982118608,
+          0.695001750115538
+        ],
+        "children": null
+      },
+      {
+        "id": 4,
+        "name": "door-left",
+        "translation": [
+          -0.6212984609324484,
+          1.0950000430177897,
+          0.6880331029612571
+        ],
+        "children": null
+      },
+      {
+        "id": 5,
+        "name": "door-right/metal",
+        "translation": [
+          -0.3400000023841858,
+          0.8149999982118606,
+          0.07049554693698878
+        ],
+        "children": null
+      },
+      {
+        "id": 6,
+        "name": "door-right",
+        "translation": [
+          0.6849999999999999,
+          0.28,
+          0.354
+        ],
+        "children": [
+          5,
+          7
+        ]
+      },
+      {
+        "id": 7,
+        "name": "door-right/dark",
+        "translation": [
+          -0.34000000241212547,
+          0.8150000430177897,
+          -0.006000010180287063
+        ],
+        "children": null
+      },
+      {
+        "id": 8,
+        "name": "upright-fridge-double-open_6",
+        "translation": [
+          0.5299999862909317,
+          1.9776000380516052,
+          0.431999996304512
+        ],
+        "children": null
+      }
+    ],
+    "animations": [
+      {
+        "name": "open",
+        "targets": [
+          "door-right"
+        ]
+      },
+      {
+        "name": "close",
+        "targets": [
+          "door-right"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "quaternius.glb",
+    "bytes": 17360,
+    "triangles": 404,
+    "meshes": 1,
+    "materials": 2,
+    "nodes": [
+      {
+        "id": 0,
+        "name": "RootNode",
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "children": [
+          1
+        ]
+      },
+      {
+        "id": 1,
+        "name": "Kitchen_Fridge",
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "children": null
+      }
+    ],
+    "animations": []
+  }
+]
