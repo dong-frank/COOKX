@@ -30,6 +30,6 @@ class ModelsTest {
     @Test fun oldRecipeDataDefaultsToUncategorized() {
         val recipe = Json.decodeFromString<Recipe>("""{"id":"old","familyId":"family-a","name":"旧菜谱","ingredients":["盐"],"steps":["炒熟"]}""")
         assertEquals("未分类", recipe.category)
-        assertEquals("素菜", recipeDraft("family-a", "菜", "青菜", "炒熟", " 素菜 ").category)
+        assertEquals("素菜", recipeDraft("family-a", "菜", "青菜", "炒熟", listOf(" 素菜 ")).tags.single())
     }
 }

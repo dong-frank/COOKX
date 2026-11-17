@@ -23,14 +23,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.cookx.app.R
 import com.cookx.app.domain.Recipe
+import com.cookx.app.domain.DEFAULT_FAVORITE_TAGS
+import com.cookx.app.domain.matchesTag
 
 /** Ordering-menu layout: independent category rail and an image/name-only recipe list. */
 @Composable internal fun RecipeBrowser(recipes: List<Recipe>, busy: Boolean,
-    examples: () -> Unit, open: (String) -> Unit) {
-    val categories = (listOf("全部", "家常菜", "素菜", "汤羹", "主食") + recipes.map { it.category }).distinct()
+    examples: () -> Unit, open: (String) -> Unit, favoriteTags: List<String> = DEFAULT_FAVORITE_TAGS) {
+    val categories = (listOf("全部") + favoriteTags + "未打标签").distinct()
     var selected by rememberSaveable { mutableStateOf("全部") }
     val active = selected.takeIf { it in categories } ?: "全部"
-    val visible = if (active == "全部") recipes else recipes.filter { it.category == active }
+    val visible = recipes.filter { it.matchesTag(active) }
     val listState = rememberLazyListState()
     LaunchedEffect(active) { listState.scrollToItem(0) }
     Row(Modifier.fillMaxSize()) {
@@ -56,7 +58,7 @@ import com.cookx.app.domain.Recipe
             verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (visible.isEmpty()) item {
                 Column(Modifier.fillMaxWidth().padding(vertical = 28.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                    Text(if (recipes.isEmpty()) "还没有菜谱" else "这个分类还没有菜谱", style = MaterialTheme.typography.titleMedium)
+                    Text(if (recipes.isEmpty()) "还没有菜谱" else "这个标签还没有菜谱", style = MaterialTheme.typography.titleMedium)
                     if (recipes.isEmpty()) OutlinedButton(onClick = examples, enabled = !busy) { Text("加入示例菜谱") }
                 }
             }

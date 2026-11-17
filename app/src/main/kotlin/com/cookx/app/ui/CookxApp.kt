@@ -23,16 +23,14 @@ import androidx.navigation3.ui.NavDisplay
 import com.cookx.app.domain.*
 import kotlinx.coroutines.delay
 import kotlinx.serialization.Serializable
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @Serializable data object Home : NavKey
 @Serializable data object NewRecipe : NavKey
 @Serializable data class Detail(val id: String) : NavKey
-@Serializable data class Cook(val id: String) : NavKey
+@Serializable data class Cook(val id: String, val initialDate: String? = null, val initialMeal: Meal? = null) : NavKey
+@Serializable data object TagSettings : NavKey
+@Serializable data class EditTags(val id: String) : NavKey
 
-private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHINA).format(Date(value))
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable fun CookxApp(model: KitchenViewModel = viewModel()) {
@@ -47,6 +45,7 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
             navigationIcon = { if (stack.size > 1) TextButton(onClick = back) { Text("返回") } },
             actions = {
                 if (stack.lastOrNull() == Home && state?.family != null) {
+                    TextButton(onClick = { stack.add(TagSettings) }) { Text("标签管理") }
                     TextButton(onClick = { stack.add(NewRecipe) }) { Text("新增菜谱") }
                 }
             }) },
@@ -73,25 +72,38 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
                             Home -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     HomeScreen(current, saving, model::addExamples,
-                                        { stack.add(Detail(it)) })
+                                        { stack.add(Detail(it)) }, current.favoriteTags)
                                 }
                             }
                             NewRecipe -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
-                                    RecipeEditor(requireNotNull(current.family).id, saving) { recipe -> model.addRecipe(recipe, back) }
+                                    RecipeEditor(requireNotNull(current.family).id, current.availableTags(), saving) { recipe -> model.addRecipe(recipe, back) }
+                                }
+                            }
+                            TagSettings -> NavEntry(route) {
+                                LiveKitchen(model) { current, saving -> FamilyTagSettings(current, saving, model::createTag, model::setFavorites) }
+                            }
+                            is EditTags -> NavEntry(route) {
+                                LiveKitchen(model) { current, saving ->
+                                    current.recipes.find { it.id == route.id }?.let { recipe ->
+                                        RecipeTagsEditor(recipe, current.availableTags(), saving) { model.setRecipeTags(recipe.id, it, back) }
+                                    }
                                 }
                             }
                             is Detail -> NavEntry(route) {
                                 LiveKitchen(model) { current, _ ->
                                     val recipe = current.recipes.find { it.id == route.id }
-                                    if (recipe != null) RecipeDetail(recipe, current) { stack.add(Cook(recipe.id)) }
+                                    if (recipe != null) RecipeDetail(recipe, current, editTags = { stack.add(EditTags(recipe.id)) }) {
+                                        val selection = mealAt(System.currentTimeMillis())
+                                        stack.add(Cook(recipe.id, selection.date, selection.meal))
+                                    }
                                     else Text("找不到这道菜", Modifier.padding(24.dp))
                                 }
                             }
                             is Cook -> NavEntry(route) {
                                 LiveKitchen(model) { current, saving ->
                                     val recipe = current.recipes.find { it.id == route.id }
-                                    if (recipe != null) CookingScreen(recipe, saving) { note -> model.finish(recipe.id, note, back) }
+                                    if (recipe != null) CookingScreen(recipe, route, saving) { note, selection -> model.finish(recipe.id, note, selection, back) }
                                     else Text("找不到这道菜", Modifier.padding(24.dp))
                                 }
                             }
@@ -130,12 +142,12 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
 }
 
 @Composable private fun HomeScreen(state: KitchenState, busy: Boolean, examples: () -> Unit,
-    open: (String) -> Unit) {
+    open: (String) -> Unit, favorites: List<String>) {
     var tab by rememberSaveable { mutableIntStateOf(0) }
     Column(Modifier.fillMaxSize()) {
         Box(Modifier.weight(1f).fillMaxWidth()) {
             if (tab == 0) {
-                RecipeBrowser(state.recipes, busy, examples, open)
+                RecipeBrowser(state.recipes, busy, examples, open, favorites)
             } else {
                 LazyColumn(contentPadding = PaddingValues(22.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
                     item {
@@ -173,13 +185,16 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
     }
 }
 
-@Composable private fun RecipeDetail(recipe: Recipe, state: KitchenState, start: () -> Unit) {
+@Composable private fun RecipeDetail(recipe: Recipe, state: KitchenState, editTags: () -> Unit, start: () -> Unit) {
     LazyColumn(contentPadding = PaddingValues(24.dp), verticalArrangement = Arrangement.spacedBy(20.dp)) {
         item {
             Text(recipe.name, style = MaterialTheme.typography.headlineLarge, fontWeight = FontWeight.Bold)
             Text(if (recipe.isExample) "示例菜谱 · 可体验制作流程" else "家庭菜谱", color = MaterialTheme.colorScheme.primary)
             Spacer(Modifier.height(16.dp))
-            Text(state.lastCooked(recipe.id)?.let { "上次制作：${date(it)}" } ?: "还没有做过这道菜")
+            Text(state.recordsFor(recipe.id).firstOrNull()?.let { "上次制作：${it.mealLabel()}" } ?: "还没有做过这道菜")
+            Spacer(Modifier.height(12.dp))
+            Text(recipe.tags.joinToString(" · ").ifEmpty { "尚未添加标签" })
+            TextButton(onClick = editTags) { Text("编辑标签") }
             Spacer(Modifier.height(20.dp))
             Button(onClick = start, modifier = Modifier.fillMaxWidth()) { Text("开始制作") }
         }
@@ -187,35 +202,40 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
         item { Text("做法预览", style = MaterialTheme.typography.titleLarge) }
         items(recipe.steps.size) { index -> Text("${index + 1}. ${recipe.steps[index]}", style = MaterialTheme.typography.bodyLarge) }
         item { Text("制作记录", style = MaterialTheme.typography.titleLarge) }
-        val records = state.records.filter { it.recipeId == recipe.id }.sortedByDescending { it.completedAt }
+        val records = state.recordsFor(recipe.id)
         if (records.isEmpty()) item { Text("完成制作后，在这里留下今天的经验。") }
-        items(records, key = { it.id }) { record -> Section(date(record.completedAt), record.note.ifBlank { "完成了一次制作" }) {} }
+        items(records, key = { it.id }) { record -> Section(record.mealLabel() + if (record.mealInferred) "（历史时间推定）" else "", record.note.ifBlank { "完成了一次制作" }) {} }
     }
 }
 
-@Composable private fun RecipeEditor(familyId: String, busy: Boolean, save: (Recipe) -> Unit) {
+@Composable private fun RecipeEditor(familyId: String, availableTags: List<String>, busy: Boolean, save: (Recipe) -> Unit) {
     var name by rememberSaveable { mutableStateOf("") }
     var ingredients by rememberSaveable { mutableStateOf("") }
-    var category by rememberSaveable { mutableStateOf("家常菜") }
+    var selectedTags by rememberSaveable { mutableStateOf(arrayListOf<String>()) }
     var steps by rememberSaveable { mutableStateOf("") }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
         Text("记下一道拿手菜", style = MaterialTheme.typography.headlineMedium)
         Text("写入家庭共用的菜谱，之后可以随时开始制作。")
         OutlinedTextField(name, { name = it }, label = { Text("菜名") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
-        OutlinedTextField(category, { category = it }, label = { Text("分类") }, modifier = Modifier.fillMaxWidth(), singleLine = true)
+        TagSelector(availableTags, selectedTags) { selectedTags = ArrayList(it) }
         OutlinedTextField(ingredients, { ingredients = it }, label = { Text("食材与用量，每行一种") }, modifier = Modifier.fillMaxWidth(), minLines = 3)
         OutlinedTextField(steps, { steps = it }, label = { Text("制作步骤，每行一步") }, modifier = Modifier.fillMaxWidth(), minLines = 4)
         error?.let { Text(it, color = MaterialTheme.colorScheme.error) }
         Button(onClick = {
-            runCatching { recipeDraft(familyId, name, ingredients, steps, category) }
+            runCatching { recipeDraft(familyId, name, ingredients, steps, selectedTags) }
                 .onSuccess { error = null; save(it) }.onFailure { error = it.message }
         }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存菜谱") }
     }
 }
 
-@Composable private fun CookingScreen(recipe: Recipe, busy: Boolean, finish: (String) -> Unit) {
+@Composable internal fun CookingScreen(recipe: Recipe, route: Cook, busy: Boolean, finish: (String, MealSelection) -> Unit) {
+    val initial = remember { mealAt(System.currentTimeMillis()) }
+    var cookingDate by rememberSaveable { mutableStateOf(route.initialDate ?: initial.date) }
+    var mealName by rememberSaveable { mutableStateOf((route.initialMeal ?: initial.meal).name) }
     var step by rememberSaveable { mutableIntStateOf(0) }
+    val scroll = rememberScrollState()
+    LaunchedEffect(step) { scroll.scrollTo(0) }
     var deadline by rememberSaveable { mutableLongStateOf(0L) }
     var remaining by remember { mutableLongStateOf(0L) }
     var note by rememberSaveable { mutableStateOf("") }
@@ -226,8 +246,9 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
             delay(250)
         }
     }
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
+    Column(Modifier.fillMaxSize().verticalScroll(scroll).padding(24.dp), verticalArrangement = Arrangement.spacedBy(22.dp)) {
         Text(recipe.name, style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.primary)
+        MealControls(cookingDate, Meal.valueOf(mealName), { cookingDate = it }, { mealName = it.name })
         if (step < recipe.steps.size) {
             Text("第 ${step + 1} / ${recipe.steps.size} 步", style = MaterialTheme.typography.headlineMedium)
             LinearProgressIndicator(progress = { (step + 1f) / recipe.steps.size }, modifier = Modifier.fillMaxWidth())
@@ -252,7 +273,7 @@ private fun date(value: Long) = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.CHIN
             Text("记下这次的口味、难度，或下次想调整的地方。")
             OutlinedTextField(note, { note = it }, label = { Text("本次制作心得（选填）") }, minLines = 4, modifier = Modifier.fillMaxWidth())
             Text("照片上传与独立评分项将在后续接入。", style = MaterialTheme.typography.bodySmall)
-            Button(onClick = { finish(note) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
+            Button(onClick = { finish(note, MealSelection(cookingDate, Meal.valueOf(mealName))) }, enabled = !busy, modifier = Modifier.fillMaxWidth()) { Text("保存制作记录") }
             TextButton(onClick = { step-- }) { Text("回看最后一步") }
         }
     }

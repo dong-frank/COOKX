@@ -19,7 +19,7 @@ class RecipeBrowserTest {
         val restore = StateRestorationTester(compose)
         var opened: String? = null
         restore.setContent {
-            COOKXTheme { RecipeBrowser(exampleRecipes("family"), false, {}, { opened = it }) }
+            COOKXTheme { RecipeBrowser(exampleRecipes("family"), false, {}, { opened = it }, listOf("快手菜", "素菜", "汤羹")) }
         }
         compose.onNodeWithText("番茄炒蛋").assertIsDisplayed()
         compose.onNodeWithText("清炒口蘑").assertIsDisplayed()
@@ -34,7 +34,7 @@ class RecipeBrowserTest {
         compose.onNodeWithText("清炒口蘑").performClick()
         assertEquals("example-mushrooms", opened)
         compose.onNodeWithText("汤羹").performClick()
-        compose.onNodeWithText("这个分类还没有菜谱").assertIsDisplayed()
+        compose.onNodeWithText("这个标签还没有菜谱").assertIsDisplayed()
         compose.onNodeWithText("全部").performClick()
         compose.onNodeWithText("番茄炒蛋").assertIsDisplayed()
     }
