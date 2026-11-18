@@ -33,7 +33,7 @@ private val StepSaver = Saver<RecipeStep, String>(save = { Json.encodeToString(i
     var showAi by rememberSaveable { mutableStateOf(false) }
     val debug = LocalContext.current.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
     if (showAi && debug) {
-        AiRecipeDraftDialog(familyId, availableTags,
+        AiRecipeChat(familyId, availableTags,
             replacesDraft = recipe.name.isNotBlank() || servings.isNotBlank() || recipe.tags.isNotEmpty() ||
                 recipe.ingredients.isNotEmpty() || recipe.orderedSteps().isNotEmpty(),
             dismiss = { showAi = false }) { draft ->
@@ -46,8 +46,9 @@ private val StepSaver = Saver<RecipeStep, String>(save = { Json.encodeToString(i
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             Text("记录菜谱", Modifier.weight(1f), style = MaterialTheme.typography.headlineMedium)
-            if (debug) OutlinedButton(onClick = { showAi = true }, enabled = !busy) { Text("AI 整理") }
+            if (debug) OutlinedButton(onClick = { showAi = true }, enabled = !busy) { Text("AI 对话") }
         }
+        XiaohongshuSourceLink(recipe.source)
         if (recipe.reviewItems.isNotEmpty()) {
             Text("待核对", style = MaterialTheme.typography.titleMedium)
             recipe.reviewItems.forEach { item -> Text(item.message, style = MaterialTheme.typography.bodyMedium) }

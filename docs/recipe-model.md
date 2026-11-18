@@ -68,8 +68,26 @@ KitchenState（schemaVersion = 3）
 - `RecipeSource` 保留平台、原帖 URL、标题、作者与帖子 ID，不保存小红书登录 Cookie 或临时访问凭据。
 - `EvidenceRef` 区分正文与图片，索引从 1 开始，允许保留原文片段。
 - `ReviewItem` 保存代码、说明以及食材／步骤 ID 引用；可记录缺失用量、描述冲突、未知尺寸等。
-- 当前模型为后续导入提供承载能力，不表示 App 已能调用小红书 MCP、理解图片或自动导入调研 JSON。
+- 调试版本机服务通过小红书 MCP 搜索和读取，草稿保留可核验来源。
 - 调研草稿 `cookx.recipe-import-experiment.v0.1` 与正式 schema 3 不直接兼容。后续需要明确的转换、引用校验与确认流程，再填写家庭和稳定 ID；禁止把未确认的来源缺失内容补成事实。
+
+## AI 草稿到 App 菜谱
+
+字段以当前 Kotlin `Recipe` 及其子类型为准。下表包含当前字段及后续导入映射建议。
+
+| 内容 | App 实际字段 | 建议的导入规则 |
+| --- | --- | --- |
+| 基本信息 | `Recipe.name`、`servings`、`tags` | 菜名预填、份数可空。标签先匹配当前可用标签，新名字由用户确认，避免保存菜谱时自动新增来源帖子的标签。 |
+| 食材 | `RecipeIngredient.name`、`quantityText`、`quantity`、`unit`、`evidence` | 优先保留用量原文，例如“半勺”“少许”。来源未写则留空。首轮可只填 `quantityText`，与现有食材编辑器一致。 |
+| 阶段与步骤 | `phases[].type`、`steps[]`、`RecipeStep.title`、`description`、`operationType` | 固定生成 `prep`、`cook` 两段，可以有一段为空。操作类型使用 App 的序列化值，如 `shred` 或 `marinate`，无匹配用 `other`。首轮建议由 App 设为 `kind = custom`，`templateRef` 留空。 |
+| 本步食材 | `StepIngredientUse.ingredientId`、`quantityText`、`quantity`、`unit` | 草稿用临时引用键关联食材，导入统一换成 App 分配的 ID。步骤用量独立记录，例如腌肉和调味共用同一个生抽 ID，各自记录 1 勺和 2 勺。 |
+| 参数与计时 | `parameters.heat`、`temperature`、`cutSize`、`endCondition`，`timer.durationSeconds`、`startCondition` | 只填来源支持的细节。明确的 10 分钟可转换为 600 秒。原文有启动条件时保留，未给特殊条件可沿用 App 的“手动开始”。时长缺失时 `timer` 留空。 |
+| 来源与待确认项 | `source`、食材与步骤的 `evidence`、`reviewItems` | 帖子元数据由读取服务提供。证据关联 `BODY` 或 `IMAGE` 的实际来源编号。待确认项中的食材和步骤引用一并换成 App ID。 |
+| 身份与媒体 | `id`、`familyId`、`isExample`、`coverUri`、`imageUri` | App 分配菜谱、食材和步骤 ID，并从本地状态确定家庭，普通导入设为 `isExample = false`。图片证据与播放图片分开，URI 仅在 App 实际接收并管理图片后设置。 |
+
+建议流程为“解析结构化结果 → 检查临时键、枚举和证据范围 → 转换成未保存的 `Recipe` → 回填现有编辑器 → 用户保存 → 复用 `validateRecipe` 和 `addRecipe`”。必填内容缺失可在编辑器补齐。悬空或重复引用应提示修正，不能按食材名称猜测关联。可空用量不影响保存。删除食材或步骤时，导入的待确认项也需同步处理，以通过引用校验。
+
+当前调试版的「AI 对话」将生成的草稿回填 `StructuredRecipeEditor`，显示份数和待核对项。正文证据只保留能够在原帖正文中逐字匹配的片段，图片证据只保留实际送入模型的原图编号。待核对项当前为文本说明。草稿采用 v3 字段，当前步骤默认使用自定义类型。
 
 ## 保存与会话边界
 

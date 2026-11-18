@@ -210,6 +210,7 @@ import kotlinx.serialization.Serializable
             Spacer(Modifier.height(8.dp))
             Text(recipe.tags.joinToString(" · ").ifEmpty { "尚未添加标签" }, style = MaterialTheme.typography.bodyMedium)
             TextButton(onClick = editTags) { Text("编辑标签") }
+            XiaohongshuSourceLink(recipe.source)
             Spacer(Modifier.height(8.dp))
             Button(onClick = start, modifier = Modifier.fillMaxWidth()) { Text("开始制作") }
         }
