@@ -20,7 +20,32 @@
 - 读取 JSON 中 33 个预设标签，支持自定义多标签，以及家庭常用标签选择和排序；首页隐藏没有菜谱的标签。
 - 点击“准备食材”打开采购便签，按食材 ID 保留进度；可与囤囤鼠的已有食材登记联动。勾选不改变库存或花费。
 
-照片上传、邀请码联网协作、点菜评分、库存数量及采购花费、小红书导入和 Agent 尚未接入。小红书调研生成的 JSON 仍是实验草稿，不会自动写入 App。
+照片上传、邀请码联网协作、点菜评分、库存数量及采购花费、小红书链接导入尚未接入。小红书调研生成的 JSON 仍是实验草稿，不会自动写入 App。
+
+## AI 整理菜谱
+
+调试版入口为「新增菜谱 → AI 整理」。粘贴文字做法后，草稿回填 v3 编辑器。核对菜名、份数、食材、备菜和烹饪步骤后，点击「保存菜谱」才会写入当前家庭。时长明确时会填入步骤计时。缺失的数量保留为空。当前接入文字输入。
+
+本机服务从环境变量或项目中现有的 `.env.local` / `.env` 读取 `OPENAI_API_KEY`。服务只监听本机，调试版通过 ADB 转发连接。调用发送输入的菜谱文字与已有标签，App 为草稿分配 ID 和家庭归属。默认模型为 `gpt-6-luna`，可用 `COOKX_OPENAI_MODEL` 覆盖。
+
+```sh
+python3 server/recipe_draft.py
+```
+
+在另一个终端配置模拟器端口。重启模拟器后重新执行转发。
+
+```sh
+source scripts/android-env.sh
+adb -s emulator-5554 reverse tcp:8765 tcp:8765
+```
+
+真实模型设备测试使用独立测试存储，需要启动上述服务并显式传入 `-e cookxLiveAi true`。常规设备测试不会调用模型。
+
+```sh
+adb -s emulator-5554 shell am instrument -w -e cookxLiveAi true \
+  -e class com.cookx.app.AiRecipeDraftUiTest com.cookx.app.test/androidx.test.runner.AndroidJUnitRunner
+```
+
 
 ## 从干净数据开始
 

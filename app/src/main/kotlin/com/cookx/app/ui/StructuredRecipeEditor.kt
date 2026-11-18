@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.platform.LocalContext
+import android.content.pm.ApplicationInfo
 import com.cookx.app.data.PresetRepository
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -29,8 +30,28 @@ private val StepSaver = Saver<RecipeStep, String>(save = { Json.encodeToString(i
     var editing by rememberSaveable { mutableStateOf<String?>(null) }
     var error by rememberSaveable { mutableStateOf<String?>(null) }
     var servings by rememberSaveable { mutableStateOf("") }
+    var showAi by rememberSaveable { mutableStateOf(false) }
+    val debug = LocalContext.current.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE != 0
+    if (showAi && debug) {
+        AiRecipeDraftDialog(familyId, availableTags,
+            replacesDraft = recipe.name.isNotBlank() || servings.isNotBlank() || recipe.tags.isNotEmpty() ||
+                recipe.ingredients.isNotEmpty() || recipe.orderedSteps().isNotEmpty(),
+            dismiss = { showAi = false }) { draft ->
+            recipe = draft
+            servings = draft.servings?.toString().orEmpty()
+            error = null
+            showAi = false
+        }
+    }
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp), verticalArrangement = Arrangement.spacedBy(16.dp)) {
-        Text("记录菜谱", style = MaterialTheme.typography.headlineMedium)
+        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Text("记录菜谱", Modifier.weight(1f), style = MaterialTheme.typography.headlineMedium)
+            if (debug) OutlinedButton(onClick = { showAi = true }, enabled = !busy) { Text("AI 整理") }
+        }
+        if (recipe.reviewItems.isNotEmpty()) {
+            Text("待核对", style = MaterialTheme.typography.titleMedium)
+            recipe.reviewItems.forEach { item -> Text(item.message, style = MaterialTheme.typography.bodyMedium) }
+        }
         OutlinedTextField(recipe.name, { recipe = recipe.copy(name = it) }, label = { Text("菜名") }, singleLine = true, modifier = Modifier.fillMaxWidth())
         OutlinedTextField(servings, { servings = it }, label = { Text("份数（选填）") }, singleLine = true, modifier = Modifier.fillMaxWidth())
         TagSelector(availableTags, recipe.tags) { recipe = recipe.copy(tags = it) }
